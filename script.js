@@ -8,17 +8,22 @@ let bookList = [];
 
 function renderBook(book) {
   const list = document.querySelector('.book-list-js');
+  const item = document.querySelector(`[data-key='${book.id}']`);
   const isFinished = book.finished ? "finished" : "";
   const node = document.createElement('li');
   node.setAttribute('class', `book-item ${isFinished}`);
   node.setAttribute('data-key', book.id);
   node.innerHTML = `
   <label for="${book.id}" class="thick-js thick"></label>
-  <input id="${book.id}" type="checkbox" class="check-box"/>
+  <input id="${book.id}" type="checkbox" class="check-box-js check-box"/>
   <p class="book-title">${book.text}</p>
   <button class="delete-button">Delete</button>
   `;
-  list.append(node);
+  if(item){
+    list.replaceChild(node,item);
+  }else{
+    list.append(node);
+  }
 }
 
 function addBook(text){
@@ -31,6 +36,12 @@ function addBook(text){
   renderBook(book);
 }
 
+function toggleFinished(key){
+  const index = bookList.findIndex(book => book.id === Number(key));
+  bookList[index].finished = !bookList[index].finished;
+  renderBook(bookList[index]);
+}
+
 const form = document.querySelector('.js-form');
 form.addEventListener('submit',event => {
   event.preventDefault();
@@ -40,5 +51,13 @@ form.addEventListener('submit',event => {
     addBook(text);
     input.value = '';
     input.focus();
+  }
+});
+
+const list = document.querySelector('.book-list-js');
+list.addEventListener('click', event => {
+  if (event.target.classList.contains('check-box-js')) {
+    const itemKey = event.target.parentElement.dataset.key;
+    toggleFinished(itemKey);
   }
 });

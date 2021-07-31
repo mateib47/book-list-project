@@ -33,6 +33,9 @@ ul{
   flex-direction: row;
   flex-wrap: wrap;
 }
+.finished p{
+  text-decoration: line-through;
+}
 li{
   list-style: none;
   display:flex;
