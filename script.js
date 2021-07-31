@@ -11,13 +11,17 @@ function renderBook(book) {
   const item = document.querySelector(`[data-key='${book.id}']`);
   const isFinished = book.finished ? "finished" : "";
   const node = document.createElement('li');
+  if(book.deleted) {
+    item.remove();
+    return;
+  }
   node.setAttribute('class', `book-item ${isFinished}`);
   node.setAttribute('data-key', book.id);
   node.innerHTML = `
   <label for="${book.id}" class="thick-js thick"></label>
   <input id="${book.id}" type="checkbox" class="check-box-js check-box"/>
   <p class="book-title">${book.text}</p>
-  <button class="delete-button">Delete</button>
+  <button class="delete-button delete-js">Delete</button>
   `;
   if(item){
     list.replaceChild(node,item);
@@ -42,6 +46,16 @@ function toggleFinished(key){
   renderBook(bookList[index]);
 }
 
+function deleteBook(key){
+  const index = bookList.findIndex(book => book.id === Number(key));
+  const book = {
+    deleted: true,
+    ...bookList[index]
+  };
+  bookList = bookList.filter(book => book.id !== Number(key));
+  renderBook(book);
+}
+
 const form = document.querySelector('.js-form');
 form.addEventListener('submit',event => {
   event.preventDefault();
@@ -59,5 +73,9 @@ list.addEventListener('click', event => {
   if (event.target.classList.contains('check-box-js')) {
     const itemKey = event.target.parentElement.dataset.key;
     toggleFinished(itemKey);
+  }
+  if (event.target.classList.contains('delete-js')){
+    const itemKey = event.target.parentElement.dataset.key;
+    deleteBook(itemKey);
   }
 });
