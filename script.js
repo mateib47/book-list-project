@@ -7,6 +7,7 @@ then updates the page accordingly(Matei's Book List)
 let bookList = [];
 
 function renderBook(book) {
+  localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
   const list = document.querySelector('.book-list-js');
   const item = document.querySelector(`[data-key='${book.id}']`);
   const isFinished = book.finished ? "finished" : "";
@@ -77,5 +78,15 @@ list.addEventListener('click', event => {
   if (event.target.classList.contains('delete-js')){
     const itemKey = event.target.parentElement.dataset.key;
     deleteBook(itemKey);
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const ref = localStorage.getItem('bookItemsRef');
+  if (ref) {
+    bookList = JSON.parse(ref);
+    bookList.forEach(t => {
+      renderBook(t);
+    });
   }
 });
