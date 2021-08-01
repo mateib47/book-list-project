@@ -76,3 +76,24 @@ li{
 #submit:hover{
   background-color:#4CAF50;
 }
+.empty-state-img{
+  max-width:30%;
+  height: auto;
+
+}
+.empty-state p{
+  margin-bottom: 0;
+}
+.empty-state {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+.book-list:empty {
+  display: none;
+}
+
+.book-list:empty + .empty-state {
+  display: flex;
+}
