@@ -3,11 +3,15 @@ html{
 }
 body{
   background-color: #D9C8A9;
+  font-family: monospace;
+  color:#204040;
+  margin:0;
+  margin-bottom:70px;
+}
+main{
   max-width: 75%;
   margin: auto;
   text-align:center;
-  font-family: monospace;
-  color:#204040;
 }
 #title{
   font-size: 60px;
@@ -45,7 +49,7 @@ li{
   background-color: #BF8450;
   padding: 20px;
   font-size: 30px;
-  max-width: 30%;
+  max-width: 100%;
   margin: 10px;
 }
 .book-title{
@@ -77,7 +81,7 @@ li{
   background-color:#4CAF50;
 }
 .empty-state-img{
-  max-width:30%;
+  max-width:20%;
   height: auto;
 
 }
@@ -93,7 +97,36 @@ li{
 .book-list:empty {
   display: none;
 }
-
+footer{
+  position: fixed;
+  background-color:#A62121;
+  height: 10vh;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width:100%;
+  bottom:0;
+}
+footer p{
+  margin-right: 15px;
+}
 .book-list:empty + .empty-state {
   display: flex;
+}
+a{
+  color: white;
+  font-style: italic;
+  text-decoration: none;
+}
+@media screen and (max-width: 767px) {
+  .book-input{
+    width: 50%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .book-input{
+    width: 80%;
+  }
 }
