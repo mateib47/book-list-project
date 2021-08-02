@@ -36,6 +36,8 @@ ul{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items:  center;
 }
 .finished p{
   text-decoration: line-through;
@@ -129,4 +131,15 @@ a{
   .book-input{
     width: 80%;
   }
+  ul{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+  }
+  main{
+    max-width: 95%;
+
+  }
+  /* TODO: deal with long words that do not wrap */
 }
