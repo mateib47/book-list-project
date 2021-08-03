@@ -1,10 +1,11 @@
 /* TODO:
--add a popup that asks for your name and
-then updates the page accordingly(Matei's Book List)
+-first I should see only the name form and after that the book list form
+-store the name and add an option to change trhe name
 -add more options to the form(rate the book, save your favourite quote,etc)
 */
 
 let bookList = [];
+let user;
 
 function renderBook(book) {
   localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
@@ -31,6 +32,12 @@ function renderBook(book) {
   }
 }
 
+function renderName(user){
+  const node = document.querySelector('#title');
+  console.log(node);
+  node.innerHTML = `${user.name}'s Book List`;
+}
+
 function addBook(text){
   const book = {
     id : Date.now(),
@@ -39,6 +46,15 @@ function addBook(text){
   }
   bookList.push(book);
   renderBook(book);
+}
+
+function addName(text){
+  const user = {
+    id : Date.now(),
+    name:text
+  }
+  this.user = user;
+  renderName(user);
 }
 
 function toggleFinished(key){
@@ -57,15 +73,26 @@ function deleteBook(key){
   renderBook(book);
 }
 
-const form = document.querySelector('.js-form');
-form.addEventListener('submit',event => {
+const bookForm = document.querySelector('#book-form');
+bookForm.addEventListener('submit',event => {
   event.preventDefault();
-  const input = document.querySelector('.book-input');
+  const input = document.querySelector('#book-input');
   const text = input.value.trim();
   if(text !== ''){
     addBook(text);
     input.value = '';
     input.focus();
+  }
+});
+// FIXME: make the form stuff in one method
+const nameForm = document.querySelector('#name-form');
+nameForm.addEventListener('submit',event => {
+  event.preventDefault();
+  const input = document.querySelector('#name-input');
+  const text = input.value.trim();
+  if(text !== ''){
+    addName(text);
+    input.value = '';
   }
 });
 

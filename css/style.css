@@ -8,6 +8,8 @@ body{
   margin:0;
   margin-bottom:70px;
 }
+.add-name{
+}
 main{
   max-width: 75%;
   margin: auto;
@@ -25,7 +27,7 @@ form{
   flex-direction: column;
   align-items: center;
 }
-.book-input{
+.input{
   width: 20%;
   height: 30px;
   margin: 25px;
@@ -123,12 +125,12 @@ a{
   text-decoration: none;
 }
 @media screen and (max-width: 767px) {
-  .book-input{
+  .input{
     width: 50%;
   }
 }
 @media screen and (max-width: 500px) {
-  .book-input{
+  .input{
     width: 80%;
   }
   ul{
