@@ -1,5 +1,5 @@
 /* TODO:
--store the name and add an option to change trhe name
+-add an option to change trhe name
 -add more options to the form(rate the book, save your favourite quote,etc)
 */
 
@@ -32,9 +32,14 @@ function renderBook(book) {
 }
 
 function renderName(user){
-  const node = document.querySelector('#title');
-  console.log(node);
-  node.innerHTML = `${user.name}'s Book List`;
+  localStorage.setItem('userRef', JSON.stringify(user));
+  const div = document.querySelector('.add-book');
+  const title = document.querySelector('#title');
+  const item = document.querySelector(`[data-key='${user.id}']`);
+  title.innerHTML = `${user.name}'s Book List`;
+  if(item){
+    div.replaceChild(title,item);
+  }
   displayBookForm();
 }
 
@@ -114,11 +119,16 @@ list.addEventListener('click', event => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  const ref = localStorage.getItem('bookItemsRef');
-  if (ref) {
-    bookList = JSON.parse(ref);
+  const refBook = localStorage.getItem('bookItemsRef');
+  const refUser = localStorage.getItem('userRef');
+  if (refBook) {
+    bookList = JSON.parse(refBook);
     bookList.forEach(t => {
       renderBook(t);
     });
+  }
+  if (refUser) {
+    user = JSON.parse(refUser);
+    renderName(user);
   }
 });
