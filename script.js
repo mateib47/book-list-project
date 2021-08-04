@@ -1,5 +1,4 @@
 /* TODO:
--first I should see only the name form and after that the book list form
 -store the name and add an option to change trhe name
 -add more options to the form(rate the book, save your favourite quote,etc)
 */
@@ -36,6 +35,12 @@ function renderName(user){
   const node = document.querySelector('#title');
   console.log(node);
   node.innerHTML = `${user.name}'s Book List`;
+  displayBookForm();
+}
+
+function displayBookForm(){
+  document.getElementById('add-book').style.display = 'block';
+  document.getElementById('add-name').style.display = 'none';
 }
 
 function addBook(text){
