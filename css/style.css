@@ -109,10 +109,19 @@ footer{
   color: white;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   width:100%;
   bottom:0;
+}
+footer button{
+  margin-left: 15px;
+  border: 0;
+  background-color: #A62121;
+  color: white;
+}
+footer button:hover{
+  font-weight: bold;
 }
 footer p{
   margin-right: 15px;

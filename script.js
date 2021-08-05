@@ -1,5 +1,4 @@
 /* TODO:
--add an option to change trhe name
 -add more options to the form(rate the book, save your favourite quote,etc)
 */
 
@@ -46,6 +45,11 @@ function renderName(user){
 function displayBookForm(){
   document.getElementById('add-book').style.display = 'block';
   document.getElementById('add-name').style.display = 'none';
+}
+
+function displayNameForm(){
+  document.getElementById('add-book').style.display = 'none';
+  document.getElementById('add-name').style.display = 'block';
 }
 
 function addBook(text){
