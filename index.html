@@ -34,8 +34,24 @@
         </div>
       </div>
     </main>
+    <div class="modal" id="legend">
+      <div class="modal-content">
+        <span class="close" id='close-span' onclick="hideModal()">&times;</span>
+        <div class="legend-line">
+          <div class="box grey"></div>
+          <p>The books you are planning to read</p>
+        </div>
+        <div class="legend-line">
+          <div class="box brown"></div>
+          <p>The books you finished reading</p>
+        </div>
+      </div>
+    </div>
     <footer>
-      <button onclick="displayNameForm()">Change Your Name</button>
+      <div class="buttons">
+        <button onclick="displayNameForm()">Change Your Name</button>
+        <button onclick="showModal()">Legend</button>
+      </div>
       <p>© Created by Matei Bucur - You can see my book list <a href="author-booklist.html" target="_blank">here</a></p>
     </footer>
     <script type="text/javascript" src="script.js"></script>

@@ -1,0 +1,23 @@
+General TODO:
+-add more options to the form(add the author, rate the book, save your favourite quote, etc)
+-the book should have the attribute progress instead of finished (finished/to read/in progress)
+-deal with long words that do not wrap
+-make a menu on the left
+
+Author Book List TODO
+-right now, author-booklist is a dummy implementation;
+I have to find a way to display the books in a smarter way()send a json file with book objects
+-add the authors, image of the book cover and a link to purchase it
+
+
+Ideas
+
+Have a large grid where the most read authors are shown in different sized boxes(maybe the same with genres)
+Input box for the book in progress where you can input how many pages did you read where you can see the %,
+Have a calendar that tracks your progress(similar to git commit)
+
+
+Do not forget
+
+update the Legend
+adjust to mobile devices

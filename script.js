@@ -1,9 +1,19 @@
-/* TODO:
--add more options to the form(rate the book, save your favourite quote,etc)
-*/
-
 let bookList = [];
 let user;
+let modal = document.getElementById('legend');
+
+function showModal() {
+  modal.style.display = 'block';
+}
+
+function hideModal() {
+  modal.style.display = 'none';
+}
+window.onclick = function(event){
+  if(event.target == modal){
+    hideModal();
+  }
+}
 
 function renderBook(book) {
   localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
