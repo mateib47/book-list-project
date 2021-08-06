@@ -1,7 +1,7 @@
 let bookList = [];
 let user;
 let modals = [document.getElementById('legend'),document.getElementById('book-form')];
-
+console.log(modals);
 function showModal(modal) {
   modal.style.display = 'block';
 }
@@ -10,8 +10,11 @@ function hideModal(modal) {
   modal.style.display = 'none';
 }
 window.onclick = function(event){
-  if(event.target == modals[0] || event.target == modals[0]){ //// FIXME:
-    hideModal();
+  if(event.target == modals[0] || event.target == modals[0]){ //// FIXME:find a better method
+    hideModal(modals[0]);
+  }
+  if(event.target == modals[1]){
+    hideModal(modals[1]);
   }
 }
 
