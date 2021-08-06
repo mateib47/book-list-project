@@ -1,16 +1,16 @@
 let bookList = [];
 let user;
-let modal = document.getElementById('legend');
+let modals = [document.getElementById('legend'),document.getElementById('book-form')];
 
-function showModal() {
+function showModal(modal) {
   modal.style.display = 'block';
 }
 
-function hideModal() {
+function hideModal(modal) {
   modal.style.display = 'none';
 }
 window.onclick = function(event){
-  if(event.target == modal){
+  if(event.target == modals[0] || event.target == modals[0]){ //// FIXME:
     hideModal();
   }
 }

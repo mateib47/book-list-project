@@ -3,6 +3,7 @@ General TODO:
 -the book should have the attribute progress instead of finished (finished/to read/in progress)
 -deal with long words that do not wrap
 -make a menu on the left
+-auto complete function
 
 Author Book List TODO
 -right now, author-booklist is a dummy implementation;
