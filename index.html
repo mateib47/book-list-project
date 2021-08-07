@@ -54,8 +54,10 @@
         </form>
       </div>
     </div>
-    <footer> <!-- TODO: change to nav -->
+    <button type="button" id="open-navbar" class="navbar-button" onclick="showModal(document.getElementById('navbar'))">></button>
+    <footer id="navbar"> <!-- TODO: change to nav -->
       <h1>MyBookList</h1>
+      <button type="button" id="close-navbar" class="navbar-button" onclick="hideModal(document.getElementById('navbar'))"><</button>
       <div class="buttons">
         <button onclick="displayNameForm()">Change Your Name</button><br>
         <button onclick="showModal(document.getElementById('legend'))">Legend</button><br>

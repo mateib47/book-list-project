@@ -5,7 +5,7 @@ General TODO:
 -make a menu on the left
 -auto complete function
 -make a footer
--the navbar should retract with a click of a arrow
+-fix!! make change your name a modal
 
 Author Book List TODO
 -right now, author-booklist is a dummy implementation;

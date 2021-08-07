@@ -18,6 +18,7 @@ main{
 }
 #title{
   font-size: 60px;
+  margin-top: 80px;
 }
 #book-name-label{
   font-size: 30px;
@@ -57,7 +58,7 @@ li{
   justify-content:  center;
   background-color: #204040;
   color:white;
-  padding: 20px;
+  padding: 1em;
   font-size: 30px;
   max-width: 100%;
   margin: 10px;
@@ -107,6 +108,22 @@ li{
 .book-list:empty {
   display: none;
 }
+.navbar-button{
+  top:20px;
+  left:20px;
+  position:fixed;
+  font-size: 30px;
+  font-weight: bold;
+  color: #FFF;
+  background-color: #A62121;
+  border-radius: 10px;
+  padding:0.5em;
+  border: 0;
+}
+#close-navbar{
+  left:17%;
+
+}
 footer{
   top:0;
   left:0;
@@ -114,12 +131,10 @@ footer{
   position: fixed;
   background-color:#A62121;
   color: white;
-  display: flex;
-  flex-direction: column;
+  display: none;
   align-items: center;
-  width:15%;
-  margin-right: 2em;
-  padding: 2em;
+  max-width:15%;
+  padding: 1.5em;
 }
 .buttons{
   text-align: center;
@@ -133,6 +148,7 @@ footer button{
 }
 footer h1{
   font-family: 'Yanone Kaffeesatz';
+  text-align:center;
 }
 footer button:hover{
   font-weight: bold;
@@ -195,6 +211,22 @@ a{
 @media screen and (max-width: 767px) {
   .input{
     width: 50%;
+  }
+  li{
+    font-size: 25px;
+    padding:0.5em;
+  }
+  .book-title{
+    margin:5px 10px;
+  }
+  footer{
+    max-width:25%;
+  }
+  footer h1{
+    font-size: 20px;
+  }
+  #close-navbar{
+    left:35%;
   }
 }
 @media screen and (max-width: 500px) {
