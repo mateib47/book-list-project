@@ -108,28 +108,36 @@ li{
   display: none;
 }
 footer{
+  top:0;
+  left:0;
+  height:100%;
   position: fixed;
   background-color:#A62121;
-  height: 10vh;
   color: white;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  width:100%;
-  bottom:0;
+  width:15%;
+  margin-right: 2em;
+  padding: 2em;
+}
+.buttons{
+  text-align: center;
+  line-height: 5em;
 }
 footer button{
-  margin-left: 15px;
   border: 0;
+  font-size: 20px;
   background-color: #A62121;
   color: white;
+}
+footer h1{
+  font-family: 'Yanone Kaffeesatz';
 }
 footer button:hover{
   font-weight: bold;
 }
 footer p{
-  margin-right: 15px;
 }
 .book-list:empty + .empty-state {
   display: flex;

@@ -4,6 +4,8 @@ General TODO:
 -deal with long words that do not wrap
 -make a menu on the left
 -auto complete function
+-make a footer
+-the navbar should retract with a click of a arrow
 
 Author Book List TODO
 -right now, author-booklist is a dummy implementation;
