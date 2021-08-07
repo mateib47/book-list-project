@@ -33,7 +33,10 @@ function renderBook(book) {
   node.innerHTML = `
   <label for="${book.id}" class="thick-js thick"></label>
   <input id="${book.id}" type="checkbox" class="check-box-js check-box"/>
-  <p class="book-title">${book.text}</p>
+  <div class="title-author">
+    <p class="book-title">${book.title}</p>
+    <p class="book-author">${book.author}</p>
+  </div>
   <button class="delete-button delete-js">Delete</button>
   `;
   if(item){
@@ -63,12 +66,13 @@ function displayBookForm(){
 function displayNameForm(){
   document.getElementById('add-book').style.display = 'none';
   document.getElementById('add-name').style.display = 'block';
-}
+}//probably delete these
 
-function addBook(text){
+function addBook(title,author){
   const book = {
     id : Date.now(),
-    text,
+    title,
+    author,
     finished : false
   }
   bookList.push(book);
@@ -103,12 +107,15 @@ function deleteBook(key){
 const bookForm = document.querySelector('#book-form');
 bookForm.addEventListener('submit',event => {
   event.preventDefault();
-  const input = document.querySelector('#book-input');
-  const text = input.value.trim();
-  if(text !== ''){
-    addBook(text);
-    input.value = '';
-    input.focus();
+  const bookInput = document.querySelector('#book-input');
+  const authorInput = document.querySelector('#author-input');
+  const bookName = bookInput.value.trim();
+  const authorName = authorInput.value.trim();
+  if(bookName !== '' && authorName !== ''){
+    addBook(bookName,authorName);
+    bookInput.value = '';
+    authorInput.value = '';
+    bookInput.focus();
   }
 });
 // FIXME: make the form stuff in one method

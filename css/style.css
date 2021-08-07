@@ -66,6 +66,9 @@ li{
 .book-title{
   margin: 10px 20px;
 }
+.book-author{
+  font-style: italic;
+}
 .check-box{
   transform: scale(1.5);
 }

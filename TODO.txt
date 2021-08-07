@@ -1,11 +1,13 @@
 General TODO:
--add more options to the form(add the author, rate the book, save your favourite quote, etc)
+-add more options to the form(rate the book, save your favourite quote, etc)
+----> make the book objects clickable to see more information
 -the book should have the attribute progress instead of finished (finished/to read/in progress)
 -deal with long words that do not wrap
--make a menu on the left
 -auto complete function
 -make a footer
 improve usability
+fix change your name- remove the paragraph with instructions
+-share your book list
 
 Author Book List TODO
 -right now, author-booklist is a dummy implementation;
