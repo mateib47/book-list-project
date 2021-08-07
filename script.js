@@ -1,6 +1,7 @@
 let bookList = [];
 let user;
-let modals = [document.getElementById('legend'),document.getElementById('book-form')];
+let modals = document.getElementsByClassName("modal");
+
 function showModal(modal) {
   modal.style.display = 'block';
 }
@@ -8,12 +9,12 @@ function showModal(modal) {
 function hideModal(modal) {
   modal.style.display = 'none';
 }
+
 window.onclick = function(event){
-  if(event.target == modals[0]){ //// FIXME:find a better method
-    hideModal(modals[0]);
-  }
-  if(event.target == modals[1]){
-    hideModal(modals[1]);
+  for(let i=0;i<modals.length;i++){
+    if(event.target == modals[i]){
+      hideModal(modals[i]);
+    }
   }
 }
 
@@ -137,14 +138,19 @@ list.addEventListener('click', event => {
 document.addEventListener('DOMContentLoaded', () => {
   const refBook = localStorage.getItem('bookItemsRef');
   const refUser = localStorage.getItem('userRef');
+  if (refUser) {
+    user = JSON.parse(refUser);
+    renderName(user);
+  }else{
+    showModal(document.getElementById('add-name'));
+  }
   if (refBook) {
     bookList = JSON.parse(refBook);
     bookList.forEach(t => {
       renderBook(t);
     });
-  }
-  if (refUser) {
-    user = JSON.parse(refUser);
-    renderName(user);
+  }else{
+    showModal(document.getElementById('navbar'));
+    showModal(document.getElementById('book-form'));
   }
 });

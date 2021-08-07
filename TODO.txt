@@ -5,7 +5,7 @@ General TODO:
 -make a menu on the left
 -auto complete function
 -make a footer
--fix!! make change your name a modal
+improve usability
 
 Author Book List TODO
 -right now, author-booklist is a dummy implementation;

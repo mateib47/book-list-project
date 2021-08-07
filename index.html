@@ -12,21 +12,24 @@
   </head>
   <body>
     <main>
-      <div id="add-name">
-        <h1>Welcome to My Book List!</h1>
-        <p>Here you can store all the books you've read, and the ones you are reading and planning to read</p>
-        <form class="js-form" id = "name-form">
-          <label for="input" id="name-input-label" class="">What is your name?</label>
-          <input id="name-input" class="input" type="text" placeholder="E.g. John">
-          <button type="submit" id="submit">Submit</button>
-        </form>
+      <div id="add-name" class ="modal">
+        <div class="modal-content">
+          <span class="close" id='close-span' onclick="hideModal(document.getElementById('add-name'))">&times;</span>
+          <h1>Welcome to My Book List!</h1>
+          <p>Here you can store all the books you've read, and the ones you are reading and planning to read</p>
+          <form class="js-form" id = "name-form">
+            <label for="input" id="name-input-label" class="">What is your name?</label>
+            <input id="name-input" class="input" type="text" placeholder="E.g. John">
+            <button type="submit" id="submit">Submit</button>
+          </form>
+        </div>
       </div>
       <div id="add-book">
         <h1 id="title" class="">My Book List</h1>
         <ul class="book-list-js book-list"></ul>
         <div class="empty-state">
           <h1>Add some books!</h1>
-          <p>Think about some that you read or yo are planning to read</p>
+          <p>Think about some that you read or you are planning to read</p>
           <img src="images/add-book.png" alt="image of a bookcase" class="empty-state-img">
         </div>
       </div>
@@ -48,7 +51,7 @@
       <div class="modal-content">
         <span class="close" id='close-span' onclick="hideModal(document.getElementById('book-form'))">&times;</span>
         <form class="js-form" id="book-form">
-          <label for="input" id="book-input-label" class="">Enter the name of the book</label>
+          <label for="input" id="book-input-label" class="">Enter the name of a book</label>
           <input id="book-input" class="input" type="text" placeholder="E.g. Harry Potter">
           <button type="submit" id="submit">Submit</button>
         </form>
@@ -59,9 +62,9 @@
       <h1>MyBookList</h1>
       <button type="button" id="close-navbar" class="navbar-button" onclick="hideModal(document.getElementById('navbar'))"><</button>
       <div class="buttons">
-        <button onclick="displayNameForm()">Change Your Name</button><br>
+        <button onclick="showModal(document.getElementById('add-name'))">Change Your Name</button><br>
         <button onclick="showModal(document.getElementById('legend'))">Legend</button><br>
-        <button onclick="showModal(document.getElementById('book-form'))">Add a Book</button><br>
+        <button onclick="showModal(document.getElementById('book-form'))">Add Books</button><br>
       </div>
       <p>© Created by Matei Bucur - You can see my book list <a href="author-booklist.html" target="_blank">here</a></p>
     </footer>
