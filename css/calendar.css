@@ -1,0 +1,35 @@
+.month{
+  text-align: center;
+  width: 100%;
+}
+.month ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.month .prev {
+  float: left;
+}
+.month .next {
+  float: right;
+}
+.weekdays li{
+  display: inline-block;
+  text-align: center;
+}
+.days li{
+  list-style-type: none;
+  display: inline-block;
+  text-align: center;
+  margin:5px;
+}
+.center{
+  max-width: 60%;
+  margin: auto;
+}
+#calendar{
+  margin-top: 35px;
+}
+#pages-submit{
+  align-self: center;
+}

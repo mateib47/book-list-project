@@ -8,6 +8,10 @@ General TODO:
 improve usability
 fix change your name- remove the paragraph with instructions
 -share your book list
+progress----> dropdown with the books in the list so you cen select which books
+        -----> add js for form and calendar
+add book-add option for no author
+something weird happened in .finished css; had to add !important but idk why
 
 Author Book List TODO
 -right now, author-booklist is a dummy implementation;
@@ -26,3 +30,4 @@ Do not forget
 
 update the Legend
 adjust to mobile devices
+fix the id's and css

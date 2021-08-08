@@ -36,21 +36,21 @@ form{
   border-radius: 5px;
   border: 0;
 }
-ul{
+.book-list{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items:  center;
 }
-.finished {
-  background-color: #BF8450;
-  color:black;
+.finished{
+  background-color: #BF8450 !important;
+  color:black !important;
 }
 .finished p{
   text-decoration: line-through;
 }
-li{
+#add-book li{
   list-style: none;
   display:flex;
   flex-direction: row;
@@ -78,7 +78,7 @@ li{
   border:0;
   padding:1em;
 }
-#submit{
+.submit{
   background-color: #A62121;
   border: none;
   color: white;
@@ -91,7 +91,7 @@ li{
   margin-top: 10px;
   transition: 0.5s;
 }
-#submit:hover{
+.submit:hover{
   background-color:#4CAF50;
 }
 .empty-state-img{

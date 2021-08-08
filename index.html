@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/calendar.css">
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz">
     <link rel="stylesheet"
@@ -20,7 +21,7 @@
           <form class="js-form" id = "name-form">
             <label for="input" id="name-input-label" class="">What is your name?</label>
             <input id="name-input" class="input" type="text" placeholder="E.g. John">
-            <button type="submit" id="submit">Submit</button>
+            <button type="submit" id="add-name-submit" class="submit">Submit</button>
           </form>
         </div>
       </div>
@@ -51,22 +52,85 @@
       <div class="modal-content">
         <span class="close" id='close-span' onclick="hideModal(document.getElementById('book-form'))">&times;</span>
         <form class="js-form" id="book-form">
-          <label for="input" id="book-input-label" class="">Enter the name of a book</label>
+          <label for="book-input" id="book-input-label" class="">Enter the title of a book</label>
           <input id="book-input" class="input" type="text" placeholder="E.g. Harry Potter">
-          <label for="input" id="author-input-label" class="">Enter the name of the book's author</label>
+          <label for="author-input" id="author-input-label" class="">Enter the name of the book's author</label>
           <input id="author-input" class="input" type="text" placeholder="E.g. J. K. Rowling">
-          <button type="submit" id="submit">Submit</button>
+          <button type="submit" id="book-form-submit" class="submit">Submit</button>
         </form>
       </div>
     </div>
-    <button type="button" id="open-navbar" class="navbar-button" onclick="showModal(document.getElementById('navbar'))">></button>
+    <div class="modal" id="progress">
+      <div class="modal-content">
+        <span class="close" id='close-span' onclick="hideModal(document.getElementById('progress'))">&times;</span>
+        <div id="calendar">
+          <div class="month">
+            <ul>
+              <li class="prev">&#10094;</li>
+              <li class="next">&#10095;</li>
+              <li>August<br><span style="font-size:18px">2021</span></li>
+            </ul>
+            <ul class="weekdays">
+              <li>Mo</li>
+              <li>Tu</li>
+              <li>We</li>
+              <li>Th</li>
+              <li>Fr</li>
+              <li>Sa</li>
+              <li>Su</li>
+            </ul>
+            <div class="center">
+              <ul class="days"><!-- TODO: generate days with js -->
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box brown">12</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+                <li class="box grey">1</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <form class="js-form" id="progress-form">
+          <label for="input" id="book-input-label" class="">Enter the number of pages you read today</label>
+          <input id="progress-input" class="input" type="number" placeholder="E.g. 15">
+          <button type="submit" id="pages-submit" class="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <button type="button" id="open-navbar" class="navbar-button" onclick="showModal(document.getElementById('navbar'))">&#10095;</button>
     <footer id="navbar"> <!-- TODO: change to nav -->
       <h1>MyBookList</h1>
-      <button type="button" id="close-navbar" class="navbar-button" onclick="hideModal(document.getElementById('navbar'))"><</button>
+      <button type="button" id="close-navbar" class="navbar-button" onclick="hideModal(document.getElementById('navbar'))">&#10096;</button>
       <div class="buttons">
         <button onclick="showModal(document.getElementById('add-name'))">Change Your Name</button><br>
         <button onclick="showModal(document.getElementById('legend'))">Legend</button><br>
         <button onclick="showModal(document.getElementById('book-form'))">Add Books</button><br>
+        <button onclick="showModal(document.getElementById('progress'))">Your Progress</button><br>
       </div>
       <p>© Created by Matei Bucur - You can see my book list <a href="author-booklist.html" target="_blank">here</a></p>
     </footer>
