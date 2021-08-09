@@ -33,9 +33,16 @@ function renderBook(book) {
   node.innerHTML = `
   <label for="${book.id}" class="thick-js thick"></label>
   <input id="${book.id}" type="checkbox" class="check-box-js check-box"/>
-  <div class="title-author">
+  <div class="title-author" onclick="showModal(document.getElementById('details-${book.id}'))">
     <p class="book-title">${book.title}</p>
-    <p class="book-author">${book.author}</p>
+    <div class="modal" id="details-${book.id}" class="details">
+      <div class="modal-content">
+        <span class="close" id='close-span' onclick="hideModal(document.getElementById('details-${book.id}'))">&times;</span>
+        <p class="book-author">by ${book.author}</p>
+        <p class="book-rating">Rating: ${book.rating} / 5</p>
+        <p class="book-quote">'${book.quote}'</p>
+      </div>
+    </div>
   </div>
   <button class="delete-button delete-js">Delete</button>
   `;
@@ -68,11 +75,13 @@ function displayNameForm(){
   document.getElementById('add-name').style.display = 'block';
 }//probably delete these
 
-function addBook(title,author){
+function addBook(title,author,rating,quote){
   const book = {
     id : Date.now(),
     title,
     author,
+    rating,
+    quote,
     finished : false
   }
   bookList.push(book);
@@ -109,12 +118,23 @@ bookForm.addEventListener('submit',event => {
   event.preventDefault();
   const bookInput = document.querySelector('#book-input');
   const authorInput = document.querySelector('#author-input');
+  const quoteInput = document.querySelector('#quote-input');
   const bookName = bookInput.value.trim();
   const authorName = authorInput.value.trim();
-  if(bookName !== '' && authorName !== ''){
-    addBook(bookName,authorName);
+  const quote = quoteInput.value.trim();
+  const radioButtons = document.getElementsByName('star');
+  var rating;
+  radioButtons.forEach(x => {
+    if(x.checked) {
+      rating = x.value;
+    }
+  });
+  console.log(rating);
+  if(bookName !== '' && authorName !== '' && authorName !== ''){
+    addBook(bookName,authorName,rating,quote);
     bookInput.value = '';
     authorInput.value = '';
+    quoteInput.value='';
     bookInput.focus();
   }
 });

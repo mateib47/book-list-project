@@ -1,5 +1,4 @@
 General TODO:
--add more options to the form(rate the book, save your favourite quote, etc)
 ----> make the book objects clickable to see more information
 -the book should have the attribute progress instead of finished (finished/to read/in progress)
 -deal with long words that do not wrap
@@ -17,7 +16,7 @@ Author Book List TODO
 -right now, author-booklist is a dummy implementation;
 I have to find a way to display the books in a smarter way()send a json file with book objects
 -add the authors, image of the book cover and a link to purchase it
-
+fix it
 
 Ideas
 

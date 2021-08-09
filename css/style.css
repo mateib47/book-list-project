@@ -30,11 +30,15 @@ form{
   align-items: center;
 }
 .input{
-  width: 20%;
+  width: 30%;
   height: 30px;
   margin: 25px;
   border-radius: 5px;
   border: 0;
+}
+#quote-input{
+  width:80%;
+  height: auto;
 }
 .book-list{
   display: flex;
@@ -48,7 +52,12 @@ form{
   color:black !important;
 }
 .finished p{
-  text-decoration: line-through;
+}
+.modal-content {
+  color:black;
+}
+fieldset{
+  border: 0;
 }
 #add-book li{
   list-style: none;
@@ -216,7 +225,7 @@ a{
 }
 @media screen and (max-width: 767px) {
   .input{
-    width: 50%;
+    width: 70%;
   }
   li{
     font-size: 25px;
@@ -233,6 +242,9 @@ a{
   }
   #close-navbar{
     left:35%;
+  }
+  .modal-content{
+    width:85%;
   }
 }
 @media screen and (max-width: 500px) {

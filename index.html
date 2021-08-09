@@ -2,11 +2,13 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/rating.css">
     <link rel="stylesheet" type="text/css" href="css/calendar.css">
     <link rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz">
     <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link rel="icon" href="images/tab-icon.png">
     <title>My Book List</title>
@@ -53,9 +55,24 @@
         <span class="close" id='close-span' onclick="hideModal(document.getElementById('book-form'))">&times;</span>
         <form class="js-form" id="book-form">
           <label for="book-input" id="book-input-label" class="">Enter the title of a book</label>
-          <input id="book-input" class="input" type="text" placeholder="E.g. Harry Potter">
+          <input id="book-input" class="input" type="text" placeholder="E.g. The Great Gatsby">
           <label for="author-input" id="author-input-label" class="">Enter the name of the book's author</label>
-          <input id="author-input" class="input" type="text" placeholder="E.g. J. K. Rowling">
+          <input id="author-input" class="input" type="text" placeholder="E.g. F. Scott Fitzgerald">
+          <label id="rating-input-label" class="">Rate the book</label>
+          <fieldset class="rate" id="star">
+            <input class="star" type="radio" id="star5" name="star" value="5" />
+            <label for="star5" title="text">5 stars</label>
+            <input class="star" type="radio" id="star4" name="star" value="4" />
+            <label for="star4" title="text">4 stars</label>
+            <input class="star" type="radio" id="star3" name="star" value="3" />
+            <label for="star3" title="text">3 stars</label>
+            <input class="star" type="radio" id="star2" name="star" value="2" />
+            <label for="star2" title="text">2 stars</label>
+            <input class="star" type="radio" id="star1" name="star" value="1" />
+            <label for="star1" title="text">1 star</label>
+          </fieldset>
+          <label for="quote-input">Add your favourite quote</label>
+          <textarea id="quote-input" name="quote" rows="5" cols="35" class="input"></textarea>
           <button type="submit" id="book-form-submit" class="submit">Submit</button>
         </form>
       </div>
@@ -93,7 +110,6 @@
                 <li class="box grey">1</li>
                 <li class="box grey">1</li>
                 <li class="box brown">12</li>
-                <li class="box grey">1</li>
                 <li class="box grey">1</li>
                 <li class="box grey">1</li>
                 <li class="box grey">1</li>
