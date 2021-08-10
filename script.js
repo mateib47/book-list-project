@@ -130,7 +130,7 @@ bookForm.addEventListener('submit',event => {
     }
   });
   console.log(rating);
-  if(bookName !== '' && authorName !== '' && authorName !== ''){
+  if(bookName !== ''){
     addBook(bookName,authorName,rating,quote);
     bookInput.value = '';
     authorInput.value = '';
