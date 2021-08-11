@@ -35,16 +35,16 @@ function renderBook(book) {
   <input id="${book.id}" type="checkbox" class="check-box-js check-box"/>
   <div class="title-author" onclick="showModal(document.getElementById('details-${book.id}'))">
     <p class="book-title">${book.title}</p>
-    <div class="modal" id="details-${book.id}" class="details">
-      <div class="modal-content">
-        <span class="close" id='close-span' onclick="hideModal(document.getElementById('details-${book.id}'))">&times;</span>
-        <p class="book-author">by ${book.author}</p>
-        <p class="book-rating">Rating: ${book.rating} / 5</p>
-        <p class="book-quote">'${book.quote}'</p>
-      </div>
-    </div>
   </div>
   <button class="delete-button delete-js">Delete</button>
+  <div class="modal" id="details-${book.id}" class="details">
+    <div class="modal-content">
+      <span class="close" id='close-span' onclick="hideModal(document.getElementById('details-${book.id}'))">&times;</span>
+      <p class="book-author">by ${book.author}</p>
+      <p class="book-rating">Rating: ${book.rating} / 5</p>
+      <p class="book-quote">'${book.quote}'</p>
+    </div>
+  </div>
   `;
   if(item){
     list.replaceChild(node,item);
@@ -129,7 +129,6 @@ bookForm.addEventListener('submit',event => {
       rating = x.value;
     }
   });
-  console.log(rating);
   if(bookName !== ''){
     addBook(bookName,authorName,rating,quote);
     bookInput.value = '';
