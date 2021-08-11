@@ -6,8 +6,6 @@ General TODO:
 improve usability
 fix change your name- remove the paragraph with instructions
 -share your book list
-progress----> dropdown with the books in the list so you cen select which books
-        -----> add js for form and calendar
 add book-add option for no author
 something weird happened in .finished css; had to add !important but idk why
 
@@ -28,3 +26,10 @@ Do not forget
 update the Legend
 adjust to mobile devices
 fix the id's and css
+
+progress
+
+reload data from memory
+dropdown with the books in the list so you can select from which book you reading
+handle the months and years
+fix the calendar bug; when you add a progress item, all the calendar is rendered again

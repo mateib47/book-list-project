@@ -1,5 +1,6 @@
 let bookList = [];
 let user;
+let progressList = [];
 let modals = document.getElementsByClassName("modal");
 
 function showModal(modal) {
@@ -17,6 +18,29 @@ window.onclick = function(event){
     }
   }
 }
+
+function renderCalendar(progress) {
+  const dateObj = new Date();
+  const today = dateObj.getDate();
+  console.log(today);
+  const list = document.querySelector('#days-list');
+  date = typeof progress !== 'undefined' ? progress.date.split('-')[2] : today;
+  pages = typeof progress !== 'undefined' ? progress.nrPages : -1;
+  for(let i=1;i<31;i++){
+    const node = document.createElement('li');
+    if(i==date && pages==-1){
+      node.setAttribute('class','box green');
+    }else if(i==date){
+      node.setAttribute('class','box brown');
+    }else{
+      node.setAttribute('class','box grey');
+    }
+    list.append(node);
+  }
+}
+window.onload = function() {
+  renderCalendar();
+};
 
 function renderBook(book) {
   localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
@@ -97,6 +121,17 @@ function addName(text){
   renderName(user);
 }
 
+function addProgress(nrPages,date){
+  const progress = {
+    id : Date.now(),
+    nrPages,
+    date
+  }
+  progressList.push(progress);
+  console.log(progressList);
+  renderCalendar(progress);
+}
+
 function toggleFinished(key){
   const index = bookList.findIndex(book => book.id === Number(key));
   bookList[index].finished = !bookList[index].finished;
@@ -146,6 +181,20 @@ nameForm.addEventListener('submit',event => {
   if(text !== ''){
     addName(text);
     input.value = '';
+  }
+});
+
+const progressForm = document.querySelector('#progress-form');
+progressForm.addEventListener('submit',event => {
+  event.preventDefault();
+  const inputPages = document.querySelector('#pages-input');
+  const inputDate = document.querySelector('#date-input');
+  const pages = inputPages.value.trim();
+  const date = inputDate.value;
+  if(pages !== '' && date !== ''){
+    addProgress(pages,date);
+    inputPages.value = '';
+    inputDate.value = '';
   }
 });
 

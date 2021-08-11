@@ -97,43 +97,19 @@
               <li>Su</li>
             </ul>
             <div class="center">
-              <ul class="days"><!-- TODO: generate days with js -->
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box brown">12</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
-                <li class="box grey">1</li>
+              <ul id="days-list" class="days">
+                <script type="text/javascript">
+                  
+                </script>
               </ul>
             </div>
           </div>
         </div>
         <form class="js-form" id="progress-form">
-          <label for="input" id="book-input-label" class="">Enter the number of pages you read today</label>
-          <input id="progress-input" class="input" type="number" placeholder="E.g. 15">
+          <label for="pages-input" id="pages-input-label" class="">Enter the number of pages you read</label>
+          <input id="pages-input" class="input" type="number" placeholder="E.g. 15">
+          <label for="date-input" id="date-input-label" class="">Enter the date</label>
+          <input id="date-input" class="input" type="date">
           <button type="submit" id="pages-submit" class="submit">Submit</button>
         </form>
       </div>

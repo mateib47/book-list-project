@@ -217,6 +217,9 @@ a{
 .brown{
   background-color: #BF8450;
 }
+.green{
+  background-color: #4CAF50;
+}
 .legend-line{
   display: flex;
   flex-direction: row;
