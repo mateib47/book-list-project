@@ -214,6 +214,9 @@ a{
 .grey{
   background-color: #204040;
 }
+.light-grey{
+  background-color: hsl(180,33%,30%);
+}
 .brown{
   background-color: #BF8450;
 }

@@ -21,21 +21,29 @@ window.onclick = function(event){
 
 function renderCalendar(progress) {
   const dateObj = new Date();
+
   const today = dateObj.getDate();
-  console.log(today);
   const list = document.querySelector('#days-list');
   date = typeof progress !== 'undefined' ? progress.date.split('-')[2] : today;
   pages = typeof progress !== 'undefined' ? progress.nrPages : -1;
   for(let i=1;i<31;i++){
     const node = document.createElement('li');
+    node.setAttribute('data-key', i);
     if(i==date && pages==-1){
-      node.setAttribute('class','box green');
+      node.setAttribute('class','box light-grey');
     }else if(i==date){
       node.setAttribute('class','box brown');
     }else{
       node.setAttribute('class','box grey');
     }
-    list.append(node);
+    const item = document.querySelector(`[data-key='${i}']`);
+    ;
+    if(item){
+      if (item.classList.contains('brown')) node.setAttribute('class','box brown');
+      list.replaceChild(node,item);
+    }else{
+      list.append(node);
+    }
   }
 }
 window.onload = function() {
@@ -128,7 +136,6 @@ function addProgress(nrPages,date){
     date
   }
   progressList.push(progress);
-  console.log(progressList);
   renderCalendar(progress);
 }
 

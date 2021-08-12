@@ -32,4 +32,3 @@ progress
 reload data from memory
 dropdown with the books in the list so you can select from which book you reading
 handle the months and years
-fix the calendar bug; when you add a progress item, all the calendar is rendered again
