@@ -233,7 +233,7 @@ a{
   .input{
     width: 70%;
   }
-  li{
+li .book-item{
     font-size: 25px;
     padding:0.5em;
   }

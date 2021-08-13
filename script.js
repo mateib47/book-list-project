@@ -21,7 +21,7 @@ window.onclick = function(event){
 
 function renderCalendar(progress) {
   const dateObj = new Date();
-
+  if(progress) localStorage.setItem('progressRef', JSON.stringify(progressList));
   const today = dateObj.getDate();
   const list = document.querySelector('#days-list');
   date = typeof progress !== 'undefined' ? progress.date.split('-')[2] : today;
@@ -220,6 +220,7 @@ list.addEventListener('click', event => {
 document.addEventListener('DOMContentLoaded', () => {
   const refBook = localStorage.getItem('bookItemsRef');
   const refUser = localStorage.getItem('userRef');
+  const refProgress = localStorage.getItem('progressRef');
   if (refUser) {
     user = JSON.parse(refUser);
     renderName(user);
@@ -234,5 +235,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }else{
     showModal(document.getElementById('navbar'));
     showModal(document.getElementById('book-form'));
+  }
+  if(refProgress){
+    progressList = JSON.parse(refProgress);
+    progressList.forEach(a => {
+      renderCalendar(a);
+    });
   }
 });
