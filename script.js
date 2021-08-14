@@ -2,6 +2,11 @@ let bookList = [];
 let user;
 let progressList = [];
 let modals = document.getElementsByClassName("modal");
+let months = ['January','February','March','April',
+  'May','June','July','August','September','October',
+  'November','Deceber'];
+let localDate = '2021-01-01';
+
 
 function showModal(modal) {
   modal.style.display = 'block';
@@ -21,34 +26,86 @@ window.onclick = function(event){
 
 function renderCalendar(progress) {
   const dateObj = new Date();
-  if(progress) localStorage.setItem('progressRef', JSON.stringify(progressList));
-  const today = dateObj.getDate();
   const list = document.querySelector('#days-list');
-  date = typeof progress !== 'undefined' ? progress.date.split('-')[2] : today;
-  pages = typeof progress !== 'undefined' ? progress.nrPages : -1;
-  for(let i=1;i<31;i++){
+  const date = progress.date.split('-')[2];
+  const month = progress.date.split('-')[1];
+  const year = progress.date.split('-')[0];
+  const pages = progress.nrPages;
+  let monthCurrent = document.querySelector('#month-name');
+  monthCurrent.innerHTML=`${months[localDate.split("-")[1]]}`;
+  if(progress.nrPages > 0) localStorage.setItem('progressRef', JSON.stringify(progressList));
+  for(let i=1;i<=31;i++){
     const node = document.createElement('li');
-    node.setAttribute('data-key', i);
-    if(i==date && pages==-1){
+    let nodeDate = localDate.split("-")[0]+"-"+localDate.split("-")[1]+"-"+i;
+    if(i<10){
+      nodeDate = localDate.split("-")[0]+"-"+localDate.split("-")[1]+"-"+"0"+i;
+    }
+    node.setAttribute('data-key', nodeDate);
+  /*
+    if(i==date && pages==-1 && dateObj.getMonth() == month && dateObj.getFullYear()==year){
       node.setAttribute('class','box light-grey');
-    }else if(i==date){
+    }else
+*/
+console.log("node date "+nodeDate);
+console.log("progress date "+ progress.date);
+    if(nodeDate == progress.date && pages>0){
       node.setAttribute('class','box brown');
+      console.log('heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeey');
     }else{
       node.setAttribute('class','box grey');
     }
-    const item = document.querySelector(`[data-key='${i}']`);
-    ;
-    if(item){
+    const item = document.querySelector(`[data-key='${nodeDate}']`);
+    console.log(item);
+    if(item && pages>0){
       if (item.classList.contains('brown')) node.setAttribute('class','box brown');
       list.replaceChild(node,item);
     }else{
       list.append(node);
     }
   }
+  console.log("========================================");
 }
-window.onload = function() {
-  renderCalendar();
+window.onload = getToday();
+ function getToday() { // renameee
+  let dateObj = new Date();
+  const month = dateObj.getMonth();
+  const year = dateObj.getFullYear();
+  const day = dateObj.getDate();
+  localDate = year+"-"+month+"-"+day;
+  let today = {
+    id : Date.now(),
+    nrPages: -1,
+    date: year+"-"+month+"-"+day
+  }
+  renderCalendar(today);
 };
+
+function calendarNext(){
+  let dateObj = new Date();
+  const month = dateObj.getMonth() + 1;
+  const year = dateObj.getFullYear();
+  const day = dateObj.getDate();
+  localDate = year+"-"+month+"-"+day;
+    let today = {
+    id : Date.now(),
+    nrPages: -1,
+    date: year+"-"+month+"-"+day
+  }
+  renderCalendar(today);
+}
+
+function calendarPrev(){//fix; use localDate
+  let dateObj = new Date();
+  const month = dateObj.getMonth()--;
+  const year = dateObj.getFullYear();
+  const day = dateObj.getDate();
+    let today = {
+    id : Date.now(),
+    nrPages: -1,
+    date: year+"-"+month+"-"+day
+  }
+  renderCalendar(today);
+}
 
 function renderBook(book) {
   localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
@@ -197,7 +254,9 @@ progressForm.addEventListener('submit',event => {
   const inputPages = document.querySelector('#pages-input');
   const inputDate = document.querySelector('#date-input');
   const pages = inputPages.value.trim();
-  const date = inputDate.value;
+  const dateArr = inputDate.value.split("-");
+  dateArr[1]=dateArr[1]-1;
+  const date = dateArr.join('-');
   if(pages !== '' && date !== ''){
     addProgress(pages,date);
     inputPages.value = '';
@@ -238,8 +297,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if(refProgress){
     progressList = JSON.parse(refProgress);
-    progressList.forEach(a => {
-      renderCalendar(a);
+    console.log(progressList);
+    progressList.forEach(x => {
+      console.log(x);
+      renderCalendar(x);
     });
   }
 });

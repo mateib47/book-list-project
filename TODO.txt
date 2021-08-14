@@ -31,4 +31,4 @@ progress
 
 reload data from memory
 dropdown with the books in the list so you can select from which book you reading
-handle the months and years
+fix duplicate code; make methods and clean up the code
