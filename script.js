@@ -32,8 +32,9 @@ function renderCalendar(progress) {
   const year = progress.date.split('-')[0];
   const pages = progress.nrPages;
   let monthCurrent = document.querySelector('#month-name');
-  monthCurrent.innerHTML=`${months[localDate.split("-")[1]]}`;
+  monthCurrent.innerHTML=`${months[localDate.split("-")[1]]+" "+localDate.split("-")[0]}`;
   if(progress.nrPages > 0) localStorage.setItem('progressRef', JSON.stringify(progressList));
+  if(progress.nrPages == -2) list.innerHTML = "";
   for(let i=1;i<=31;i++){
     const node = document.createElement('li');
     let nodeDate = localDate.split("-")[0]+"-"+localDate.split("-")[1]+"-"+i;
@@ -41,29 +42,22 @@ function renderCalendar(progress) {
       nodeDate = localDate.split("-")[0]+"-"+localDate.split("-")[1]+"-"+"0"+i;
     }
     node.setAttribute('data-key', nodeDate);
-  /*
-    if(i==date && pages==-1 && dateObj.getMonth() == month && dateObj.getFullYear()==year){
-      node.setAttribute('class','box light-grey');
-    }else
-*/
-console.log("node date "+nodeDate);
-console.log("progress date "+ progress.date);
-    if(nodeDate == progress.date && pages>0){
+    if(nodeDate == progress.date && !(pages<0)){
       node.setAttribute('class','box brown');
-      console.log('heeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeey');
     }else{
       node.setAttribute('class','box grey');
     }
     const item = document.querySelector(`[data-key='${nodeDate}']`);
+    console.log(nodeDate);
     console.log(item);
-    if(item && pages>0){
+    if(item && !(pages==-1)){
       if (item.classList.contains('brown')) node.setAttribute('class','box brown');
+      console.log('ffffff');
       list.replaceChild(node,item);
     }else{
       list.append(node);
     }
   }
-  console.log("========================================");
 }
 window.onload = getToday();
  function getToday() { // renameee
@@ -82,27 +76,48 @@ window.onload = getToday();
 
 function calendarNext(){
   let dateObj = new Date();
-  const month = dateObj.getMonth() + 1;
-  const year = dateObj.getFullYear();
-  const day = dateObj.getDate();
-  localDate = year+"-"+month+"-"+day;
+  let date = localDate.split('-');
+  if (date[1]==11){
+    const month =0;
+    const year = Number(date[0])+1;
+    const day = date[2];
+    localDate = year+"-"+month+"-"+day;
+
+  }else{
+    const month = Number(date[1]) + 1;
+    const year = date[0];
+    const day = date[2];
+    localDate = year+"-"+month+"-"+day;
+
+  }
     let today = {
     id : Date.now(),
-    nrPages: -1,
-    date: year+"-"+month+"-"+day
+    nrPages: -2,
+    date: localDate
   }
   renderCalendar(today);
 }
 
 function calendarPrev(){//fix; use localDate
   let dateObj = new Date();
-  const month = dateObj.getMonth()--;
-  const year = dateObj.getFullYear();
-  const day = dateObj.getDate();
+  let date = localDate.split('-');
+  if (date[1]==0){
+    const month =11;
+    const year = Number(date[0])-1;
+    const day = date[2];
+    localDate = year+"-"+month+"-"+day;
+
+  }else{
+    const month = Number(date[1]) - 1;
+    const year = date[0];
+    const day = date[2];
+    localDate = year+"-"+month+"-"+day;
+
+  }
     let today = {
     id : Date.now(),
-    nrPages: -1,
-    date: year+"-"+month+"-"+day
+    nrPages: -2,
+    date: localDate
   }
   renderCalendar(today);
 }
@@ -297,9 +312,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   if(refProgress){
     progressList = JSON.parse(refProgress);
-    console.log(progressList);
     progressList.forEach(x => {
-      console.log(x);
       renderCalendar(x);
     });
   }

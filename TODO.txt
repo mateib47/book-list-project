@@ -32,3 +32,6 @@ progress
 reload data from memory
 dropdown with the books in the list so you can select from which book you reading
 fix duplicate code; make methods and clean up the code
+deal with leap years
+months w 30/31 weekdays
+calendar code is crappy af;  move everything into another file and rethink it
