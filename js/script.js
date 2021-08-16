@@ -1,12 +1,6 @@
 let bookList = [];
 let user;
-let progressList = [];
 let modals = document.getElementsByClassName("modal");
-let months = ['January','February','March','April',
-  'May','June','July','August','September','October',
-  'November','Deceber'];
-let localDate = '2021-01-01';
-
 
 function showModal(modal) {
   modal.style.display = 'block';
@@ -22,104 +16,6 @@ window.onclick = function(event){
       hideModal(modals[i]);
     }
   }
-}
-
-function renderCalendar(progress) {
-  const dateObj = new Date();
-  const list = document.querySelector('#days-list');
-  const date = progress.date.split('-')[2];
-  const month = progress.date.split('-')[1];
-  const year = progress.date.split('-')[0];
-  const pages = progress.nrPages;
-  let monthCurrent = document.querySelector('#month-name');
-  monthCurrent.innerHTML=`${months[localDate.split("-")[1]]+" "+localDate.split("-")[0]}`;
-  if(progress.nrPages > 0) localStorage.setItem('progressRef', JSON.stringify(progressList));
-  if(progress.nrPages == -2) list.innerHTML = "";
-  for(let i=1;i<=31;i++){
-    const node = document.createElement('li');
-    let nodeDate = localDate.split("-")[0]+"-"+localDate.split("-")[1]+"-"+i;
-    if(i<10){
-      nodeDate = localDate.split("-")[0]+"-"+localDate.split("-")[1]+"-"+"0"+i;
-    }
-    node.setAttribute('data-key', nodeDate);
-    if(nodeDate == progress.date && !(pages<0)){
-      node.setAttribute('class','box brown');
-    }else{
-      node.setAttribute('class','box grey');
-    }
-    const item = document.querySelector(`[data-key='${nodeDate}']`);
-    console.log(nodeDate);
-    console.log(item);
-    if(item && !(pages==-1)){
-      if (item.classList.contains('brown')) node.setAttribute('class','box brown');
-      console.log('ffffff');
-      list.replaceChild(node,item);
-    }else{
-      list.append(node);
-    }
-  }
-}
-window.onload = getToday();
- function getToday() { // renameee
-  let dateObj = new Date();
-  const month = dateObj.getMonth();
-  const year = dateObj.getFullYear();
-  const day = dateObj.getDate();
-  localDate = year+"-"+month+"-"+day;
-  let today = {
-    id : Date.now(),
-    nrPages: -1,
-    date: year+"-"+month+"-"+day
-  }
-  renderCalendar(today);
-};
-
-function calendarNext(){
-  let dateObj = new Date();
-  let date = localDate.split('-');
-  if (date[1]==11){
-    const month =0;
-    const year = Number(date[0])+1;
-    const day = date[2];
-    localDate = year+"-"+month+"-"+day;
-
-  }else{
-    const month = Number(date[1]) + 1;
-    const year = date[0];
-    const day = date[2];
-    localDate = year+"-"+month+"-"+day;
-
-  }
-    let today = {
-    id : Date.now(),
-    nrPages: -2,
-    date: localDate
-  }
-  renderCalendar(today);
-}
-
-function calendarPrev(){//fix; use localDate
-  let dateObj = new Date();
-  let date = localDate.split('-');
-  if (date[1]==0){
-    const month =11;
-    const year = Number(date[0])-1;
-    const day = date[2];
-    localDate = year+"-"+month+"-"+day;
-
-  }else{
-    const month = Number(date[1]) - 1;
-    const year = date[0];
-    const day = date[2];
-    localDate = year+"-"+month+"-"+day;
-
-  }
-    let today = {
-    id : Date.now(),
-    nrPages: -2,
-    date: localDate
-  }
-  renderCalendar(today);
 }
 
 function renderBook(book) {
@@ -201,16 +97,6 @@ function addName(text){
   renderName(user);
 }
 
-function addProgress(nrPages,date){
-  const progress = {
-    id : Date.now(),
-    nrPages,
-    date
-  }
-  progressList.push(progress);
-  renderCalendar(progress);
-}
-
 function toggleFinished(key){
   const index = bookList.findIndex(book => book.id === Number(key));
   bookList[index].finished = !bookList[index].finished;
@@ -263,22 +149,6 @@ nameForm.addEventListener('submit',event => {
   }
 });
 
-const progressForm = document.querySelector('#progress-form');
-progressForm.addEventListener('submit',event => {
-  event.preventDefault();
-  const inputPages = document.querySelector('#pages-input');
-  const inputDate = document.querySelector('#date-input');
-  const pages = inputPages.value.trim();
-  const dateArr = inputDate.value.split("-");
-  dateArr[1]=dateArr[1]-1;
-  const date = dateArr.join('-');
-  if(pages !== '' && date !== ''){
-    addProgress(pages,date);
-    inputPages.value = '';
-    inputDate.value = '';
-  }
-});
-
 const list = document.querySelector('.book-list-js');
 list.addEventListener('click', event => {
   if (event.target.classList.contains('check-box-js')) {
@@ -294,7 +164,6 @@ list.addEventListener('click', event => {
 document.addEventListener('DOMContentLoaded', () => {
   const refBook = localStorage.getItem('bookItemsRef');
   const refUser = localStorage.getItem('userRef');
-  const refProgress = localStorage.getItem('progressRef');
   if (refUser) {
     user = JSON.parse(refUser);
     renderName(user);
@@ -309,11 +178,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }else{
     showModal(document.getElementById('navbar'));
     showModal(document.getElementById('book-form'));
-  }
-  if(refProgress){
-    progressList = JSON.parse(refProgress);
-    progressList.forEach(x => {
-      renderCalendar(x);
-    });
   }
 });
