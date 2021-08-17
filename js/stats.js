@@ -10,12 +10,9 @@ function getTotalPages(){
 
 function updateStats(){
   let progressList = getProgressList();
-  console.log(progressList);
   let totalPages = 0;
   for(let x of progressList){
     totalPages += Number(x.nrPages);
-    console.log(totalPages);
-
   }
   setTotalPages(totalPages);
   renderStats();

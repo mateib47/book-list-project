@@ -23,6 +23,16 @@ function dateEquals(a, b)
       return false;
   }
 
+function getColor(pages){
+  if (pages <= 5) {return 'hsl(132,25%,25%)';} else
+  if (pages <= 10) {return 'hsl(132,30%,30%)';} else
+  if (pages <= 20) {return 'hsl(132,35%,35%)';} else
+  if (pages <= 50) {return 'hsl(132,40%,40%)';} else
+  if (pages <= 100) {return 'hsl(132,45%,45%)';} else
+  if (pages <= 200) {return 'hsl(132,50%,50%)';} else
+  {return 'hsl(132,55%,55%)';}
+}
+
 function renderCalendar() {
   const list = document.querySelector('#days-list');
   const currentDate = getCurrentDate();getDaysInMonth(currentDate.month,currentDate.year)
@@ -34,8 +44,10 @@ function renderCalendar() {
     const node = document.createElement('li');
     let nodeDate = toDateObj(i, currentDate.month, currentDate.year);
     node.setAttribute('data-key', nodeDate);
-    if(progressList.find(obj => {return dateEquals(obj.date,nodeDate)})){
-      node.setAttribute('class','box brown');
+    let pages = 0;
+    if(progressList.find(obj => {pages = obj.nrPages; return dateEquals(obj.date,nodeDate)})){
+      node.setAttribute('class','box');
+      node.style.backgroundColor = getColor(pages);
     }else{
       node.setAttribute('class','box grey');
     }
