@@ -29,10 +29,8 @@ fix the id's and css
 
 progress
 
-reload data from memory
 dropdown with the books in the list so you can select from which book you reading
 deal with leap years
-when user adds some pages in a day it should not rewrite the previous record
 
 Statistics
 

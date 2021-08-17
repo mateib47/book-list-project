@@ -15,9 +15,14 @@ function getCurrentDate(){
 function getProgressList(){
   return [...progressList];
 }
+function setProgressList(list){
+  progressList = list;
+}
 
 function dateEquals(a, b)
  {
+   console.log(a);
+   console.log(b);
      if (a.day==b.day && a.month==b.month && a.year==b.year)
       return true;
       return false;
@@ -34,6 +39,7 @@ function getColor(pages){
 }
 
 function renderCalendar() {
+  console.log(getProgressList());
   const list = document.querySelector('#days-list');
   const currentDate = getCurrentDate();getDaysInMonth(currentDate.month,currentDate.year)
   const progressList = getProgressList();
@@ -83,10 +89,24 @@ function getDaysInMonth(month,year){
   return new Date(year,month + 1,0).getDate();
 }
 
+function removeProgress(key) {
+  const index = getProgressList().findIndex(x => x.id === Number(key));
+  setProgressList(progressList.filter(x => x.id !== Number(key)));
+}
+
 function addProgress(nrPages,date){
+  let pages = Number(nrPages);
+  getProgressList().find(obj =>
+    {
+      if(dateEquals(obj.date,date)){
+        pages += Number(obj.nrPages);
+        let objDate = {...obj.date};
+        removeProgress(obj.id);
+      }
+    });
   const progress = {
     id : Date.now(),
-    nrPages,
+    nrPages:pages,
     date
   }
   progressList.push(progress);
