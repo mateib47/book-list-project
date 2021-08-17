@@ -25,16 +25,15 @@ function dateEquals(a, b)
 
 function renderCalendar() {
   const list = document.querySelector('#days-list');
-  const currentDate = getCurrentDate();
+  const currentDate = getCurrentDate();getDaysInMonth(currentDate.month,currentDate.year)
   const progressList = getProgressList();
   let monthCurrent = document.querySelector('#month-name');
   monthCurrent.innerHTML=`${months[currentDate.month]+" "+currentDate.year}`;
   list.innerHTML = "";
-  for(let i=1;i<=31;i++){
+  for(let i=1;i<=getDaysInMonth(currentDate.month,currentDate.year);i++){
     const node = document.createElement('li');
     let nodeDate = toDateObj(i, currentDate.month, currentDate.year);
     node.setAttribute('data-key', nodeDate);
-    console.log(progressList.find(obj => {return obj.date == nodeDate}));
     if(progressList.find(obj => {return dateEquals(obj.date,nodeDate)})){
       node.setAttribute('class','box brown');
     }else{
@@ -49,9 +48,27 @@ window.onload = getToday();
 };
 
 function calendarNext(){
+  if(currentDate.month < 11){
+    currentDate.month++;
+  }else{
+    currentDate.month = 0;
+    currentDate.year++;
+  }
+  renderCalendar();
 }
 
-function calendarPrev(){//todo
+function calendarPrev(){
+  if(currentDate.month > 0){
+    currentDate.month--;
+  }else{
+    currentDate.month = 11;
+    currentDate.year--;
+  }
+  renderCalendar();
+}
+
+function getDaysInMonth(month,year){
+  return new Date(year,month + 1,0).getDate();
 }
 
 function addProgress(nrPages,date){

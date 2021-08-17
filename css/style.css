@@ -257,7 +257,7 @@ li .book-item{
   .input{
     width: 80%;
   }
-  ul{
+  .book-list{
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -265,6 +265,5 @@ li .book-item{
   }
   main{
     max-width: 95%;
-
   }
 }

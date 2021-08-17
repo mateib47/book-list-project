@@ -9,14 +9,23 @@
 }
 .month .prev {
   float: left;
+  cursor: pointer;
 }
 .month .next {
   float: right;
+  cursor: pointer;
 }
 .weekdays li{
-  display: inline-block;
-  text-align: center;
+  height: 20px;
+  width: 20px;
+  margin-right: 5px;
 }
+.weekdays{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .days li{
   list-style-type: none;
   display: inline-block;
@@ -32,4 +41,19 @@
 }
 #pages-submit{
   align-self: center;
+}
+@media screen and (max-width: 533px) {
+  .center{
+    max-width: 50%;
+  }
+}
+@media screen and (max-width: 433px) {
+  .center{
+    max-width: 55%;
+  }
+}
+@media screen and (max-width: 383px) {
+  .center{
+    max-width: 68%;
+  }
 }
