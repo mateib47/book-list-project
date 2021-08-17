@@ -21,8 +21,6 @@ function setProgressList(list){
 
 function dateEquals(a, b)
  {
-   console.log(a);
-   console.log(b);
      if (a.day==b.day && a.month==b.month && a.year==b.year)
       return true;
       return false;
@@ -39,7 +37,6 @@ function getColor(pages){
 }
 
 function renderCalendar() {
-  console.log(getProgressList());
   const list = document.querySelector('#days-list');
   const currentDate = getCurrentDate();getDaysInMonth(currentDate.month,currentDate.year)
   const progressList = getProgressList();

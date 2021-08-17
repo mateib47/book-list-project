@@ -121,7 +121,7 @@
     <footer id="navbar"> <!-- TODO: change to nav -->
       <h1>MyBookList</h1>
       <button type="button" id="close-navbar" class="navbar-button" onclick="hideModal(document.getElementById('navbar'))">&#10096;</button>
-      <div class="buttons">
+      <div class="buttons" onclick="hideModal(document.getElementById('navbar'))">
         <button onclick="showModal(document.getElementById('add-name'))">Change Your Name</button><br>
         <button onclick="showModal(document.getElementById('legend'))">Legend</button><br>
         <button onclick="showModal(document.getElementById('book-form'))">Add Books</button><br>
