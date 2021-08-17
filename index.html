@@ -111,6 +111,12 @@
         </form>
       </div>
     </div>
+    <div class="modal" id="stats">
+      <div class="modal-content">
+        <span class="close" id='close-span' onclick="hideModal(document.getElementById('stats'))">&times;</span>
+        <p id="total-pages"></p>
+      </div>
+    </div>
     <button type="button" id="open-navbar" class="navbar-button" onclick="showModal(document.getElementById('navbar'))">&#10095;</button>
     <footer id="navbar"> <!-- TODO: change to nav -->
       <h1>MyBookList</h1>
@@ -120,11 +126,13 @@
         <button onclick="showModal(document.getElementById('legend'))">Legend</button><br>
         <button onclick="showModal(document.getElementById('book-form'))">Add Books</button><br>
         <button onclick="showModal(document.getElementById('progress'))">Your Progress</button><br>
+        <button onclick="showModal(document.getElementById('stats'))">Statistics</button><br>
       </div>
       <p>© Created by Matei Bucur - You can see my book list <a href="author-booklist.html" target="_blank">here</a></p>
     </footer>
     <script type="text/javascript" src="js/script.js"></script>
     <script type="text/javascript" src="js/calendar.js"></script>
+    <script type="text/javascript" src="js/stats.js"></script>
 
   </body>
 </html>

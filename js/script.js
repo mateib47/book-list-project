@@ -51,6 +51,7 @@ function renderBook(book) {
   }else{
     list.append(node);
   }
+  updateStats();
 }
 
 function renderName(user){

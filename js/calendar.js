@@ -2,12 +2,12 @@ let months = ['January','February','March','April',
   'May','June','July','August','September','October',
   'November','Deceber'];
 let currentDate = initCurrentDate();
+let progressList = [];
 
 function initCurrentDate(){
   const dateObj = new Date();
   return toDateObj(dateObj.getDate(),dateObj.getMonth(),dateObj.getFullYear());
 }
-let progressList = [];
 
 function getCurrentDate(){
   return currentDate;
@@ -41,11 +41,11 @@ function renderCalendar() {
     }
     list.append(node);
   }
+  if(typeof updateStats === "function")
+    updateStats();
 }
-window.onload = getToday();
- function getToday() {
-  renderCalendar();
-};
+window.onload = renderCalendar();
+
 
 function calendarNext(){
   if(currentDate.month < 11){
@@ -109,5 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if(refProgress){
     progressList = JSON.parse(refProgress);
     renderCalendar();
+    updateStats();
   }
 });
