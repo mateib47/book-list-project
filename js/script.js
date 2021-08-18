@@ -22,17 +22,20 @@ function renderBook(book) {
   localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
   const list = document.querySelector('.book-list-js');
   const item = document.querySelector(`[data-key='${book.id}']`);
-  const isFinished = book.finished ? "finished" : "";
   const node = document.createElement('li');
   if(book.deleted) {
     item.remove();
     return;
   }
-  node.setAttribute('class', `book-item ${isFinished}`);
+  node.setAttribute('class', `book-item ${book.status}`);
   node.setAttribute('data-key', book.id);
   node.innerHTML = `
-  <label for="${book.id}" class="thick-js thick"></label>
-  <input id="${book.id}" type="checkbox" class="check-box-js check-box"/>
+  <label for="${book.id}" class="dropdown-js"></label>
+  <select class="status-book-item" name="status" id="${book.id}">
+    <option value="present">In Progress</option>
+    <option value="past">Finished</option>
+    <option value="future">Not started</option>
+  </select>
   <div class="title-author" onclick="showModal(document.getElementById('details-${book.id}'))">
     <p class="book-title">${book.title}</p>
   </div>
@@ -76,14 +79,14 @@ function displayNameForm(){
   document.getElementById('add-name').style.display = 'block';
 }//probably delete these
 
-function addBook(title,author,rating,quote){
+function addBook(title,author,rating,status,quote){
   const book = {
     id : Date.now(),
     title,
     author,
     rating,
+    status,
     quote,
-    finished : false
   }
   bookList.push(book);
   renderBook(book);
@@ -98,6 +101,7 @@ function addName(text){
   renderName(user);
 }
 
+//adjust
 function toggleFinished(key){
   const index = bookList.findIndex(book => book.id === Number(key));
   bookList[index].finished = !bookList[index].finished;
@@ -124,14 +128,15 @@ bookForm.addEventListener('submit',event => {
   const authorName = authorInput.value.trim();
   const quote = quoteInput.value.trim();
   const radioButtons = document.getElementsByName('star');
-  var rating;
+  const status = document.querySelector('#status-input').value;
+  let rating;
   radioButtons.forEach(x => {
     if(x.checked) {
       rating = x.value;
     }
   });
-  if(bookName !== ''){
-    addBook(bookName,authorName,rating,quote);
+  if(bookName !== '' && status !== ''){
+    addBook(bookName,authorName,rating,status,quote);
     bookInput.value = '';
     authorInput.value = '';
     quoteInput.value='';
@@ -150,6 +155,7 @@ nameForm.addEventListener('submit',event => {
   }
 });
 
+//adjust
 const list = document.querySelector('.book-list-js');
 list.addEventListener('click', event => {
   if (event.target.classList.contains('check-box-js')) {

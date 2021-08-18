@@ -36,6 +36,11 @@ form{
   border-radius: 5px;
   border: 0;
 }
+.status-book-item{
+  border-radius: 5px;
+  border: 0;
+  width: 15px;
+}
 #quote-input{
   width:80%;
   height: auto;
@@ -46,12 +51,6 @@ form{
   flex-wrap: wrap;
   justify-content: center;
   align-items:  center;
-}
-.finished{
-  background-color: #BF8450 !important;
-  color:black !important;
-}
-.finished p{
 }
 .modal-content {
   color:black;
@@ -65,12 +64,12 @@ fieldset{
   flex-direction: row;
   align-items: center;
   justify-content:  center;
-  background-color: #204040;
-  color:white;
+  color: #204040;
   padding: 1em;
   font-size: 30px;
   max-width: 100%;
   margin: 10px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 }
 .book-title{
   margin: 10px 20px;
@@ -213,6 +212,15 @@ a{
 }
 .grey{
   background-color: #202e23;
+}
+.past{
+  background-color: #8AE35C;
+}
+.future{
+  background-color: #FF795D;
+}
+.present{
+  background-color: #FFEF6C;
 }
 .light-grey{
   background-color: hsl(180,33%,30%);

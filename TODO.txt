@@ -8,6 +8,7 @@ fix change your name- remove the paragraph with instructions
 -share your book list
 add book-add option for no author
 something weird happened in .finished css; had to add !important but idk why
+-----adjust  lines 105,159 methods
 
 Author Book List TODO
 -right now, author-booklist is a dummy implementation;

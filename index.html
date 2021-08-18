@@ -41,11 +41,15 @@
       <div class="modal-content">
         <span class="close" id='close-span' onclick="hideModal(document.getElementById('legend'))">&times;</span>
         <div class="legend-line">
-          <div class="box grey"></div>
+          <div class="box red"></div>
           <p>The books you are planning to read</p>
         </div>
         <div class="legend-line">
-          <div class="box brown"></div>
+          <div class="box yellow"></div>
+          <p>The books in progress</p>
+        </div>
+        <div class="legend-line">
+          <div class="box green"></div>
           <p>The books you finished reading</p>
         </div>
       </div>
@@ -71,6 +75,12 @@
             <input class="star" type="radio" id="star1" name="star" value="1" />
             <label for="star1" title="text">1 star</label>
           </fieldset>
+          <label for="status-input">Add the status of the book</label>
+          <select class="status input" name="status" id="status-input">
+            <option value="present">In Progress</option>
+            <option value="past">Finished</option>
+            <option value="future">Not started</option>
+          </select>
           <label for="quote-input">Add your favourite quote</label>
           <textarea id="quote-input" name="quote" rows="5" cols="35" class="input"></textarea>
           <button type="submit" id="book-form-submit" class="submit">Submit</button>
@@ -121,7 +131,7 @@
     <footer id="navbar"> <!-- TODO: change to nav -->
       <h1>MyBookList</h1>
       <button type="button" id="close-navbar" class="navbar-button" onclick="hideModal(document.getElementById('navbar'))">&#10096;</button>
-      <div class="buttons" onclick="hideModal(document.getElementById('navbar'))">
+      <div class="buttons"> <!-- onclick="hideModal(document.getElementById('navbar'))"-->
         <button onclick="showModal(document.getElementById('add-name'))">Change Your Name</button><br>
         <button onclick="showModal(document.getElementById('legend'))">Legend</button><br>
         <button onclick="showModal(document.getElementById('book-form'))">Add Books</button><br>
