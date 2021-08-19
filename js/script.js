@@ -30,12 +30,15 @@ function renderBook(book) {
   node.setAttribute('class', `book-item ${book.status}`);
   node.setAttribute('data-key', book.id);
   node.innerHTML = `
-  <label for="${book.id}" class="dropdown-js"></label>
-  <select class="status-book-item" name="status" id="${book.id}">
-    <option value="present">In Progress</option>
-    <option value="past">Finished</option>
-    <option value="future">Not started</option>
-  </select>
+  <form class="change-status-js">
+    <label for="${book.id}" class=""></label>
+    <select class="status-book-item dropdown-js" name="status" id="${book.id}" onchange='changeStatus("${book.id}")'>
+      <option value="">Change Status</option>
+      <option value="present">In Progress</option>
+      <option value="past">Finished</option>
+      <option value="future">Not started</option>
+    </select>
+  </form>
   <div class="title-author" onclick="showModal(document.getElementById('details-${book.id}'))">
     <p class="book-title">${book.title}</p>
   </div>
@@ -102,9 +105,11 @@ function addName(text){
 }
 
 //adjust
-function toggleFinished(key){
+function changeStatus(key){
+  const status = document.getElementById(`${key}`).value;
   const index = bookList.findIndex(book => book.id === Number(key));
-  bookList[index].finished = !bookList[index].finished;
+  console.log(status);
+  bookList[index].status = status;
   renderBook(bookList[index]);
 }
 
@@ -155,13 +160,8 @@ nameForm.addEventListener('submit',event => {
   }
 });
 
-//adjust
 const list = document.querySelector('.book-list-js');
 list.addEventListener('click', event => {
-  if (event.target.classList.contains('check-box-js')) {
-    const itemKey = event.target.parentElement.dataset.key;
-    toggleFinished(itemKey);
-  }
   if (event.target.classList.contains('delete-js')){
     const itemKey = event.target.parentElement.dataset.key;
     deleteBook(itemKey);
