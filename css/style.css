@@ -275,3 +275,9 @@ li .book-item{
     max-width: 95%;
   }
 }
+
+@media screen and (max-width: 245px) {
+  .buttons button {
+    font-size: 15px;
+  }
+}
