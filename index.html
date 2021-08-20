@@ -117,6 +117,8 @@
         <form class="js-form" id="progress-form">
           <label for="pages-input" id="pages-input-label" class="">Enter the number of pages you read</label>
           <input id="pages-input" class="input" type="number" min="1" placeholder="E.g. 15">
+          <label for="select-book">Select the book</label>
+          <select id="select-book" class="input" name=""></select>
           <label for="date-input" id="date-input-label" class="">Enter the date</label>
           <input id="date-input" class="input" type="date">
           <button type="submit" id="pages-submit" class="submit">Submit</button>
@@ -137,7 +139,7 @@
         <button onclick="showModal(document.getElementById('add-name'))">Change Your Name</button><br>
         <button onclick="showModal(document.getElementById('legend'))">Legend</button><br>
         <button onclick="showModal(document.getElementById('book-form'))">Add Books</button><br>
-        <button onclick="showModal(document.getElementById('progress'))">Your Progress</button><br>
+        <button onclick="showModal(document.getElementById('progress'));populateSelect()">Your Progress</button><br>
         <button onclick="showModal(document.getElementById('stats'))">Statistics</button><br>
       </div>
       <p>© Created by Matei Bucur - You can see my book list <a href="author-booklist.html" target="_blank">here</a></p>

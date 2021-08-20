@@ -30,8 +30,8 @@ adjust to mobile devices
 fix the id's and css
 
 progress
-
-dropdown with the books in the list so you can select from which book you reading
+----------------------> add a property to book items that stores how many pages you read and computes the %
+done: the pages from which book are stored in the progress item of each day in a array of objects
 deal with leap years
 
 Statistics

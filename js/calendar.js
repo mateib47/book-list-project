@@ -91,19 +91,22 @@ function removeProgress(key) {
   setProgressList(progressList.filter(x => x.id !== Number(key)));
 }
 
-function addProgress(nrPages,date){
+function addProgress(nrPages,book,date){
   let pages = Number(nrPages);
+  let booksRecord = [{book,pages:nrPages}];
   getProgressList().find(obj =>
     {
       if(dateEquals(obj.date,date)){
         pages += Number(obj.nrPages);
-        let objDate = {...obj.date};
+        booksRecord.push([...obj.books]);
+      //  let objDate = {...obj.date};
         removeProgress(obj.id);
       }
     });
   const progress = {
     id : Date.now(),
     nrPages:pages,
+    books:booksRecord,
     date
   }
   progressList.push(progress);
@@ -116,11 +119,14 @@ progressForm.addEventListener('submit',event => {
   event.preventDefault();
   const inputPages = document.querySelector('#pages-input');
   const inputDate = document.querySelector('#date-input');
+  const inputBook = document.querySelector('#select-book');
+  const book = inputBook.value;
   const pages = inputPages.value.trim();
   if(pages !== '' && inputDate !== ''){
-    addProgress(pages,toDateObj(inputDate));
+    addProgress(pages,book,toDateObj(inputDate));
     inputPages.value = '';
     inputDate.value = '';
+    inputBook.value = '';
   }
 });
 
@@ -132,6 +138,19 @@ function toDateObj(day,month,year){
     return { day:dateArr[2], month:dateArr[1] - 1, year:dateArr[0]};
   }
 }//transform to zero based value for the month
+
+function populateSelect(){
+  const select = document.querySelector('#select-book');
+  select.innerHTML='';
+  const bookList = getBookList();
+  for (let book of bookList){
+    let opt = document.createElement('option');
+    opt.value = book.title;
+    opt.innerHTML = book.title;
+    select.appendChild(opt);
+  }
+}
+// FIXME: the dropdown behaviour is not ok
 
 document.addEventListener('DOMContentLoaded', () => {
   const refProgress = localStorage.getItem('progressRef');

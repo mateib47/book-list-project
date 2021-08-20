@@ -2,6 +2,10 @@ let bookList = [];
 let user;
 let modals = document.getElementsByClassName("modal");
 
+function getBookList(){
+  return bookList;
+}
+
 function showModal(modal) {
   modal.style.display = 'block';
 }
