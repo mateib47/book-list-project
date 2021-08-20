@@ -46,9 +46,10 @@ function renderBook(book) {
   <div class="modal" id="details-${book.id}" class="details">
     <div class="modal-content">
       <span class="close" id='close-span' onclick="hideModal(document.getElementById('details-${book.id}'))">&times;</span>
-      <p class="book-author">by ${book.author}</p>
+      <p class="book-author">by ${book.author || 'Anonymus'}</p>
       <p class="book-rating">Rating: ${book.rating} / 5</p>
-      <p class="book-quote">'${book.quote}'</p>
+      <p class="book-pages">Pages: ${book.pages || 'unspecified'}</p>
+      <p class="book-quote">'${book.quote || 'no quote'}'</p> <!--FIX these-->
     </div>
   </div>
   `;
@@ -82,14 +83,15 @@ function displayNameForm(){
   document.getElementById('add-name').style.display = 'block';
 }//probably delete these
 
-function addBook(title,author,rating,status,quote){
+function addBook(title,author,rating,status,pages,quote){
   const book = {
     id : Date.now(),
     title,
     author,
     rating,
     status,
-    quote,
+    pages,
+    quote
   }
   bookList.push(book);
   renderBook(book);
@@ -134,6 +136,8 @@ bookForm.addEventListener('submit',event => {
   const quote = quoteInput.value.trim();
   const radioButtons = document.getElementsByName('star');
   const status = document.querySelector('#status-input').value;
+  const pagesInput = document.querySelector('#total-pages-input');
+  const pages = pagesInput.value.trim();
   let rating;
   radioButtons.forEach(x => {
     if(x.checked) {
@@ -141,14 +145,15 @@ bookForm.addEventListener('submit',event => {
     }
   });
   if(bookName !== '' && status !== ''){
-    addBook(bookName,authorName,rating,status,quote);
+    addBook(bookName,authorName,rating,status,pages,quote);
     bookInput.value = '';
     authorInput.value = '';
     quoteInput.value='';
+    pagesInput.value = '';
     bookInput.focus();
   }
 });
-// FIXME: make the form stuff in one method
+
 const nameForm = document.querySelector('#name-form');
 nameForm.addEventListener('submit',event => {
   event.preventDefault();

@@ -59,7 +59,7 @@
         <span class="close" id='close-span' onclick="hideModal(document.getElementById('book-form'))">&times;</span>
         <form class="js-form" id="book-form">
           <label for="book-input" id="book-input-label" class="">Enter the title of a book</label>
-          <input id="book-input" class="input" type="text" placeholder="E.g. The Great Gatsby">
+          <input id="book-input" class="input" type="text" placeholder="E.g. The Great Gatsby" required>
           <label for="author-input" id="author-input-label" class="">Enter the name of the book's author</label>
           <input id="author-input" class="input" type="text" placeholder="E.g. F. Scott Fitzgerald">
           <label id="rating-input-label" class="">Rate the book</label>
@@ -81,6 +81,8 @@
             <option value="past">Finished</option>
             <option value="future">Not started</option>
           </select>
+          <label for="total-pages-input">Add the number of pages of the book</label>
+          <input type="number" class="input" placeholder="E.g. 324" min="1" id="total-pages-input">
           <label for="quote-input">Add your favourite quote</label>
           <textarea id="quote-input" name="quote" rows="5" cols="35" class="input"></textarea>
           <button type="submit" id="book-form-submit" class="submit">Submit</button>
