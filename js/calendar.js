@@ -91,16 +91,24 @@ function removeProgress(key) {
   setProgressList(progressList.filter(x => x.id !== Number(key)));
 }
 
-function addProgress(nrPages,book,date){
+function addProgress(nrPages,book,date){// FIXME: highly complicated function; make it more readable
   let pages = Number(nrPages);
   let booksRecord = [{book,pages:nrPages}];
-  getProgressList().find(obj =>
+  getProgressList().forEach(obj =>
     {
       if(dateEquals(obj.date,date)){
         pages += Number(obj.nrPages);
-        booksRecord.push([...obj.books]);
-      //  let objDate = {...obj.date};
-        removeProgress(obj.id);
+        if(obj.books.every(x => {if(x.book == book) {
+          x.pages = Number(x.pages)+Number(nrPages);
+          return false;
+        }
+        return true;})){
+          booksRecord.push(...obj.books);
+          removeProgress(obj.id);
+        }else{
+          booksRecord = [...obj.books];
+          removeProgress(obj.id);
+        }
       }
     });
   const progress = {
