@@ -1,13 +1,10 @@
 General TODO:
--the book should have the attribute progress instead of finished (finished/to read/in progress)
 -deal with long words that do not wrap
 -auto complete function
 -make a footer
 improve usability
 fix change your name- remove the paragraph with instructions
 -share your book list
-add book-add option for no author
-something weird happened in .finished css; had to add !important but idk why
 fix the display in book item modal for empty quotes or author
 
 
@@ -31,8 +28,8 @@ fix the id's and css
 
 progress
 ----------------------> add a property to book items that stores how many pages you read and computes the %
-done: the pages from which book are stored in the progress item of each day in a array of objects
 deal with leap years
+fix the bug with the divider being sometimes bigger
 
 Statistics
 

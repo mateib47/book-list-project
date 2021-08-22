@@ -2,6 +2,9 @@
   text-align: center;
   width: 100%;
 }
+#progress-form{
+    margin-top: 20px;
+}
 .month ul{
   list-style-type: none;
   margin: 0;
@@ -31,6 +34,25 @@
   display: inline-block;
   text-align: center;
   margin:5px;
+}
+.date-divider{
+  display:flex;
+  flex-direction:row;
+  align-items: center;
+}
+.divider{
+  flex-grow:1;
+  height: 1px;
+  background-color: #9f9f9f;
+}
+.details-text{
+  padding-bottom: 15px;
+}
+.details-empty{
+  padding: 15px;
+}
+.item-date{
+  flex-grow: 0;
 }
 .center{
   max-width: 40%;

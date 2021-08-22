@@ -38,7 +38,7 @@ function getColor(pages){
 
 function renderCalendar() {
   const list = document.querySelector('#days-list');
-  const currentDate = getCurrentDate();getDaysInMonth(currentDate.month,currentDate.year)
+  const currentDate = getCurrentDate();
   const progressList = getProgressList();
   let monthCurrent = document.querySelector('#month-name');
   monthCurrent.innerHTML=`${months[currentDate.month]+" "+currentDate.year}`;
@@ -46,11 +46,13 @@ function renderCalendar() {
   for(let i=1;i<=getDaysInMonth(currentDate.month,currentDate.year);i++){
     const node = document.createElement('li');
     let nodeDate = toDateObj(i, currentDate.month, currentDate.year);
-    node.setAttribute('data-key', nodeDate);
+    node.setAttribute('id', 'calendar-item');
     let pages = 0;
-    if(progressList.find(obj => {pages = obj.nrPages; return dateEquals(obj.date,nodeDate)})){
+    let id = 0;
+    if(progressList.find(obj => {pages = obj.nrPages;id = obj.id; return dateEquals(obj.date,nodeDate)})){
       node.setAttribute('class','box');
       node.style.backgroundColor = getColor(pages);
+      node.setAttribute('data-key', id);
     }else{
       node.setAttribute('class','box grey');
     }
@@ -147,18 +149,57 @@ function toDateObj(day,month,year){
   }
 }//transform to zero based value for the month
 
+function dateObjToString(obj){
+  return String(obj.day).padStart(2,'0')+String(obj.month).padStart(2,'0')+obj.year;
+}
+
 function populateSelect(){
   const select = document.querySelector('#select-book');
   select.innerHTML='';
   const bookList = getBookList();
   for (let book of bookList){
-    let opt = document.createElement('option');
-    opt.value = book.title;
-    opt.innerHTML = book.title;
-    select.appendChild(opt);
+    if (book.status == 'present' || book.status == 'future'){
+      let opt = document.createElement('option');
+      opt.value = book.title;
+      opt.innerHTML = book.title;
+      select.appendChild(opt);
+    }
   }
 }
 // FIXME: the dropdown behaviour is not ok
+
+const calendar = document.querySelector('#days-list');
+calendar.addEventListener('click', event => {
+  //console.log(event);
+  if(event.target.id == 'calendar-item'){
+    const id = event.target.dataset.key
+    if(id){
+      const item = progressList.find(obj => obj.id == id);
+      const bookMap = item.books.map(x => x.book);
+      document.querySelector('#progress-item-details').innerHTML = `
+      <div class="date-divider">
+        <p class="item-date">${item.date.day}-${item.date.month+1}-${item.date.year}</p>
+        <div class="divider"></div>
+      </div>
+      <div class="details-text">
+        <p>Pages read this day: ${item.nrPages}</p>
+        <p>From: ${bookMap.join(", ")}</p>
+      </div>
+      <div class="divider"></div>
+      `;
+    }else{
+      document.querySelector('#progress-item-details').innerHTML = `
+        <div class="divider"></div>
+        <div class="details-empty">
+        <p>You had no activity during this day</p>
+        </div>
+        <div class="divider"></div>
+      `;
+    }
+    //console.log(event.target.parentElement.dataset.key)
+
+  }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
   const refProgress = localStorage.getItem('progressRef');
