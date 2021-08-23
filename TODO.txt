@@ -3,7 +3,6 @@ General TODO:
 -auto complete function
 -make a footer
 improve usability
-fix change your name- remove the paragraph with instructions
 -share your book list
 fix the display in book item modal for empty quotes or author
 

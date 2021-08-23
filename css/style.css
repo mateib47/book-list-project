@@ -11,6 +11,14 @@ body{
 #add-book{
   display: none;
 }
+.buttons{
+  display: flex;
+  flex-direction: column;
+}
+.menu-buttons{
+  cursor: pointer;
+  margin-bottom: 25px;
+}
 main{
   max-width: 75%;
   margin: auto;

@@ -158,16 +158,21 @@ bookForm.addEventListener('submit',event => {
   }
 });
 
-const nameForm = document.querySelector('#name-form');
-nameForm.addEventListener('submit',event => {
+function nameForm(inputId){
   event.preventDefault();
-  const input = document.querySelector('#name-input');
+  const input = document.querySelector(inputId);
   const text = input.value.trim();
   if(text !== ''){
     addName(text);
     input.value = '';
   }
-});
+}
+
+const changeNameForm = document.querySelector("#settings-form");
+changeNameForm.addEventListener('submit',event => nameForm('#settings-name-input'));
+
+const addNameForm = document.querySelector("#add-name-form");
+addNameForm.addEventListener('submit',event => nameForm('#add-name-input'));
 
 const list = document.querySelector('.book-list-js');
 list.addEventListener('click', event => {
@@ -193,6 +198,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }else{
     showModal(document.getElementById('navbar'));
-    showModal(document.getElementById('book-form'));
   }
 });
