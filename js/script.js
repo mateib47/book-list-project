@@ -46,17 +46,26 @@ function renderBook(book) {
   <div class="title-author" onclick="showModal(document.getElementById('details-${book.id}'))">
     <p class="book-title">${book.title}</p>
   </div>
-  <button class="delete-button delete-js">Delete</button>
-  <div class="modal" id="details-${book.id}" class="details">
-    <div class="modal-content">
+  <button class="delete-button delete-js">Delete</button>`;
+  let modal=`
+    <div class="modal" id="details-${book.id}" class="details">
+      <div class="modal-content">
       <span class="close" onclick="hideModal(document.getElementById('details-${book.id}'))">&times;</span>
-      <p class="book-author">by ${book.author || 'Anonymus'}</p>
-      <p class="book-rating">Rating: ${book.rating} / 5</p>
-      <p class="book-pages">Pages: ${book.pages || 'unspecified'}</p>
-      <p class="book-quote">'${book.quote || 'no quote'}'</p> <!--FIX these-->
-    </div>
-  </div>
-  `;
+      <p class="book-title">Title: ${book.title}</p>`;
+    if(book.author){
+      modal += `<p class="book-author">by ${book.author}</p>`;
+    }
+    if(book.rating){
+      modal += `<p class="book-rating">Rating: ${book.rating} / 5</p>`;
+    }
+    if(book.pages){
+      modal += `<p class="book-pages">Pages: ${book.pages}</p>`;
+    }
+    if(book.quote){
+      modal += `<p class="book-quote">'${book.quote}'</p>`;
+    }
+    modal += '<div class="aaa"></div>';
+    node.innerHTML += modal;
   if(item){
     list.replaceChild(node,item);
   }else{

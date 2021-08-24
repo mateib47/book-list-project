@@ -4,7 +4,6 @@ General TODO:
 -make a footer
 improve usability
 -share your book list
-fix the display in book item modal for empty quotes or author
 
 
 Author Book List TODO
