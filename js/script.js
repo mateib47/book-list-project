@@ -49,7 +49,7 @@ function renderBook(book) {
   <button class="delete-button delete-js">Delete</button>
   <div class="modal" id="details-${book.id}" class="details">
     <div class="modal-content">
-      <span class="close" id='close-span' onclick="hideModal(document.getElementById('details-${book.id}'))">&times;</span>
+      <span class="close" onclick="hideModal(document.getElementById('details-${book.id}'))">&times;</span>
       <p class="book-author">by ${book.author || 'Anonymus'}</p>
       <p class="book-rating">Rating: ${book.rating} / 5</p>
       <p class="book-pages">Pages: ${book.pages || 'unspecified'}</p>
@@ -67,7 +67,7 @@ function renderBook(book) {
 
 function renderName(user){
   localStorage.setItem('userRef', JSON.stringify(user));
-  const div = document.querySelector('.add-book');
+  const div = document.querySelector('.main-page');
   const title = document.querySelector('#title');
   const item = document.querySelector(`[data-key='${user.id}']`);
   title.innerHTML = `${user.name}'s Book List`;
@@ -78,14 +78,9 @@ function renderName(user){
 }
 
 function displayBookForm(){
-  document.getElementById('add-book').style.display = 'block';
+  document.getElementById('main-page').style.display = 'block';
   document.getElementById('add-name').style.display = 'none';
 }
-
-function displayNameForm(){
-  document.getElementById('add-book').style.display = 'none';
-  document.getElementById('add-name').style.display = 'block';
-}//probably delete these
 
 function addBook(title,author,rating,status,pages,quote){
   const book = {
@@ -114,7 +109,6 @@ function addName(text){
 function changeStatus(key){
   const status = document.getElementById(`${key}`).value;
   const index = bookList.findIndex(book => book.id === Number(key));
-  console.log(status);
   bookList[index].status = status;
   renderBook(bookList[index]);
 }

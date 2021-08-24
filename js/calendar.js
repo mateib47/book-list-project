@@ -170,7 +170,6 @@ function populateSelect(){
 
 const calendar = document.querySelector('#days-list');
 calendar.addEventListener('click', event => {
-  //console.log(event);
   if(event.target.id == 'calendar-item'){
     const id = event.target.dataset.key
     if(id){
@@ -196,8 +195,6 @@ calendar.addEventListener('click', event => {
         <div class="divider"></div>
       `;
     }
-    //console.log(event.target.parentElement.dataset.key)
-
   }
 });
 

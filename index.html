@@ -15,7 +15,7 @@
   </head>
   <body>
     <main>
-      <div id="add-book">
+      <div id="main-page">
         <h1 id="title" class="">My Book List</h1>
         <ul class="book-list-js book-list"></ul>
         <div class="empty-state">
@@ -27,7 +27,7 @@
     </main>
     <div id="add-name" class ="modal">
       <div class="modal-content">
-        <span class="close" id='close-span' onclick="hideModal(document.getElementById('add-name'))">&times;</span>
+        <span class="close" onclick="hideModal(document.getElementById('add-name'))">&times;</span>
         <h1>Welcome to My Book List!</h1>
         <p>Here you can store all the books you've read, and the ones you are reading and planning to read</p>
         <form class="js-form name-form" id="add-name-form">
@@ -37,9 +37,9 @@
         </form>
       </div>
     </div>
-    <div class="modal" id="book-form">
+    <div class="modal" id="add-book">
       <div class="modal-content">
-        <span class="close" id='close-span' onclick="hideModal(document.getElementById('book-form'))">&times;</span>
+        <span class="close" onclick="hideModal(document.getElementById('add-book'))">&times;</span>
         <form class="js-form" id="book-form">
           <label for="book-input" id="book-input-label" class="">Enter the title of a book</label>
           <input id="book-input" class="input" type="text" placeholder="E.g. The Great Gatsby" required>
@@ -74,7 +74,7 @@
     </div>
     <div class="modal" id="progress">
       <div class="modal-content">
-        <span class="close" id='close-span' onclick="hideModal(document.getElementById('progress'))">&times;</span>
+        <span class="close" onclick="hideModal(document.getElementById('progress'))">&times;</span>
         <div id="calendar">
           <div class="month">
             <ul>
@@ -111,13 +111,13 @@
     </div>
     <div class="modal" id="stats">
       <div class="modal-content">
-        <span class="close" id='close-span' onclick="hideModal(document.getElementById('stats'))">&times;</span>
+        <span class="close" onclick="hideModal(document.getElementById('stats'))">&times;</span>
         <p id="total-pages"></p>
       </div>
     </div>
     <div class="modal" id="legend">
       <div class="modal-content">
-        <span class="close" id='close-span' onclick="hideModal(document.getElementById('legend'))">&times;</span>
+        <span class="close" onclick="hideModal(document.getElementById('legend'))">&times;</span>
         <div class="legend-line">
           <div class="box future"></div>
           <p>The books you are planning to read</p>
@@ -134,7 +134,7 @@
     </div>
     <div id="settings" class ="modal">
       <div class="modal-content">
-        <span class="close" id='close-span' onclick="hideModal(document.getElementById('settings'))">&times;</span>
+        <span class="close" onclick="hideModal(document.getElementById('settings'))">&times;</span>
         <form class="js-form name-form" id = "settings-form">
           <label for="settings-name-input" id="name-input-label" class="">Change your name</label>
           <input id="settings-name-input" class="input" type="text" placeholder="E.g. John">
@@ -143,18 +143,18 @@
       </div>
     </div>
     <button type="button" id="open-navbar" class="navbar-button" onclick="showModal(document.getElementById('navbar'))">&#10095;</button>
-    <footer id="navbar"> <!-- TODO: change to nav -->
+    <nav id="navbar">
       <h1>MyBookList</h1>
       <button type="button" id="close-navbar" class="navbar-button" onclick="hideModal(document.getElementById('navbar'))">&#10096;</button>
-      <div class="buttons"> <!-- onclick="hideModal(document.getElementById('navbar'))"-->
-        <button class="menu-buttons" onclick="showModal(document.getElementById('book-form'))">Add Books</button>
+      <div class="buttons">
+        <button class="menu-buttons" onclick="showModal(document.getElementById('add-book'))">Add Books</button>
         <button class="menu-buttons" onclick="showModal(document.getElementById('progress'));populateSelect()">Progress</button>
         <button class="menu-buttons" onclick="showModal(document.getElementById('stats'))">Statistics</button>
         <button class="menu-buttons" onclick="showModal(document.getElementById('settings'))">Settings</button>
         <button class="menu-buttons" onclick="showModal(document.getElementById('legend'))">Help</button>
       </div>
       <p>© Created by Matei Bucur - You can see my book list <a href="author-booklist.html" target="_blank">here</a></p>
-    </footer>
+    </nav>
     <script type="text/javascript" src="js/script.js"></script>
     <script type="text/javascript" src="js/calendar.js"></script>
     <script type="text/javascript" src="js/stats.js"></script>

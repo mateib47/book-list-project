@@ -8,7 +8,7 @@ body{
   margin:0;
   margin-bottom:70px;
 }
-#add-book{
+#main-page{
   display: none;
 }
 .buttons{
@@ -143,7 +143,7 @@ fieldset{
   left:17%;
 
 }
-footer{
+nav {
   top:0;
   left:0;
   height:100%;
@@ -159,20 +159,20 @@ footer{
   text-align: center;
   line-height: 5em;
 }
-footer button{
+nav button{
   border: 0;
   font-size: 20px;
   background-color: #A62121;
   color: white;
 }
-footer h1{
+nav h1{
   font-family: 'Yanone Kaffeesatz';
   text-align:center;
 }
-footer button:hover{
+nav button:hover{
   font-weight: bold;
 }
-footer p{
+nav p{
 }
 .book-list:empty + .empty-state {
   display: flex;
@@ -193,9 +193,6 @@ a{
   height: 100%;
   background-color: rgba(0,0,0,0.4);
   overflow: scroll;
-}
-#book-form{
-  z-index: 1;
 }
 .modal-content{
   background-color: #EBF2DC;
@@ -257,10 +254,10 @@ li .book-item{
   .book-title{
     margin:5px 10px;
   }
-  footer{
+  nav{
     max-width:25%;
   }
-  footer h1{
+  nav h1{
     font-size: 20px;
   }
   #close-navbar{
