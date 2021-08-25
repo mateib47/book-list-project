@@ -64,7 +64,11 @@ function renderBook(book) {
     if(book.quote){
       modal += `<p class="book-quote">'${book.quote}'</p>`;
     }
-    modal += '<div class="aaa"></div>';
+    modal += `
+      <button class="submit" onclick="changeBook(${book.id})">Change</button>
+      </div>
+    </div>
+    `;
     node.innerHTML += modal;
   if(item){
     list.replaceChild(node,item);
@@ -72,6 +76,22 @@ function renderBook(book) {
     list.append(node);
   }
   updateStats();
+}
+
+function changeBook(key){
+  let book = getBookList().find(x => x.id == key);
+  hideModal(document.getElementById("details-"+key));
+  showModal(document.getElementById("add-book"));
+  for(prop in book){
+    if(prop !== 'id' && prop !== 'rating'){
+      console.log('#'+prop+'-input');
+      document.querySelector('#'+prop+'-input').value = book[prop];
+    }else if(prop == 'rating' && book[prop] !== undefined){
+      console.log(book[prop]);
+      document.querySelector('#star'+book[prop]).checked = true;
+    }
+  }
+  deleteBook(key);
 }
 
 function renderName(user){
@@ -135,7 +155,7 @@ function deleteBook(key){
 const bookForm = document.querySelector('#book-form');
 bookForm.addEventListener('submit',event => {
   event.preventDefault();
-  const bookInput = document.querySelector('#book-input');
+  const bookInput = document.querySelector('#title-input');
   const authorInput = document.querySelector('#author-input');
   const quoteInput = document.querySelector('#quote-input');
   const bookName = bookInput.value.trim();
@@ -143,7 +163,7 @@ bookForm.addEventListener('submit',event => {
   const quote = quoteInput.value.trim();
   const radioButtons = document.getElementsByName('star');
   const status = document.querySelector('#status-input').value;
-  const pagesInput = document.querySelector('#total-pages-input');
+  const pagesInput = document.querySelector('#pages-input');
   const pages = pagesInput.value.trim();
   let rating;
   radioButtons.forEach(x => {
@@ -153,10 +173,7 @@ bookForm.addEventListener('submit',event => {
   });
   if(bookName !== '' && status !== ''){
     addBook(bookName,authorName,rating,status,pages,quote);
-    bookInput.value = '';
-    authorInput.value = '';
-    quoteInput.value='';
-    pagesInput.value = '';
+    bookForm.reset();
     bookInput.focus();
   }
 });
