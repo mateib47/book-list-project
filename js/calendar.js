@@ -127,7 +127,7 @@ function addProgress(nrPages,book,date){// FIXME: highly complicated function; m
 const progressForm = document.querySelector('#progress-form');
 progressForm.addEventListener('submit',event => {
   event.preventDefault();
-  const inputPages = document.querySelector('#pages-input');
+  const inputPages = document.querySelector('#nr-pages-input');
   const inputDate = document.querySelector('#date-input');
   const inputBook = document.querySelector('#select-book');
   const book = inputBook.value;
@@ -166,7 +166,6 @@ function populateSelect(){
     }
   }
 }
-// FIXME: the dropdown behaviour is not ok
 
 const calendar = document.querySelector('#days-list');
 calendar.addEventListener('click', event => {

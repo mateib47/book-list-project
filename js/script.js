@@ -84,10 +84,8 @@ function changeBook(key){
   showModal(document.getElementById("add-book"));
   for(prop in book){
     if(prop !== 'id' && prop !== 'rating'){
-      console.log('#'+prop+'-input');
       document.querySelector('#'+prop+'-input').value = book[prop];
     }else if(prop == 'rating' && book[prop] !== undefined){
-      console.log(book[prop]);
       document.querySelector('#star'+book[prop]).checked = true;
     }
   }
