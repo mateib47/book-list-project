@@ -29,6 +29,7 @@ function renderBook(book) {
   const node = document.createElement('li');
   if(book.deleted) {
     item.remove();
+    updateStats();
     return;
   }
   node.setAttribute('class', `book-item ${book.status}`);
