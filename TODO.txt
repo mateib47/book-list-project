@@ -25,7 +25,7 @@ adjust to mobile devices
 fix the id's and css
 
 progress
-----------------------> add a property to book items that stores how many pages you read and computes the %
+when you add progress for a future book it should go to in-progress state automatically
 deal with leap years
 fix the bug with the divider being sometimes bigger
 

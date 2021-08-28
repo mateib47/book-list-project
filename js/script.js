@@ -65,6 +65,13 @@ function renderBook(book) {
     if(book.quote){
       modal += `<p class="book-quote">'${book.quote}'</p>`;
     }
+    if(book.bookmark && book.pages){
+      let percent = calculatePercent(book.bookmark, Number(book.pages));
+      modal += `<p class="book-bookmark">Progress: ${percent}%</p>
+                  <div style="background-color:#DCDCDC;">
+                    <div style="height:24px;width:${percent}%; background-color:#4CAF50; margin-bottom: 20px;"></div>
+                  </div>`;
+    }
     modal += `
       <button class="submit" onclick="changeBook(${book.id})">Change</button>
       </div>
@@ -77,6 +84,21 @@ function renderBook(book) {
     list.append(node);
   }
   updateStats();
+}
+
+function calculatePercent(bookmark, pages){
+  let percent = Math.round(bookmark/pages*100);
+  if(percent > 100){
+    return 100;
+  }else{
+    return percent;
+  }
+}
+
+function addPages(title,pages){
+  const book = getBookList().find(x => x.title == title);
+  book.bookmark += pages;
+  renderBook(book);
 }
 
 function changeBook(key){
@@ -118,7 +140,8 @@ function addBook(title,author,rating,status,pages,quote){
     rating,
     status,
     pages,
-    quote
+    quote,
+    bookmark:0
   }
   bookList.push(book);
   renderBook(book);

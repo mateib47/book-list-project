@@ -95,6 +95,7 @@ function removeProgress(key) {
 
 function addProgress(nrPages,book,date){// FIXME: highly complicated function; make it more readable
   let pages = Number(nrPages);
+  addPages(book,pages);
   let booksRecord = [{book,pages:nrPages}];
   getProgressList().forEach(obj =>
     {
