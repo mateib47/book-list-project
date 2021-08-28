@@ -113,7 +113,7 @@ fieldset{
 .empty-state-img{
   max-width:20%;
   height: auto;
-
+  cursor: pointer;
 }
 .empty-state p{
   margin-bottom: 0;
