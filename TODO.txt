@@ -1,5 +1,4 @@
 General TODO:
--deal with long words that do not wrap
 -auto complete function
 -make a footer
 improve usability
