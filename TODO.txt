@@ -3,6 +3,8 @@ General TODO:
 -make a footer
 improve usability
 -share your book list
+-the dropdown should have an onther field where you can write it
+above dropdown it should be two radio buttons and after selecting one the dropdown should update
 
 
 Author Book List TODO

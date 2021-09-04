@@ -56,6 +56,9 @@ function renderBook(book) {
     if(book.author){
       modal += `<p class="book-author">by ${book.author}</p>`;
     }
+    if(book.genre){
+      modal += `<p class="book-genre">Genre: ${book.genre}</p>`;
+    }
     if(book.rating){
       modal += `<p class="book-rating">Rating: ${book.rating} / 5</p>`;
     }
@@ -106,7 +109,8 @@ function changeBook(key){
   hideModal(document.getElementById("details-"+key));
   showModal(document.getElementById("add-book"));
   for(prop in book){
-    if(prop !== 'id' && prop !== 'rating'){
+    if(prop !== 'id' && prop !== 'rating' && prop !== 'bookmark'){
+      console.log(prop);
       document.querySelector('#'+prop+'-input').value = book[prop];
     }else if(prop == 'rating' && book[prop] !== undefined){
       document.querySelector('#star'+book[prop]).checked = true;
@@ -132,11 +136,12 @@ function displayBookForm(){
   document.getElementById('add-name').style.display = 'none';
 }
 
-function addBook(title,author,rating,status,pages,quote){
+function addBook(title,author,genre,rating,status,pages,quote){
   const book = {
     id : Date.now(),
     title,
     author,
+    genre,
     rating,
     status,
     pages,
@@ -182,6 +187,7 @@ bookForm.addEventListener('submit',event => {
   const quoteInput = document.querySelector('#quote-input');
   const bookName = bookInput.value.trim();
   const authorName = authorInput.value.trim();
+  const genre = document.querySelector('#genre-input').value;
   const quote = quoteInput.value.trim();
   const radioButtons = document.getElementsByName('star');
   const status = document.querySelector('#status-input').value;
@@ -194,7 +200,7 @@ bookForm.addEventListener('submit',event => {
     }
   });
   if(bookName !== '' && status !== ''){
-    addBook(bookName,authorName,rating,status,pages,quote);
+    addBook(bookName,authorName,genre,rating,status,pages,quote);
     bookForm.reset();
     bookInput.focus();
   }
