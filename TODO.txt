@@ -32,4 +32,7 @@ fix the bug with the divider being sometimes bigger
 
 Statistics
 
-make graphs
+remake the stats js; it needs more abstraction;
+top books
+most read authors
+fix design of piechart and legend
