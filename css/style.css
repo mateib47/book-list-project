@@ -249,21 +249,6 @@ a{
   flex-direction: row;
   justify-content: space-between;
 }
-.genre-piechart {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-image: conic-gradient(
-        brown 10deg,
-        yellow 10deg 29deg,
-        green 29deg 49deg,
-        blue 49deg 90deg,
-        pink 90deg 110deg,
-        purple 110deg 125deg,
-        red 125deg 250deg,
-        grey 250deg 360deg
-        );
-}
 .piechart-and-legend{
   display: flex;
   flex-direction: row;

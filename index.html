@@ -9,6 +9,7 @@
     <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <link rel="icon" href="images/tab-icon.png">
     <title>My Book List</title>
@@ -47,14 +48,15 @@
           <input id="author-input" class="input" type="text" placeholder="E.g. F. Scott Fitzgerald">
           <label for="genre-input">Add the genre of the book</label>
           <select class="input" name="genre" id="genre-input">
-            <option value="scientific">Scientific</option>
-            <option value="selfhelp">Self-help</option>
-            <option value="biography">Biography</option>
-            <option value="hystorical">Hystorical</option>
-            <option value="fantasy">Fantasy</option>
-            <option value="scifi">Sci-Fi</option>
-            <option value="romance">Romance</option>
-            <option value="other">Other</option>
+            <option value="Scientific">Scientific</option>
+            <option value="Self-help">Self-help</option>
+            <option value="Biography">Biography</option>
+            <option value="Historical">Historical</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Sci-fi">Sci-Fi</option>
+            <option value="Romance">Romance</option>
+            <option value="Other">Other</option>
           </select>
           <label id="rating-input-label" class="">Rate the book</label>
           <fieldset class="rate" id="star">
@@ -126,17 +128,8 @@
         <p id="total-pages"></p>
         <p id="total-books"></p>
         <div class="piechart-and-legend">
-          <div class="genre-piechart"></div>
-          <div class="genre-legend">
-            <p>scientific: brown</p>
-            <p>selfhelp: yellow</p>
-            <p>biography: green</p>
-            <p>hystorical: blue</p>
-            <p>fantasy: pink</p>
-            <p>scifi: purple</p>
-            <p>romance: red</p>
-            <p>other: grey</p><!-- FIXME: generate this with js -->
-          </div>
+          <canvas id="genrePieChart" style="width:100%;max-width:500px"></canvas>
+
         </div>
       </div>
     </div>
