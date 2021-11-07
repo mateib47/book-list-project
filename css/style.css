@@ -249,11 +249,9 @@ a{
   flex-direction: row;
   justify-content: space-between;
 }
-.piechart-and-legend{
+.chart{
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 767px) {

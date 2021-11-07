@@ -94,6 +94,7 @@ function removeProgress(key) {
 }
 
 function addProgress(nrPages,book,date){// FIXME: highly complicated function; make it more readable
+//if the progress is added for a book whose status is future, it should be changed to present
   let pages = Number(nrPages);
   addPages(book,pages);
   let booksRecord = [{book,pages:nrPages}];

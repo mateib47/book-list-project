@@ -162,10 +162,14 @@ function addName(text){
 }
 
 //adjust
-function changeStatus(key){
-  const status = document.getElementById(`${key}`).value;
+function changeStatus(key, status){
   const index = bookList.findIndex(book => book.id === Number(key));
-  bookList[index].status = status;
+  if(arguments.length == 1){
+    const status = document.getElementById(`${key}`).value;
+    bookList[index].status = status;
+  }else{
+    bookList[index].status = status;
+  }
   renderBook(bookList[index]);
 }
 
