@@ -8,6 +8,9 @@ body{
   margin:0;
   margin-bottom:70px;
 }
+.text{
+  font-size: 20px;
+}
 #main-page{
   display: none;
 }
@@ -252,6 +255,9 @@ a{
 .chart{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 45px;
 }
 
 @media screen and (max-width: 767px) {

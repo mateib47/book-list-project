@@ -5,9 +5,10 @@ let progressMonth = [];
 
 
 function displayGenresPie(){
-  var xValues = ["Scientific","Self-help", "Biography", "Historical", "Fiction", "Philosophy","Fantasy", "Scifi","Romance", "Other"];
-  var yValues = getGenresCount();
-  var barColors = [
+
+  const xValues =  genresCount.map(x => x.name);
+  const yValues =  genresCount.map(x => x.count);
+  const barColors = [
     "#f2d90e",
     "#d47b4a",
     "#c68767",
@@ -30,6 +31,7 @@ function displayGenresPie(){
       }]
     },
     options: {
+      legend: {display: false},
       title: {
         display: true,
         text: "Your most read genres"
@@ -39,9 +41,16 @@ function displayGenresPie(){
 
 }
 
-function displayProgressGraph(){
-  var xValues = progressMonth.map(x => x.count);
-  var yValues = progressMonth.map(x => x.month);
+function displayProgressGraph(){// TODO: display values only in the current year and maybe use shorthand notation(oct, nov, dec)
+  const xValues = progressMonth.map(x => months[x.month]).reverse();
+  const yValues = progressMonth.map(x => x.count);
+  const max = yValues.reduce(function(a, b) {
+    return Math.max(a, b);
+  }, 0);
+  const min = yValues.reduce(function(a, b) {
+    return Math.min(a, b);
+  }, 0);
+
   new Chart("progressGraph", {
     type: "line",
     data: {
@@ -57,15 +66,19 @@ function displayProgressGraph(){
     options: {
       legend: {display: false},
       scales: {
-        yAxes: [{ticks: {min: 6, max:16}}],
+        yAxes: [{ticks: {min: 0, max:Math.ceil(max / 10) * 10}}],
+      },
+      title: {
+        display: true,
+        text: "Your reading progress"
       }
     }
   });
 }
 
+// TODO: remove getters and setters, they are useless
 function setGenreCount(array) {
-  let countArray = array.map(x => x.count);
-  genresCount = countArray;
+  genresCount = array;
 }
 function getGenresCount(){
   return genresCount;
@@ -95,9 +108,7 @@ function updateStats(){
   let monthsProgress = [];
   for(let x of progressList){
     let index = monthsProgress.map(e => e.month).indexOf(x.date['month']);
-    console.log(x.date['month']);
-    if (index > 0) {//// BUG: there are more instances of the same month
-      console.log('foo');
+    if (index >= 0) {
       monthsProgress[index].count += x.nrPages;
     }else{
       monthsProgress.push({month:x.date['month'], count:x.nrPages});
@@ -109,20 +120,18 @@ function updateStats(){
       totalBooks++;
     }
     let index = genres.map(e => e.name).indexOf(x.genre);
-    if (index > 0) {
+    if (index >= 0) {
       genres[index].count++;
     }else{
       genres.push({name:x.genre, count:1});
     }
   }
-  console.log(monthsProgress);
   progressMonth = monthsProgress;
   setGenreCount(genres);
   setTotalPages(totalPages);
   setTotalBooks(totalBooks);
   renderStats();
 }
-//more abstraction needed
 function renderStats(){
   document.getElementById('total-pages').innerHTML
     = `Total pages read: ${getTotalPages()}`;
