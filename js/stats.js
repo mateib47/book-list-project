@@ -2,6 +2,8 @@ let totalPages = 0;
 let totalBooks = 0;
 let genresCount = [];
 let progressMonth = [];
+let topAuthors = [{name:'none', count:-1}];
+let averagePages = 0;
 
 
 function displayGenresPie(){
@@ -106,6 +108,8 @@ function updateStats(){
   let totalBooks = 0;
   let genres =[];
   let monthsProgress = [];
+  let authors =[];
+  let days =0;
   for(let x of progressList){
     let index = monthsProgress.map(e => e.month).indexOf(x.date['month']);
     if (index >= 0) {
@@ -114,31 +118,46 @@ function updateStats(){
       monthsProgress.push({month:x.date['month'], count:x.nrPages});
     }
     totalPages += Number(x.nrPages);
+    days++;
   }
   for(let x of booksList){
     if (x.status === "past"){
       totalBooks++;
     }
-    let index = genres.map(e => e.name).indexOf(x.genre);
-    if (index >= 0) {
-      genres[index].count++;
-    }else{
-      genres.push({name:x.genre, count:1});
-    }
+    updateArray(x.genre, genres);
+    updateArray(x.author, authors);
   }
+  averagePages = totalPages / days;
+  topAuthors = authors.sort((a,b) => b.count-a.count);
   progressMonth = monthsProgress;
   setGenreCount(genres);
   setTotalPages(totalPages);
   setTotalBooks(totalBooks);
   renderStats();
 }
+
+function updateArray(name, array) {
+  if(name !== ''){
+    let index = array.map(e => e.name).indexOf(name);
+    if (index >= 0) {
+      array[index].count++;
+    }else{
+      array.push({name:name, count:1});
+    }
+  }
+}
+
 function renderStats(){
   document.getElementById('total-pages').innerHTML
     = `Total pages read: ${getTotalPages()}`;
   document.getElementById('total-books').innerHTML
       = `Total books read: ${getTotalBooks()}`;
+  document.getElementById('fav-author').innerHTML
+      = `The most read author: ${topAuthors[0].name}`;
+  document.getElementById('average-pages').innerHTML
+      = `Average pages read per day: ${Math.round(averagePages)}`;
   displayGenresPie();
   displayProgressGraph();
 }
 
-window.onload = updateStats();
+//window.onload = updateStats();
