@@ -41,7 +41,7 @@
     <div class="modal" id="add-book">
       <div class="modal-content">
         <span class="close" onclick="hideModal(document.getElementById('add-book'))">&times;</span>
-        <form class="js-form" id="book-form">
+        <form class="js-form" id="book-form" autocomplete="off">
           <label for="title-input" id="title-input-label" class="">Enter the title of a book</label>
           <input id="title-input" class="input" type="text" placeholder="E.g. The Great Gatsby" required>
           <label for="author-input" id="author-input-label" class="">Enter the name of the book's author</label>
@@ -180,6 +180,6 @@
     <script type="text/javascript" src="js/script.js"></script>
     <script type="text/javascript" src="js/calendar.js"></script>
     <script type="text/javascript" src="js/stats.js"></script>
-
+    <script type="text/javascript" src="js/autocomplete.js"></script>
   </body>
 </html>
