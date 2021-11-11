@@ -29,9 +29,25 @@ function handleResponse(response){
 }
 
 function autocomplete(inp, arr) {
-
+  inp.addEventListener("input", function(e) {
+    let val = this.value;
+    addWordToRequest(val);
+    sendRequest();
+    console.log(val);
+    if (!val){return false;}
+    let a = document.createElement("div");
+    a.setAttribute("id", this.id + "autocomplete-list");
+    a.setAttribute("class", "autocomplete-items");
+    this.parentNode.appendChild(a);
+    console.log(a);
+    for (let i = 0; i < 5; i++) {
+      let b = document.createElement("div");
+      b.innerHTML = "<p>" + arr[i] + "</p>";
+      a.appendChild(b);
+    }
+  });
 }
 
-addWordToRequest("crime", "and", "p");
-sendRequest();
+
+autocomplete(document.querySelector('#title-input'), suggestions);
 console.log(suggestions);

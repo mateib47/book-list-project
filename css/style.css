@@ -259,6 +259,20 @@ a{
   align-items: center;
   margin-bottom: 45px;
 }
+.autocomplete-items {
+  position: absolute;
+  z-index: 3;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+}
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
 
 @media screen and (max-width: 767px) {
   .input{

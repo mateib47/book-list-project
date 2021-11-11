@@ -15,9 +15,6 @@ I have to find a way to display the books in a smarter way()send a json file wit
 Ideas
 
 Have a large grid where the most read authors are shown in different sized boxes(maybe the same with genres)
-Input box for the book in progress where you can input how many pages did you read where you can see the %,
-Have a calendar that tracks your progress(similar to git commit)
-
 
 Do not forget
 
@@ -34,5 +31,3 @@ Statistics
 
 remake the stats js; it needs more abstraction;
 top books
-most read authors
-fix design of piechart and legend
