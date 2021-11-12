@@ -261,6 +261,7 @@ a{
 }
 .autocomplete-items {
   position: absolute;
+  width: 10%;
   z-index: 3;
 }
 
@@ -268,10 +269,16 @@ a{
   padding: 10px;
   cursor: pointer;
   background-color: #fff;
+  padding: 25px;
+  margin: -25px;
+
 }
 .autocomplete {
-  position: relative;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+}
+#title-input{
+
 }
 
 @media screen and (max-width: 767px) {

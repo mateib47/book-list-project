@@ -24,30 +24,46 @@ function sendRequest(){
 
 function handleResponse(response){
   for (let i = 0; i < response.items.length; i++) {
-    suggestions.push(response.items[i].volumeInfo.title);
+    suggestions.push(response.items[i]);
   }
 }
 
-function autocomplete(inp, arr) {
+
+
+async function autocomplete(inp) {
   inp.addEventListener("input", function(e) {
+    clearPrevious();
     let val = this.value;
-    addWordToRequest(val);
-    sendRequest();
-    console.log(val);
     if (!val){return false;}
-    let a = document.createElement("div");
-    a.setAttribute("id", this.id + "autocomplete-list");
-    a.setAttribute("class", "autocomplete-items");
-    this.parentNode.appendChild(a);
-    console.log(a);
-    for (let i = 0; i < 5; i++) {
-      let b = document.createElement("div");
-      b.innerHTML = "<p>" + arr[i] + "</p>";
-      a.appendChild(b);
-    }
+    resetRequest();
+    addWordToRequest(val.split(' ').join('+'));
+    sendRequest();
+    let arr = suggestions.map(e => e.volumeInfo.title);
+    setTimeout(function(){
+      let a = document.createElement("div");
+      a.setAttribute("id", this.id + "-autocomplete-list");
+      a.setAttribute("class", "autocomplete-items");
+      document.querySelector('#autocomplete-div').appendChild(a);
+      for (let i = 0; i < 5; i++) {
+        let b = document.createElement("div");
+        b.innerHTML = "<p>" + suggestions[i].volumeInfo.title + "</p>";
+        a.appendChild(b);
+      }
+    }, 5000);
+
+  });
+}
+function clearPrevious() {
+  document.querySelector('#autocomplete-div').innerHTML = '';
+}
+function resolveAfter2Seconds() {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve('resolved');
+    }, 2000);
   });
 }
 
 
-autocomplete(document.querySelector('#title-input'), suggestions);
-console.log(suggestions);
+
+autocomplete(document.querySelector('#title-input'));

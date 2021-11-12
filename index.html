@@ -43,9 +43,8 @@
         <span class="close" onclick="hideModal(document.getElementById('add-book'))">&times;</span>
         <form class="js-form" id="book-form" autocomplete="off">
           <label for="title-input" id="title-input-label" class="">Enter the title of a book</label>
-          <div class="autocomplete">
-            <input id="title-input" class="input" type="text" placeholder="E.g. The Great Gatsby" required>
-          </div>
+          <input id="title-input" class="input" type="text" placeholder="E.g. The Great Gatsby" required>
+            <div class="autocomplete" id="autocomplete-div"></div>
           <label for="author-input" id="author-input-label" class="">Enter the name of the book's author</label>
           <input id="author-input" class="input" type="text" placeholder="E.g. F. Scott Fitzgerald">
           <label for="genre-input">Add the genre of the book</label>
