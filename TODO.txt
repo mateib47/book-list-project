@@ -1,10 +1,10 @@
 General TODO:
--auto complete function
 -make a footer
 improve usability
 -share your book list
 -the dropdown should have an onther field where you can write it
 above dropdown it should be two radio buttons and after selecting one the dropdown should update
+make backend where you can make an account
 
 
 Author Book List TODO

@@ -44,7 +44,7 @@ function displayGenresPie(){
 }
 
 function displayProgressGraph(){// TODO: display values only in the current year and maybe use shorthand notation(oct, nov, dec)
-  const xValues = progressMonth.map(x => months[x.month]).reverse();
+  const xValues = progressMonth.sort((a,b) => a.month-b.month).map(x => months[x.month])
   const yValues = progressMonth.map(x => x.count);
   const max = yValues.reduce(function(a, b) {
     return Math.max(a, b);
