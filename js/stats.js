@@ -4,10 +4,11 @@ let genresCount = [];
 let progressMonth = [];
 let topAuthors = [{name:'none', count:-1}];
 let averagePages = 0;
+let genrePieChart, progressGraph;
 
 
 function displayGenresPie(){
-
+ if(genrePieChart) genrePieChart.destroy();
   const xValues =  genresCount.map(x => x.name);
   const yValues =  genresCount.map(x => x.count);
   const barColors = [
@@ -20,10 +21,10 @@ function displayGenresPie(){
     "#d8853f",
     "#d4e2b3",
     "#f9e3b7",
-    "#3a2e27"
+    "#3a2e27",
+    "#d47b4a"
   ];
-
-  new Chart("genrePieChart", {
+  genrePieChart = new Chart("genrePieChart", {
     type: "pie",
     data: {
       labels: xValues,
@@ -44,6 +45,7 @@ function displayGenresPie(){
 }
 
 function displayProgressGraph(){// TODO: display values only in the current year and maybe use shorthand notation(oct, nov, dec)
+  if(progressGraph) progressGraph.destroy();
   const xValues = progressMonth.sort((a,b) => a.month-b.month).map(x => months[x.month])
   const yValues = progressMonth.map(x => x.count);
   const max = yValues.reduce(function(a, b) {
@@ -53,7 +55,7 @@ function displayProgressGraph(){// TODO: display values only in the current year
     return Math.min(a, b);
   }, 0);
 
-  new Chart("progressGraph", {
+  progressGraph = new Chart("progressGraph", {
     type: "line",
     data: {
       labels: xValues,
