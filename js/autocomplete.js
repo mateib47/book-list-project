@@ -28,8 +28,6 @@ function handleResponse(response){
   }
 }
 
-
-
 async function autocomplete(inp) {
   inp.addEventListener("input", function(e) {
     clearPrevious();
@@ -51,7 +49,6 @@ async function autocomplete(inp) {
         b.addEventListener('click', function(e) {
           let index = this.getElementsByTagName("input")[0].value;
           fillForm(index);
-          //console.log(suggestions[index]);
           clearPrevious();
         });
         a.appendChild(b);

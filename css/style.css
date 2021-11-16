@@ -47,6 +47,11 @@ form{
   border-radius: 5px;
   border: 0;
 }
+.side-by-side{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+}
 .status-book-item{
   border-radius: 5px;
   border: 0;
