@@ -1,6 +1,7 @@
 let request = "https://www.googleapis.com/books/v1/volumes?q=";
 let callback = "&callback=handleResponse";
 let suggestions = [];
+let bookChoice;
 
 function addWordToRequest(){
   for(let i=0; i < arguments.length; i++){
@@ -63,6 +64,7 @@ function fillForm(i) {
   document.getElementById('genre-input').value = suggestions[i].volumeInfo.categories[0];
   document.getElementById('pages-input').value = suggestions[i].volumeInfo.pageCount;
   document.getElementById('api-id').value = suggestions[i].id;
+  bookChoice = suggestions[i];
 }
 
 function clearPrevious() {

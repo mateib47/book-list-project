@@ -25,7 +25,7 @@ window.onclick = function(event){
 function renderBook(book) {
   localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
 //  const apiBook = get the google books object here
-  console.log(apiBook);
+  //console.log(apiBook);
   const list = document.querySelector('.book-list-js');
   const item = document.querySelector(`[data-key='${book.id}']`);
   const node = document.createElement('li');
@@ -54,30 +54,36 @@ function renderBook(book) {
     <div class="modal" id="details-${book.id}" class="details">
       <div class="modal-content">
       <span class="close" onclick="hideModal(document.getElementById('details-${book.id}'))">&times;</span>
-      <p class="book-title">Title: ${book.title}</p>`;
-    if(book.author){
-      modal += `<p class="book-author">by ${book.author}</p>`;
+      <div class='side-by-side'>
+        <div>
+          <p class="book-title">Title: ${book.title}</p>`;
+          if(book.author){
+            modal += `<p class="book-author">by ${book.author}</p>`;
+          }
+          if(book.genre){
+            modal += `<p class="book-genre">Genre: ${book.genre}</p>`;
+          }
+          if(book.rating){
+            modal += `<p class="book-rating">Rating: ${book.rating} / 5</p>`;
+          }
+          if(book.pages){
+            modal += `<p class="book-pages">Pages: ${book.pages}</p>`;
+          }
+          if(book.quote){
+            modal += `<p class="book-quote">'${book.quote}'</p>`;
+          }
+          if(book.bookmark && book.pages){
+            let percent = calculatePercent(book.bookmark, Number(book.pages));
+            modal += `<p class="book-bookmark">Progress: ${percent}%</p>
+                        <div style="background-color:#DCDCDC;">
+                          <div style="height:24px;width:${percent}%; background-color:#4CAF50; margin-bottom: 20px;"></div>
+                        </div>`;
+          }
+          modal += '</div>'
+    if(book.apiBookObj){
+      modal+=`<img src=${book.apiBookObj.volumeInfo.imageLinks.thumbnail}>`;
     }
-    if(book.genre){
-      modal += `<p class="book-genre">Genre: ${book.genre}</p>`;
-    }
-    if(book.rating){
-      modal += `<p class="book-rating">Rating: ${book.rating} / 5</p>`;
-    }
-    if(book.pages){
-      modal += `<p class="book-pages">Pages: ${book.pages}</p>`;
-    }
-    if(book.quote){
-      modal += `<p class="book-quote">'${book.quote}'</p>`;
-    }
-    if(book.bookmark && book.pages){
-      let percent = calculatePercent(book.bookmark, Number(book.pages));
-      modal += `<p class="book-bookmark">Progress: ${percent}%</p>
-                  <div style="background-color:#DCDCDC;">
-                    <div style="height:24px;width:${percent}%; background-color:#4CAF50; margin-bottom: 20px;"></div>
-                  </div>`;
-    }
-    modal += `
+    modal += `</div>
       <button class="submit" onclick="changeBook(${book.id})">Change</button>
       </div>
     </div>
@@ -150,6 +156,11 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId){
     quote,
     apiId,
     bookmark:0
+  }
+  console.log(bookChoice);
+  if (bookChoice){
+    book.apiBookObj = bookChoice;
+    bookChoice = null;
   }
   bookList.push(book);
   renderBook(book);
