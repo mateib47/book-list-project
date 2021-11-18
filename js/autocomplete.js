@@ -63,7 +63,7 @@ function fillForm(i) {
   document.getElementById('author-input').value = suggestions[i].volumeInfo.authors[0];
   document.getElementById('genre-input').value = suggestions[i].volumeInfo.categories[0];
   document.getElementById('pages-input').value = suggestions[i].volumeInfo.pageCount;
-  document.getElementById('api-id').value = suggestions[i].id;
+  document.getElementById('api-id-input').value = suggestions[i].id;
   bookChoice = suggestions[i];
 }
 

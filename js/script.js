@@ -80,7 +80,7 @@ function renderBook(book) {
                         </div>`;
           }
           modal += '</div>'
-    if(book.apiBookObj){
+    if(book.apiBookObj.volumeInfo.imageLinks){
       modal+=`<img src=${book.apiBookObj.volumeInfo.imageLinks.thumbnail}>`;
     }
     modal += `</div>
@@ -208,7 +208,7 @@ bookForm.addEventListener('submit',event => {
   const radioButtons = document.getElementsByName('star');
   const status = document.querySelector('#status-input').value;
   const pages = document.querySelector('#pages-input').value.trim();
-  const apiId = document.querySelector('#api-id').value;
+  const apiId = document.querySelector('#api-id-input').value;
   let rating;
   radioButtons.forEach(x => {
     if(x.checked) {
