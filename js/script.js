@@ -24,8 +24,6 @@ window.onclick = function(event){
 
 function renderBook(book) {
   localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
-//  const apiBook = get the google books object here
-  //console.log(apiBook);
   const list = document.querySelector('.book-list-js');
   const item = document.querySelector(`[data-key='${book.id}']`);
   const node = document.createElement('li');
@@ -117,11 +115,14 @@ function changeBook(key){
   hideModal(document.getElementById("details-"+key));
   showModal(document.getElementById("add-book"));
   for(prop in book){
-    if(prop !== 'id' && prop !== 'rating' && prop !== 'bookmark'){
-      console.log(prop);
-      document.querySelector('#'+prop+'-input').value = book[prop];
-    }else if(prop == 'rating' && book[prop] !== undefined){
+    if(prop == 'rating' && book[prop] !== undefined){
       document.querySelector('#star'+book[prop]).checked = true;
+      continue;
+    } else if (prop == 'apiBookObj' && book[prop] !== undefined) {
+      bookChoice = book[prop];
+      continue;
+    }else if (prop !== 'id' && prop !== 'rating' && prop !== 'bookmark') {
+      document.querySelector('#'+prop+'-input').value = book[prop];
     }
   }
   deleteBook(key);
@@ -157,7 +158,6 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId){
     apiId,
     bookmark:0
   }
-  console.log(bookChoice);
   if (bookChoice){
     book.apiBookObj = bookChoice;
     bookChoice = null;
@@ -208,7 +208,7 @@ bookForm.addEventListener('submit',event => {
   const radioButtons = document.getElementsByName('star');
   const status = document.querySelector('#status-input').value;
   const pages = document.querySelector('#pages-input').value.trim();
-  const apiId = document.querySelector('#api-id-input').value;
+  const apiId = document.querySelector('#apiId-input').value;
   let rating;
   radioButtons.forEach(x => {
     if(x.checked) {
