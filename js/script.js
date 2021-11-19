@@ -81,7 +81,7 @@ function renderBook(book) {
           }
           modal += '</div>'
     if(book.apiBookObj.volumeInfo.imageLinks){
-      modal+=`<img src=${book.apiBookObj.volumeInfo.imageLinks.thumbnail}>`;
+      modal+=`<img class='book-img' src=${book.apiBookObj.volumeInfo.imageLinks.thumbnail}>`;
     }
     modal += `</div>
       <button class="submit" onclick="changeBook(${book.id})">Change</button>

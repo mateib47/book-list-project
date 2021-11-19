@@ -1,16 +1,32 @@
+:root {
+  --main: #565c5e;
+  --white: #dfdbd8;
+  --background: #d8c7c1 ;
+  --black: #204040;
+  --red: #a24f5e;
+  --green: #455954;
+  --lightgreen: #76a37c;
+  --transparent: rgba(0,0,0,0.4);
+  --modal: #edeae9;
+  --yellow: #d8b26e;
+  --grey: #bababa;
+  --orange: #d37556;
+}
+
 html{
   scroll-behavior: smooth;
 }
 body{
-  background-color: #D9C8A9;
+  background-color:var(--background);
   font-family: monospace;
-  color:#204040;
+  color:var(--black);
   margin:0;
   margin-bottom:70px;
 }
-img{
-  width: 100%;
+.book-img{
+  max-width: 100%;
   height: auto;
+  object-fit: contain;
 }
 .text{
   font-size: 20px;
@@ -73,7 +89,7 @@ form{
   align-items:  center;
 }
 .modal-content {
-  color:black;
+  color:var(--black);
 }
 fieldset{
   border: 0;
@@ -84,7 +100,6 @@ fieldset{
   flex-direction: row;
   align-items: center;
   justify-content:  center;
-  color: #204040;
   padding: 1em;
   font-size: 30px;
   max-width: 100%;
@@ -102,15 +117,15 @@ fieldset{
   transform: scale(1.5);
 }
 .delete-button{
-  background-color: #A62121;
-  color: white;
+  background-color: var(--red);
+  color: var(--white);
   border:0;
   padding:1em;
 }
 .submit{
-  background-color: #A62121;
+  background-color: var(--green);
   border: none;
-  color: white;
+  color: var(--white);
   padding: 10px 25px;
   text-align: center;
   text-decoration: none;
@@ -121,7 +136,7 @@ fieldset{
   transition: 0.5s;
 }
 .submit:hover{
-  background-color:#4CAF50;
+  background-color:var(--lightgreen);
 }
 .empty-state-img{
   max-width:20%;
@@ -146,8 +161,8 @@ fieldset{
   position:fixed;
   font-size: 30px;
   font-weight: bold;
-  color: #FFF;
-  background-color: #A62121;
+  color: var(--white);
+  background-color: var(--main);
   border-radius: 10px;
   padding:0.5em;
   border: 0;
@@ -161,8 +176,8 @@ nav {
   left:0;
   height:100%;
   position: fixed;
-  background-color:#A62121;
-  color: white;
+  background-color:var(--main);
+  color: var(--white);
   display: none;
   align-items: center;
   max-width:15%;
@@ -175,8 +190,8 @@ nav {
 nav button{
   border: 0;
   font-size: 20px;
-  background-color: #A62121;
-  color: white;
+  background-color: var(--main);
+  color: var(--white);
 }
 nav h1{
   font-family: 'Yanone Kaffeesatz';
@@ -191,7 +206,7 @@ nav p{
   display: flex;
 }
 a{
-  color: white;
+  color: var(--white);
   font-style: italic;
   text-decoration: none;
 }
@@ -204,24 +219,24 @@ a{
   z-index: 2;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.4);
+  background-color: var(--transparent);
   overflow: scroll;
 }
 .modal-content{
-  background-color: #EBF2DC;
+  background-color: var(--modal);
   margin: auto;
   padding:15px;
   width:50%;
   border-radius: 10px;
 }
 .close{
-  color: #aaaaaa;
+  color: var(--main);
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 .close:hover{
-  color: black;
+  color: var(--black);
   cursor: pointer;
 }
 .box{
@@ -233,22 +248,13 @@ a{
   background-color: #202e23;
 }
 .past{
-  background-color: #8AE35C;
+  background-color: var(--lightgreen);
 }
 .future{
-  background-color: #FF795D;
+  background-color: var(--orange);
 }
 .present{
-  background-color: #FFEF6C;
-}
-.light-grey{
-  background-color: hsl(180,33%,30%);
-}
-.brown{
-  background-color: #BF8450;
-}
-.green{
-  background-color: #4CAF50;
+  background-color: var(--yellow);
 }
 .legend-line{
   display: flex;
@@ -277,7 +283,7 @@ a{
 .autocomplete-items div {
   padding: 10px;
   cursor: pointer;
-  background-color: #fff;
+  background-color: var(--white);
   padding: 25px;
   margin: -25px;
 
