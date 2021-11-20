@@ -108,7 +108,7 @@ fieldset{
 }
 .book-title{
   margin: 10px 20px;
-  word-break: break-all;
+  overflow-wrap: break-word;
 }
 .book-author{
   font-style: italic;
