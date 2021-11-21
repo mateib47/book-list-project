@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
   <head>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="css/rating.css">
@@ -18,6 +19,9 @@
     <main>
       <div id="main-page">
         <h1 id="title" class="">My Book List</h1>
+        <form th:action="@{/logout}" method="post">
+          <input type="submit" value="Sign Out"/>
+        </form>
         <ul class="book-list-js book-list"></ul>
         <div class="empty-state">
           <h1>Add some books!</h1>
