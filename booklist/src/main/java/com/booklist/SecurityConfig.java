@@ -21,12 +21,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().antMatcher("/**").authorizeRequests()
-                .antMatchers("/","index.html").authenticated()
+                .antMatchers("/","/index").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login().permitAll()
-                .and().
-                logout().logoutSuccessUrl("/");
+                .and()
+                .logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutSuccessUrl("/");
     }
 
     @Override
