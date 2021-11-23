@@ -18,7 +18,7 @@ html{
 }
 body{
   background-color:var(--background);
-  font-family: monospace;
+  font-family: sans-serif;
   color:var(--black);
   margin:0;
   margin-bottom:70px;
@@ -203,6 +203,9 @@ nav button:hover{
 nav p{
 }
 .book-list:empty + .empty-state {
+  display: flex;
+}
+#average-pages:empty + .empty-state {
   display: flex;
 }
 a{

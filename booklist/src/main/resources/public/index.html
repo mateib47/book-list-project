@@ -19,9 +19,6 @@
     <main>
       <div id="main-page">
         <h1 id="title" class="">My Book List</h1>
-        <form th:action="@{/logout}" method="post">
-          <input type="submit" value="Sign Out"/>
-        </form>
         <ul class="book-list-js book-list"></ul>
         <div class="empty-state">
           <h1>Add some books!</h1>
@@ -135,6 +132,9 @@
         <p id="total-books" class="text"></p>
         <p id="fav-author" class="text"></p>
         <p id="average-pages" class="text"></p>
+        <div class="empty-state">
+          <p>Add some books in order to see some statistics!</p>
+        </div>
         <div class="chart">
           <canvas id="genrePieChart" style="width:100%;max-width:500px"></canvas>
         </div>
