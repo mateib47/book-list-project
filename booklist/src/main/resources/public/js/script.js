@@ -34,6 +34,7 @@ function renderBook(book) {
   }
   node.setAttribute('class', `book-item ${book.status}`);
   node.setAttribute('data-key', book.id);
+  console.log(book);
   node.innerHTML = `
   <form class="change-status-js">
     <label for="${book.id}" class=""></label>
@@ -52,8 +53,8 @@ function renderBook(book) {
     <div class="modal" id="details-${book.id}" class="details">
       <div class="modal-content">
       <span class="close" onclick="hideModal(document.getElementById('details-${book.id}'))">&times;</span>
-      <div class='side-by-side'>
-        <div>
+      <div class='side-by-side' style="margin-bottom: 40px;">
+        <div class="text">
           <p class="book-title">Title: ${book.title}</p>`;
           if(book.author){
             modal += `<p class="book-author">by ${book.author}</p>`;
@@ -74,15 +75,21 @@ function renderBook(book) {
             let percent = calculatePercent(book.bookmark, Number(book.pages));
             modal += `<p class="book-bookmark">Progress: ${percent}%</p>
                         <div style="background-color:#DCDCDC;">
-                          <div style="height:24px;width:${percent}%; background-color:#4CAF50; margin-bottom: 20px;"></div>
+                          <div style="height:24px;width:${percent}%; background-color:var(--lightgreen); margin-bottom: 20px;"></div>
                         </div>`;
           }
           modal += '</div>'
     if(book.apiBookObj.volumeInfo.imageLinks){
-      modal+=`<img class='book-img' src=${book.apiBookObj.volumeInfo.imageLinks.thumbnail}>`;
+      modal+=`<div class="">
+                <img class='book-img' src=${book.apiBookObj.volumeInfo.imageLinks.thumbnail}>
+                <div class="side-by-side">
+                    <button class="submit green-bck" onclick="window.open('${book.apiBookObj.volumeInfo.previewLink}', '_blank')">Preview</button>
+                    <button class="submit green-bck">Buy Now</button>
+                 </div>   
+              </div>`;
     }
     modal += `</div>
-      <button class="submit" onclick="changeBook(${book.id})">Change</button>
+      <button class="submit red-bck" onclick="changeBook(${book.id})">Change</button>
       </div>
     </div>
     `;
