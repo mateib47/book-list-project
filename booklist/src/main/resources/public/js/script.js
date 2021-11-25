@@ -36,6 +36,9 @@ function renderBook(book) {
   node.setAttribute('data-key', book.id);
   console.log(book);
   node.innerHTML = `
+  <div class="img-pod">
+    <img class='' src=${book.apiBookObj.volumeInfo.imageLinks.smallThumbnail}>
+   </div>
   <form class="change-status-js">
     <label for="${book.id}" class=""></label>
     <select class="status-book-item dropdown-js" name="status" id="${book.id}" onchange='changeStatus("${book.id}")'>
@@ -48,7 +51,8 @@ function renderBook(book) {
   <div class="title-author" onclick="showModal(document.getElementById('details-${book.id}'))">
     <p class="book-title">${book.title}</p>
   </div>
-  <button class="delete-button delete-js">Delete</button>`;
+  <button class="delete-button delete-js">Delete</button>
+`;
   let modal=`
     <div class="modal" id="details-${book.id}" class="details">
       <div class="modal-content">
