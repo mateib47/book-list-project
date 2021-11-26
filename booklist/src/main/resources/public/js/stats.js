@@ -2,6 +2,7 @@ let totalPages = 0;
 let totalBooks = 0;
 let genresCount = [];
 let progressMonth = [];
+let topBooks = [];
 let topAuthors = [{name:'none', count:-1}];
 let averagePages = 0;
 let genrePieChart, progressGraph;
@@ -129,6 +130,7 @@ function updateStats(){
     updateArray(x.genre, genres);
     updateArray(x.author, authors);
   }
+  topBooks = bookList.sort((a,b) => b.rating - a.rating).slice(0,10);
   averagePages = totalPages / days;
   topAuthors = authors.sort((a,b) => b.count-a.count);
   progressMonth = monthsProgress;
@@ -158,6 +160,12 @@ function renderStats(){
       = `The most read author: ${topAuthors[0].name}`;
   document.getElementById('average-pages').innerHTML
       = `Average pages read per day: ${Math.round(averagePages)}`;
+   let topBooksDiv = document.getElementById('top-books').innerHTML;
+     topBooksDiv += `<p>Your favourite books: </p><ol>`;
+ for(let i=0;i<10;i++){
+  topBooksDiv += `<li>${i}) ${topBooks[i]}</li>`;
+ }
+ topBooksDiv += '</ol>';
   displayGenresPie();
   displayProgressGraph();
 }
