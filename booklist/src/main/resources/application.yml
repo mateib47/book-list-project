@@ -8,10 +8,12 @@ server:
 
 spring:
   datasource:
-    password: 2plKsgaKZYuRy6EY
-    url: jdbc:postgresql://bronto.ewi.utwente.nl/registration
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://bronto.ewi.utwente.nl/
     username: dab_di20212b_85
+    password: 2plKsgaKZYuRy6EY
   jpa:
+    database: POSTGRESQL
     hibernate:
       ddl-auto: create-drop
     properties:
