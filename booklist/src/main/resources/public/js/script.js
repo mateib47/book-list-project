@@ -34,7 +34,6 @@ function renderBook(book) {
   }
   node.setAttribute('class', `book-item ${book.status}`);
   node.setAttribute('data-key', book.id);
-  console.log(book);
   node.innerHTML = `
   <div class="img-pod">
     <img class='' src=${book.apiBookObj.volumeInfo.imageLinks.smallThumbnail}>
