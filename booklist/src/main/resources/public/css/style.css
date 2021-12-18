@@ -119,6 +119,7 @@ fieldset{
   border-radius: 100%;
   transform: translateY(-70%) translateX(-140%);
 }
+/*
 .book-item img{
   height: 100px;
   width: 100px;
@@ -129,6 +130,7 @@ fieldset{
   border-radius: 100%;
   box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
 }
+ */
 .book-title{
   margin: 10px 20px;
   overflow-wrap: break-word;

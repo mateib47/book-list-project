@@ -1,5 +1,5 @@
 let request = "https://www.googleapis.com/books/v1/volumes?q=";
-let callback = "&callback=handleResponse";
+let callback = "&callback=handleResponse&langRestrict=en";
 let suggestions = [];
 let bookChoice;
 

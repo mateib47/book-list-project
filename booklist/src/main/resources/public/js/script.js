@@ -35,9 +35,6 @@ function renderBook(book) {
   node.setAttribute('class', `book-item ${book.status}`);
   node.setAttribute('data-key', book.id);
   node.innerHTML = `
-  <div class="img-pod">
-    <img class='' src=${book.apiBookObj.volumeInfo.imageLinks.smallThumbnail}>
-   </div>
   <form class="change-status-js">
     <label for="${book.id}" class=""></label>
     <select class="status-book-item dropdown-js" name="status" id="${book.id}" onchange='changeStatus("${book.id}")'>

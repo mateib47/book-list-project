@@ -16,10 +16,10 @@ import java.util.Collections;
 @NoArgsConstructor
 @Entity
 public class AppUser implements UserDetails{
-    @Id
     @SequenceGenerator(name = "person_sequence",
             sequenceName = "person_sequence",
             allocationSize = 1)
+    @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "person_sequence")
