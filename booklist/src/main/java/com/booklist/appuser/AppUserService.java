@@ -48,4 +48,7 @@ public class AppUserService implements UserDetailsService {
         //email
         return token;
     }
+    public int enableAppUser(String email) {
+        return appUserRepository.enableAppUser(email);
+    }
 }
