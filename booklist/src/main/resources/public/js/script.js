@@ -34,10 +34,11 @@ function renderBook(book) {
   }
   node.setAttribute('class', `book-item ${book.status}`);
   node.setAttribute('data-key', book.id);
+  node.setAttribute('onclick', `showModal(document.getElementById('details-${book.id}'))`);
   node.innerHTML = `
   <form class="change-status-js">
     <label for="${book.id}" class=""></label>
-    <select class="status-book-item dropdown-js" name="status" id="${book.id}" onchange='changeStatus("${book.id}")'>
+    <select onclick="event.stopPropagation();" class="status-book-item dropdown-js" name="status" id="${book.id}" onchange='changeStatus("${book.id}")'>
       <option value="">Change Status</option>
       <option value="present">In Progress</option>
       <option value="past">Finished</option>
