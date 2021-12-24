@@ -27,6 +27,7 @@ public class EmailService implements EmailSender{
             helper.setTo(to);
             helper.setSubject("Confirm your email");
             helper.setFrom("fat.rhino.studios@gmail.com");
+            mailSender.send(mimeMessage);
         } catch(MessagingException e){
             LOGGER.error("Fail to send email", e);
             throw new IllegalStateException(e);
