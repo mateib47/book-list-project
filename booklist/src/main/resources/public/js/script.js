@@ -27,6 +27,7 @@ function renderBook(book) {
   const list = document.querySelector('.book-list-js');
   const item = document.querySelector(`[data-key='${book.id}']`);
   const node = document.createElement('li');
+  const buyLink = 'https://www.amazon.com/s?k=' + book.title.split(" ").join('+');
   if(book.deleted) {
     item.remove();
     updateStats();
@@ -56,7 +57,10 @@ function renderBook(book) {
       <span class="close" onclick="hideModal(document.getElementById('details-${book.id}'))">&times;</span>
       <div class='side-by-side' style="margin-bottom: 40px;">
         <div class="text">
-          <p class="book-title">Title: ${book.title}</p>`;
+          <h2 class="book-title">${book.title}</h2>`;
+          if(book.apiBookObj.volumeInfo.subtitle){
+            modal += `<p class="">${book.apiBookObj.volumeInfo.subtitle}</p>`;
+          }
           if(book.author){
             modal += `<p class="book-author">by ${book.author}</p>`;
           }
@@ -70,7 +74,7 @@ function renderBook(book) {
             modal += `<p class="book-pages">Pages: ${book.pages}</p>`;
           }
           if(book.quote){
-            modal += `<p class="book-quote">'${book.quote}'</p>`;
+            modal += `<p class="book-quote">Favourite quote: '${book.quote}'</p>`;
           }
           if(book.bookmark && book.pages){
             let percent = calculatePercent(book.bookmark, Number(book.pages));
@@ -85,11 +89,15 @@ function renderBook(book) {
                 <img class='book-img' src=${book.apiBookObj.volumeInfo.imageLinks.thumbnail}>
                 <div class="side-by-side">
                     <button class="submit green-bck" onclick="window.open('${book.apiBookObj.volumeInfo.previewLink}', '_blank')">Preview</button>
-                    <button class="submit green-bck">Buy Now</button>
+                    <button class="submit green-bck" onclick="window.open('${buyLink}', '_blank')">Buy Now</button>
                  </div>   
               </div>`;
     }
-    modal += `</div>
+    modal += '</div>';
+  if(book.apiBookObj.searchInfo){
+    modal += `<p class="text">${book.apiBookObj.searchInfo.textSnippet}</p>`;
+  }
+    modal += `
       <button class="submit red-bck" onclick="changeBook(${book.id})">Change</button>
       </div>
     </div>
