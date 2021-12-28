@@ -10,4 +10,8 @@ public class LoginController {
     public String login() {
         return "login";
     }
+    @GetMapping("/api/v1/registration")
+    public String registration() {
+        return "registration";
+    }
 }
