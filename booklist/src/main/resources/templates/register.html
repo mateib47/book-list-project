@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" type="text/css" href="../public/css/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="../public/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -11,7 +11,7 @@
 </head>
 <body>
   <div class="container">
-    <form class="form-signin" method="post" action="/register">
+    <form id="register-form" class="form-signin" method="post" action="/login">
       <h2 class="form-signin-heading">Register new account</h2>
       <label for="first-name" class="sr-only">First Name</label>
       <input type="text" id="first-name" class="form-control input" placeholder="First Name" required="" autofocus="">
@@ -24,5 +24,6 @@
       <button class="btn btn-lg btn-primary submit" type="submit">Create Account</button>
     </form>
   </div>
+  <script type="text/javascript" src="js/registration.js"></script>
 </body>
 </html>
