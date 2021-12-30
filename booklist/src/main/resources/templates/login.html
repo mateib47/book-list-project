@@ -17,9 +17,17 @@
             <input type="text" id="username" name="username" class="form-control input" placeholder="Username" required="" autofocus="">
             <label for="password" class="sr-only">Password</label>
             <input type="password" id="password" name="password" class="form-control input" placeholder="Password" required="">
-            <a style="color: var(--lightgreen); text-align: end" href="/register">Make a new account</a>
+            <p>Don't have an account? <a style="color: var(--lightgreen); text-align: end" href="/register">Sign Up</a></p>
             <button class="btn btn-lg btn-primary submit" type="submit">Sign in</button>
         </form>
+        <div th:if="${param.error}" class="alert alert-danger">
+            Invalid username and password.
+        </div>
+        <div th:if="${param[0] == 'verify-email'}" class="alert alert-info">
+            <h1>Registration email sent to ${email}. Open this email to finish signup.</h1>' +
+            '<p>If you don’t see this email in your inbox within 15 minutes, look for it in your junk mail folder.
+            If you find it there, please mark the email as “Not Junk”.</p>
+        </div>
     </div>
     </body>
 </html>
