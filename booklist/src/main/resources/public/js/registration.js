@@ -16,7 +16,7 @@ form.addEventListener('submit', (event) => {
         }
     };
     xhr.send(JSON.stringify(jsonInputString));
-    window.location.href="http://localhost:8080/login?error=verify-email";
+    window.location.href="http://localhost:8080/login";
     //snackbarVerifyEmail();
 });
 
