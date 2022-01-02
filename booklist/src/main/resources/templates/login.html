@@ -11,7 +11,7 @@
     <body>
     <div class="row justify-content-center">
         <div class="col col-md-6 text-center">
-            <form id="login-form" method="post" th:action="@{/login}">
+            <form id="login-form" method="post" th:action="@{/login}" onsubmit="saveEmail()">
                 <h1 class="display-4 py-4">Welcome to My Book List</h1>
                 <h2>Sign in</h2>
                 <div class="input-group" style="margin-bottom: 25px">

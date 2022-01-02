@@ -145,7 +145,6 @@ function changeBook(key){
 }
 
 function renderName(user){
-  localStorage.setItem('userRef', JSON.stringify(user));
   const div = document.querySelector('.main-page');
   const title = document.querySelector('#title');
   const item = document.querySelector(`[data-key='${user.id}']`);
@@ -188,6 +187,7 @@ function addName(text){
     name:text
   }
   this.user = user;
+  localStorage.setItem('userRef', JSON.stringify(user));
   renderName(user);
 }
 
@@ -262,14 +262,43 @@ list.addEventListener('click', event => {
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+
+function getFirstName(email, callback){
+  let xhr = new XMLHttpRequest();
+  let url = 'http://localhost:8080/api/v1/appUser/firstName?email=' + email;
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      callback(xhr.responseText);
+    }
+  };
+  xhr.open("GET", url, true);
+  xhr.send('');
+}
+
+function setName(name){
+  renderName({name})
+}
+/*
+  if user not logged in, is asked for name
+  and it s stored in localstorage, otherwise
+  is got from database
+ */
+
+function domListener() {
   const refBook = localStorage.getItem('bookItemsRef');
   const refUser = localStorage.getItem('userRef');
-  if (refUser) {
-    user = JSON.parse(refUser);
-    renderName(user);
+  const refEmail = localStorage.getItem('emailRef');
+  console.log(refEmail);
+  if(refEmail) {
+    const emailObj = JSON.parse(refEmail);
+    getFirstName(emailObj.email, setName);
   }else{
-    showModal(document.getElementById('add-name'));
+    if (refUser) {
+      user = JSON.parse(refUser);
+      renderName(user);
+    }else{
+      showModal(document.getElementById('add-name'));
+    }
   }
   if (refBook) {
     bookList = JSON.parse(refBook);
@@ -279,4 +308,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }else{
     showModal(document.getElementById('navbar'));
   }
-});
+}
+
+document.addEventListener('DOMContentLoaded', domListener);
