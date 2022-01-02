@@ -11,7 +11,7 @@
     <body>
     <div class="row justify-content-center">
         <div class="col col-md-6 text-center">
-            <form method="post" th:action="@{/login}">
+            <form id="login-form" method="post" th:action="@{/login}">
                 <h1 class="display-4 py-4">Welcome to My Book List</h1>
                 <h2>Sign in</h2>
                 <div class="input-group" style="margin-bottom: 25px">
@@ -30,7 +30,8 @@
                     </div>
                     <input type="password" id="password" name="password" class="form-control" placeholder="password" style="padding: 0;">
                 </div>
-                <p>Don't have an account? <a style="color: var(--lightgreen); text-align: end" href="/register">Sign Up</a></p>
+                <p>Don't have an account? <a style="color: var(--lightgreen);" href="/register">Sign Up</a></p>
+                <a style="color: var(--lightgreen);" onclick="noLogin()">Continue without an account</a>
                 <button class="btn btn-lg btn-primary submit" type="submit">Sign in</button>
             </form>
 
@@ -41,5 +42,6 @@
     <div th:if="${param.error}" class="alert alert-danger">
         Invalid username and password.
     </div>
+    <script type="text/javascript" src="js/login.js"></script>
     </body>
 </html>

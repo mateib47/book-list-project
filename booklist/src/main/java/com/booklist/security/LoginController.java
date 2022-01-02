@@ -13,4 +13,5 @@ public class LoginController {
     public String register() {
         return "register";
     }
+
 }
