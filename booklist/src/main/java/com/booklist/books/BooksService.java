@@ -4,6 +4,8 @@ import com.booklist.appuser.AppUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class BooksService {
@@ -22,5 +24,8 @@ public class BooksService {
                 appUserRepository.findByEmail(booksRequest.getEmail()).get());
         booksRepository.save(book);
         return "success";
+    }
+    public List<Object[]> getBooks(String email){
+        return booksRepository.getAllByAppUser(appUserRepository.findByEmail(email).get());
     }
 }
