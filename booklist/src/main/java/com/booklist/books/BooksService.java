@@ -18,8 +18,7 @@ public class BooksService {
                 booksRequest.getPages(),
                 booksRequest.getQuote(),
                 booksRequest.getStatus(),
-                booksRequest.getTitle(),
-                appUserRepository.findByEmail(booksRequest.getEmail()).get());
+                booksRequest.getTitle());
         booksRepository.save(book);
         return "success";
     }

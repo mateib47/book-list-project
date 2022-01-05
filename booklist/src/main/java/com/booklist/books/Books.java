@@ -12,18 +12,15 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
+@Table(name = "books")
 public class Books {
     private String apiId;
     private String author;
     private int bookmark;
     private String genre;
-    @SequenceGenerator(name = "book_sequence",
-            sequenceName = "book_sequence",
-            allocationSize = 1)
     @Id
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "book_sequence")
+            strategy = GenerationType.IDENTITY)
     private Long id;
     private int pages;
     private String quote;
@@ -31,14 +28,8 @@ public class Books {
     private BookStatus status;
     private String title;
 
-    @ManyToOne
-    @JoinColumn(
-            nullable = false,
-            name = "app_user_id"
-    )
-    private AppUser appUser;
 
-    public Books(String apiId, String author, int bookmark, String genre, int pages, String quote, BookStatus status, String title, AppUser appUser) {
+    public Books(String apiId, String author, int bookmark, String genre, int pages, String quote, BookStatus status, String title) {
         this.apiId = apiId;
         this.author = author;
         this.bookmark = bookmark;
@@ -47,7 +38,6 @@ public class Books {
         this.quote = quote;
         this.status = status;
         this.title = title;
-        this.appUser = appUser;
     }
 
     public String getAuthor() {
