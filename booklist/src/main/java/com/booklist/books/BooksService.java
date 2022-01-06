@@ -25,7 +25,7 @@ public class BooksService {
         booksRepository.save(book);
         return "success";
     }
-    public List<Object[]> getBooks(String email){
+    public List<Books[]> getBooks(String email){
         return booksRepository.getAllByAppUser(appUserRepository.findByEmail(email).get());
     }
 }

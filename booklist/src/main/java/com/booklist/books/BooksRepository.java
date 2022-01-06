@@ -12,9 +12,7 @@ import java.util.Optional;
 @Repository
 public interface BooksRepository extends JpaRepository<Books, Long> {
     Optional<Books> findById(Long id);
-
-
-    List<Object[]> getAllByAppUser(AppUser appUser);
+    List<Books[]> getAllByAppUser(AppUser appUser);
 
 
 }

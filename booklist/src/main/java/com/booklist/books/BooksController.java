@@ -3,8 +3,6 @@ package com.booklist.books;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -20,8 +18,16 @@ public class BooksController {
     }
 
     @GetMapping(path = "get")
-    public List<Object []> getBooks(@RequestParam("email") String email){
-        System.out.println(Arrays.toString(booksService.getBooks(email).toArray()));
-        return booksService.getBooks(email);
+    public String getBooks(@RequestParam("email") String email){
+        List<Books []> books = booksService.getBooks(email);
+        String JsonObj = "{";
+        for(int i=0;i<books.size();i++){
+            JsonObj = JsonObj + books.get(i)[0].getBook();
+            if(i != books.size()){
+                JsonObj+= ",";
+            }
+        }
+        JsonObj += "}";
+        return JsonObj;
     }
 }

@@ -49,6 +49,19 @@ public class Books {
         this.title = title;
         this.appUser = appUser;
     }
+    public String getBook(){
+        String json = "{";
+        json = json + "\"apiId\":" + '"' + this.apiId+ "\",";
+        json = json + "\"author\":"+ '"' + this.author+ "\",";
+        json = json + "\"bookmark\":"+ '"' + this.bookmark+ "\",";
+        json = json + "\"genre\":"+ '"' + this.genre+ "\",";
+        json = json + "\"pages\":"+ '"' + this.pages+ "\",";
+        json = json + "\"quote\":"+ '"' + this.quote+ "\",";
+        json = json + "\"status\":"+ '"' + this.status+ "\",";
+        json = json + "\"title\":"+ '"' + this.title+ '"';
+        json+="}";
+        return json;
+    }
 
     public String getAuthor() {
         return author;
