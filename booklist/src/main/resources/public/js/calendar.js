@@ -160,7 +160,7 @@ function populateSelect(){
   select.innerHTML='';
   const bookList = getBookList();
   for (let book of bookList){
-    if (book.status == 'present' || book.status == 'future'){
+    if (book.status == 'PRESENT' || book.status == 'FUTURE'){
       let opt = document.createElement('option');
       opt.value = book.title;
       opt.innerHTML = book.title;

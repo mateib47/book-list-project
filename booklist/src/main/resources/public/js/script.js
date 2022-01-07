@@ -41,9 +41,9 @@ function renderBook(book) {
     <label for="${book.id}" class=""></label>
     <select onclick="event.stopPropagation();" class="status-book-item dropdown-js" name="status" id="${book.id}" onchange='changeStatus("${book.id}")'>
       <option value="">Change Status</option>
-      <option value="present">In Progress</option>
-      <option value="past">Finished</option>
-      <option value="future">Not started</option>
+      <option value="PRESENT">In Progress</option>
+      <option value="PAST">Finished</option>
+      <option value="FUTURE">Not started</option>
     </select>
   </form>
   <div class="title-author" onclick="showModal(document.getElementById('details-${book.id}'))">
@@ -161,8 +161,8 @@ function displayBookForm(){
 }
 
 function addBook(title,author,genre,rating,status,pages,quote, apiId){
+  const refEmail = localStorage.getItem('emailRef');
   const book = {
-    id : Date.now(),
     title,
     author,
     genre,
@@ -173,12 +173,19 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId){
     apiId,
     bookmark:0
   }
-  if (bookChoice){
-    book.apiBookObj = bookChoice;
-    bookChoice = null;
+  if(refEmail){
+    let emailObj = JSON.parse(refEmail);
+    book.email = emailObj.email;
+    postBook(book);
+  }else{
+    book.id = Date.now();
+    if (bookChoice){
+      book.apiBookObj = bookChoice;
+      bookChoice = null;
+    }
+    bookList.push(book);
+    renderBook(book);
   }
-  bookList.push(book);
-  renderBook(book);
 }
 
 function addName(text){
@@ -275,6 +282,14 @@ function getFirstName(email, callback){
   xhr.send('');
 }
 
+function postBook(book){
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", 'http://localhost:8080/api/v1/books/add', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  let bookJson = JSON.stringify(book);
+  xhr.send(bookJson);
+}
+
 function setName(name){
   renderName({name})
 }
@@ -288,7 +303,6 @@ function domListener() {
   const refBook = localStorage.getItem('bookItemsRef');
   const refUser = localStorage.getItem('userRef');
   const refEmail = localStorage.getItem('emailRef');
-  console.log(refEmail);
   if(refEmail) {
     const emailObj = JSON.parse(refEmail);
     getFirstName(emailObj.email, setName);
