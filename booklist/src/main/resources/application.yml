@@ -21,19 +21,16 @@ spring:
     show-sql: true
 
   mail:
-    host: localhost
-    port: 1025
-    username: hello
-    password: hello
-
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: fat.rhino.studio@gmail.com
+    password: rhinoisthebest2019
+    port: 587
     properties:
       mail:
         smtp:
-          ssl:
-            trust: "*"
           auth: true
           starttls:
             enable: true
-          connectiontimeout: 5000
-          timeout: 3000
-          writetimeout: 5000
+    protocol: smtp
+    test-connection: false
