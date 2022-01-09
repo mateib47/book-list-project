@@ -58,7 +58,7 @@ function renderBook(book) {
       <div class='side-by-side' style="margin-bottom: 40px;">
         <div class="text">
           <h2 class="book-title">${book.title}</h2>`;
-          if(book.apiBookObj.volumeInfo.subtitle){
+          if(book.apiBookObj && book.apiBookObj.volumeInfo.subtitle){
             modal += `<p class="">${book.apiBookObj.volumeInfo.subtitle}</p>`;
           }
           if(book.author){
@@ -84,7 +84,7 @@ function renderBook(book) {
                         </div>`;
           }
           modal += '</div>'
-    if(book.apiBookObj.volumeInfo.imageLinks){
+    if(book.apiBookObj && book.apiBookObj.volumeInfo.imageLinks){
       modal+=`<div class="">
                 <img class='book-img' src=${book.apiBookObj.volumeInfo.imageLinks.thumbnail}>
                 <div class="side-by-side">
@@ -94,7 +94,7 @@ function renderBook(book) {
               </div>`;
     }
     modal += '</div>';
-  if(book.apiBookObj.searchInfo){
+  if(book.apiBookObj && book.apiBookObj.searchInfo){
     modal += `<p class="text">${book.apiBookObj.searchInfo.textSnippet}</p>`;
   }
     modal += `
@@ -281,6 +281,17 @@ function getFirstName(email, callback){
   xhr.open("GET", url, true);
   xhr.send('');
 }
+function getBooks(email, callback){
+  let xhr = new XMLHttpRequest();
+  let url = 'http://localhost:8080/api/v1/books/get?email=' + email;
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      callback(xhr.responseText);
+    }
+  };
+  xhr.open("GET", url, true);
+  xhr.send('');
+}
 
 function postBook(book){
   let xhr = new XMLHttpRequest();
@@ -306,6 +317,7 @@ function domListener() {
   if(refEmail) {
     const emailObj = JSON.parse(refEmail);
     getFirstName(emailObj.email, setName);
+    getBooks(emailObj.email, renderBooks);
   }else{
     if (refUser) {
       user = JSON.parse(refUser);
@@ -313,15 +325,22 @@ function domListener() {
     }else{
       showModal(document.getElementById('add-name'));
     }
+    if (refBook) {
+      bookList = JSON.parse(refBook);
+      bookList.forEach(t => {
+        renderBook(t);
+      });
+    }else{
+      showModal(document.getElementById('navbar'));
+    }
   }
-  if (refBook) {
-    bookList = JSON.parse(refBook);
-    bookList.forEach(t => {
-      renderBook(t);
-    });
-  }else{
-    showModal(document.getElementById('navbar'));
-  }
+}
+function renderBooks(array){
+  array = JSON.parse(array);
+  array.forEach(t => {
+    console.log(t);
+    renderBook(t);
+  });
 }
 
 document.addEventListener('DOMContentLoaded', domListener);

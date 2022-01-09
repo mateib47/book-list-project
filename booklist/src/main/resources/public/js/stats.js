@@ -124,7 +124,7 @@ function updateStats(){
     days++;
   }
   for(let x of booksList){
-    if (x.status === "past"){
+    if (x.status === "PAST"){
       totalBooks++;
     }
     updateArray(x.genre, genres);
