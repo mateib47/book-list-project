@@ -276,13 +276,13 @@ a{
 .grey{
   background-color: #202e23;
 }
-.past{
+.past, .PAST{
   background-color: var(--lightgreen);
 }
-.future{
+.future, .FUTURE{
   background-color: var(--orange);
 }
-.present{
+.present, .PRESENT{
   background-color: var(--yellow);
 }
 .green-bck{
