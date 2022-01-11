@@ -12,7 +12,6 @@ function getBooks(callback){
 function renderBooks(array){
     array = JSON.parse(array);
     array.forEach(t => {
-        console.log(t);
         renderBook(t);
     });
 }

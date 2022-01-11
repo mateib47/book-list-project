@@ -52,6 +52,7 @@ public class Books {
     public String getBook(){
         String json = "{";
         json = json + "\"apiId\":" + '"' + this.apiId+ "\",";
+        json = json + "\"id\":" + '"' + this.id+ "\",";
         json = json + "\"author\":"+ '"' + this.author+ "\",";
         json = json + "\"bookmark\":"+ '"' + this.bookmark+ "\",";
         json = json + "\"genre\":"+ '"' + this.genre+ "\",";

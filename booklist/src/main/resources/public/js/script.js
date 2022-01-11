@@ -23,7 +23,12 @@ window.onclick = function(event){
 }
 
 function renderBook(book) {
-  localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
+  const refEmail = localStorage.getItem('emailRef');
+  if(refEmail) {
+    book.apiBookObj = JSON.parse(getApiBook(book.apiId)).items[0];
+  }
+    localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
+
   const list = document.querySelector('.book-list-js');
   const item = document.querySelector(`[data-key='${book.id}']`);
   const node = document.createElement('li');
@@ -108,7 +113,7 @@ function renderBook(book) {
   }else{
     list.append(node);
   }
-  updateStats();
+  //updateStats();
 }
 
 function calculatePercent(bookmark, pages){
@@ -177,6 +182,7 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId){
     let emailObj = JSON.parse(refEmail);
     book.email = emailObj.email;
     postBook(book);
+    getBooks(emailObj.email, renderBooks);
   }else{
     book.id = Date.now();
     if (bookChoice){
@@ -292,6 +298,13 @@ function getBooks(email, callback){
   xhr.open("GET", url, true);
   xhr.send('');
 }
+function getApiBook(id){
+  let xhr = new XMLHttpRequest();
+  let url = 'https://www.googleapis.com/books/v1/volumes?q=' + id;
+  xhr.open("GET", url, false);
+  xhr.send('');
+  return xhr.responseText;
+}
 
 function postBook(book){
   let xhr = new XMLHttpRequest();
@@ -299,6 +312,7 @@ function postBook(book){
   xhr.setRequestHeader('Content-Type', 'application/json');
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
+  getBooks(book.email, renderBooks);
 }
 
 function setName(name){
@@ -337,8 +351,8 @@ function domListener() {
 }
 function renderBooks(array){
   array = JSON.parse(array);
+  console.log(array);
   array.forEach(t => {
-    console.log(t);
     renderBook(t);
   });
 }
