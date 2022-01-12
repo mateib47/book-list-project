@@ -14,5 +14,4 @@ public interface BooksRepository extends JpaRepository<Books, Long> {
     Optional<Books> findById(Long id);
     List<Books[]> getAllByAppUser(AppUser appUser);
 
-
 }
