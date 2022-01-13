@@ -23,9 +23,20 @@ public class BooksService {
                 booksRequest.getTitle(),
                 appUserRepository.findByEmail(booksRequest.getEmail()).get());
         booksRepository.save(book);
-        return "success";
+        return "added book";
     }
     public List<Books[]> getBooks(String email){
         return booksRepository.getAllByAppUser(appUserRepository.findByEmail(email).get());
+    }
+
+    public String changeBook(BooksRequest booksRequest, Long id) {
+        booksRepository.changeBook(id, booksRequest.getAuthor(),
+                booksRequest.getBookmark(),
+                booksRequest.getGenre(),
+                booksRequest.getPages(),
+                booksRequest.getQuote(),
+                booksRequest.getStatus(),
+                booksRequest.getTitle());
+        return "changed book";
     }
 }
