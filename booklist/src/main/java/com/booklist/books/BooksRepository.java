@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -18,6 +19,7 @@ public interface BooksRepository extends JpaRepository<Books, Long> {
     Optional<Books> findById(Long id);
     List<Books[]> getAllByAppUser(AppUser appUser);
 
+    @Transactional
     @Modifying
     @Query("update Books b set b.author = :author, b.bookmark= :bookmark, b.genre= :genre," +
             "b.pages= :pages, b.quote= :quote, b.status= :status, b.title= :title where b.id = :id")

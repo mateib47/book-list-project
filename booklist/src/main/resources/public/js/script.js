@@ -132,7 +132,13 @@ function addPages(title,pages){
 }
 
 function changeBook(key){
-  let book = getBookList().find(x => x.id == key);
+  const refEmail = localStorage.getItem('emailRef');
+  let book;
+  if(refEmail){
+    book = getBook(id);
+  }else{
+    book = getBookList().find(x => x.id == key);
+  }
   hideModal(document.getElementById("details-"+key));
   showModal(document.getElementById("add-book"));
   for(prop in book){
@@ -298,6 +304,9 @@ function getBooks(email, callback){
   xhr.open("GET", url, true);
   xhr.send('');
 }
+function getBook(id){
+  //todo implement get request in backend
+}
 function getApiBook(id){
   let xhr = new XMLHttpRequest();
   let url = 'https://www.googleapis.com/books/v1/volumes?q=' + id;
@@ -309,6 +318,16 @@ function getApiBook(id){
 function postBook(book){
   let xhr = new XMLHttpRequest();
   xhr.open("POST", 'http://localhost:8080/api/v1/books/add', true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  let bookJson = JSON.stringify(book);
+  xhr.send(bookJson);
+  getBooks(book.email, renderBooks);
+}
+
+function postChangeBook(id, book){
+  let xhr = new XMLHttpRequest();
+  let url = 'http://localhost:8080/api/v1/books/change?id=' + id;
+  xhr.open("POST", url, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
