@@ -30,6 +30,11 @@ public class BooksController {
         Json += "]";
         return Json;
     }
+    @GetMapping(path = "get")
+    public Books getBook(@RequestParam("id") Long id){
+        Books book = booksService.getBook(id);
+        return book;
+    }
     @PostMapping(path = "change")
     public String changeBook(@RequestBody BooksRequest booksRequest, @RequestParam("id") Long id){
         return booksService.changeBook(booksRequest, id);

@@ -39,4 +39,8 @@ public class BooksService {
                 booksRequest.getTitle());
         return "changed book";
     }
+
+    public Books getBook(Long id) {
+        return booksRepository.getById(id);
+    }
 }
