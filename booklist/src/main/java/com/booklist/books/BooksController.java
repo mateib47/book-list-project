@@ -30,7 +30,7 @@ public class BooksController {
         Json += "]";
         return Json;
     }
-    @GetMapping(path = "get")
+    @GetMapping(path = "get-book")
     public Books getBook(@RequestParam("id") Long id){
         Books book = booksService.getBook(id);
         return book;

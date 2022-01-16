@@ -135,7 +135,8 @@ function changeBook(key){
   const refEmail = localStorage.getItem('emailRef');
   let book;
   if(refEmail){
-    book = getBook(id);
+    book = getBook(key);
+    console.log(book);
   }else{
     book = getBookList().find(x => x.id == key);
   }
@@ -144,15 +145,20 @@ function changeBook(key){
   for(prop in book){
     if(prop == 'rating' && book[prop] !== undefined){
       document.querySelector('#star'+book[prop]).checked = true;
-      continue;
+
     } else if (prop == 'apiBookObj' && book[prop] !== undefined) {
       bookChoice = book[prop];
-      continue;
-    }else if (prop !== 'id' && prop !== 'rating' && prop !== 'bookmark') {
+    }else if (prop !== 'id' && prop !== 'rating' && prop !== 'bookmark' && prop !== 'appUser' && prop !== 'book') {
       document.querySelector('#'+prop+'-input').value = book[prop];
     }
   }
-  deleteBook(key);
+  if(refEmail){
+    console.log('kkk')
+    document.getElementById('change-flag').value = 'true';
+    document.getElementById('id').value = key;
+  }else{
+    deleteBook(key);
+  }
 }
 
 function renderName(user){
@@ -171,7 +177,7 @@ function displayBookForm(){
   document.getElementById('add-name').style.display = 'none';
 }
 
-function addBook(title,author,genre,rating,status,pages,quote, apiId){
+function addBook(title,author,genre,rating,status,pages,quote, apiId, id, changeFlag){
   const refEmail = localStorage.getItem('emailRef');
   const book = {
     title,
@@ -187,7 +193,13 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId){
   if(refEmail){
     let emailObj = JSON.parse(refEmail);
     book.email = emailObj.email;
-    postBook(book);
+    if(changeFlag === 'true'){
+      console.log('aaaaa');
+      document.getElementById('change-flag').value = 'false';
+      postChangeBook(id, book);
+    }else{
+      postBook(book);
+    }
     getBooks(emailObj.email, renderBooks);
   }else{
     book.id = Date.now();
@@ -212,14 +224,22 @@ function addName(text){
 
 //adjust
 function changeStatus(key, status){
-  const index = bookList.findIndex(book => book.id === Number(key));
-  if(arguments.length == 1){
+  const refEmail = localStorage.getItem('emailRef');
+  if (refEmail){
+    let book = getBook(key);
     const status = document.getElementById(`${key}`).value;
-    bookList[index].status = status;
+    book.status = status;
+    postChangeBook(key, book);
   }else{
-    bookList[index].status = status;
+    const index = bookList.findIndex(book => book.id === Number(key));
+    if(arguments.length == 1){
+      const status = document.getElementById(`${key}`).value;
+      bookList[index].status = status;
+    }else{
+      bookList[index].status = status;
+    }
+    renderBook(bookList[index]);
   }
-  renderBook(bookList[index]);
 }
 
 function deleteBook(key){
@@ -244,6 +264,8 @@ bookForm.addEventListener('submit',event => {
   const status = document.querySelector('#status-input').value;
   const pages = document.querySelector('#pages-input').value.trim();
   const apiId = document.querySelector('#apiId-input').value;
+  const id = document.querySelector('#id').value;
+  const changeFlag = document.querySelector('#change-flag').value;
   let rating;
   radioButtons.forEach(x => {
     if(x.checked) {
@@ -251,7 +273,7 @@ bookForm.addEventListener('submit',event => {
     }
   });
   if(bookName !== '' && status !== ''){
-    addBook(bookName,authorName,genre,rating,status,pages,quote,apiId);
+    addBook(bookName,authorName,genre,rating,status,pages,quote,apiId, id, changeFlag);
     bookForm.reset();
     bookInput.focus();
   }
@@ -305,7 +327,11 @@ function getBooks(email, callback){
   xhr.send('');
 }
 function getBook(id){
-  //todo implement get request in backend
+  let xhr = new XMLHttpRequest();
+  let url = 'http://localhost:8080/api/v1/books/get-book?id=' + id;
+  xhr.open("GET", url, false);
+  xhr.send('');
+  return JSON.parse(xhr.responseText);
 }
 function getApiBook(id){
   let xhr = new XMLHttpRequest();
@@ -370,7 +396,6 @@ function domListener() {
 }
 function renderBooks(array){
   array = JSON.parse(array);
-  console.log(array);
   array.forEach(t => {
     renderBook(t);
   });

@@ -1,5 +1,7 @@
 #spring.security.oauth2.client.registration.google.client-id=150100738868-aor930qv6isql8ggrhlmuoaiqkb7shrk.apps.googleusercontent.com
 #spring.security.oauth2.client.registration.google.client-secret=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
+#  hibernate:
+#   ddl-auto: create-drop
 
 server:
   error:
@@ -14,8 +16,6 @@ spring:
     password: 2plKsgaKZYuRy6EY
   jpa:
     database: POSTGRESQL
-    hibernate:
-      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
