@@ -19,7 +19,7 @@ public class BooksController {
 
     @GetMapping(path = "get")
     public String getBooks(@RequestParam("email") String email){
-        List<Books []> books = booksService.getBooks(email);
+        List<Books[]> books = booksService.getBooks(email);
         String Json = "[";
         for(int i=0;i<books.size();i++){
             Json = Json + books.get(i)[0].getBook();
@@ -35,7 +35,11 @@ public class BooksController {
         Books book = booksService.getBook(id);
         return book;
     }
-    @PostMapping(path = "change")
+    @PutMapping(path = "delete-book")
+    public String deleteBook(@RequestParam("id") Long id){
+        return booksService.deleteBook(id);
+    }
+    @PutMapping(path = "change")
     public String changeBook(@RequestBody BooksRequest booksRequest, @RequestParam("id") Long id){
         return booksService.changeBook(booksRequest, id);
     }

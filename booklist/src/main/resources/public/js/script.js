@@ -1,6 +1,8 @@
 let bookList = [];
 let user;
 let modals = document.getElementsByClassName("modal");
+const refEmail = localStorage.getItem('emailRef');
+const email = JSON.parse(refEmail).email;
 
 function getBookList(){
   return bookList;
@@ -26,16 +28,18 @@ function renderBook(book) {
   const refEmail = localStorage.getItem('emailRef');
   if(refEmail) {
     book.apiBookObj = JSON.parse(getApiBook(book.apiId)).items[0];
-  }
+  }else{
     localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
-
+  }
   const list = document.querySelector('.book-list-js');
   const item = document.querySelector(`[data-key='${book.id}']`);
   const node = document.createElement('li');
   const buyLink = 'https://www.amazon.com/s?k=' + book.title.split(" ").join('+');
-  if(book.deleted) {
+  if(book.deleted && !refEmail) {
     item.remove();
     updateStats();
+    return;
+  }else if(book.deleted=='true' && refEmail){
     return;
   }
   node.setAttribute('class', `book-item ${book.status}`);
@@ -132,11 +136,9 @@ function addPages(title,pages){
 }
 
 function changeBook(key){
-  const refEmail = localStorage.getItem('emailRef');
   let book;
   if(refEmail){
     book = getBook(key);
-    console.log(book);
   }else{
     book = getBookList().find(x => x.id == key);
   }
@@ -148,12 +150,12 @@ function changeBook(key){
 
     } else if (prop == 'apiBookObj' && book[prop] !== undefined) {
       bookChoice = book[prop];
-    }else if (prop !== 'id' && prop !== 'rating' && prop !== 'bookmark' && prop !== 'appUser' && prop !== 'book') {
+    }else if (prop !== 'id' && prop !== 'rating' && prop !== 'bookmark' && prop !== 'appUser' && prop !== 'book' && prop !== 'deleted') {
       document.querySelector('#'+prop+'-input').value = book[prop];
     }
   }
   if(refEmail){
-    console.log('kkk')
+    console.log('okkkk')
     document.getElementById('change-flag').value = 'true';
     document.getElementById('id').value = key;
   }else{
@@ -194,7 +196,6 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId, id, change
     let emailObj = JSON.parse(refEmail);
     book.email = emailObj.email;
     if(changeFlag === 'true'){
-      console.log('aaaaa');
       document.getElementById('change-flag').value = 'false';
       postChangeBook(id, book);
     }else{
@@ -229,6 +230,7 @@ function changeStatus(key, status){
     let book = getBook(key);
     const status = document.getElementById(`${key}`).value;
     book.status = status;
+    book.email = JSON.parse(refEmail).email;
     postChangeBook(key, book);
   }else{
     const index = bookList.findIndex(book => book.id === Number(key));
@@ -243,13 +245,18 @@ function changeStatus(key, status){
 }
 
 function deleteBook(key){
-  const index = bookList.findIndex(book => book.id === Number(key));
-  const book = {
-    deleted: true,
-    ...bookList[index]
-  };
-  bookList = bookList.filter(book => book.id !== Number(key));
-  renderBook(book);
+  let book;
+  if(refEmail){
+    putDeleteBook(key)
+  }else{
+    const index = bookList.findIndex(book => book.id === Number(key));
+    book = {
+      deleted: true,
+      ...bookList[index]
+    };
+    bookList = bookList.filter(book => book.id !== Number(key));
+    renderBook(book);
+  }
 }
 
 const bookForm = document.querySelector('#book-form');
@@ -349,11 +356,19 @@ function postBook(book){
   xhr.send(bookJson);
   getBooks(book.email, renderBooks);
 }
+function putDeleteBook(id){
+  let xhr = new XMLHttpRequest();
+  let url = 'http://localhost:8080/api/v1/books/delete-book?id=' + id;
+  xhr.open("PUT", url, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send('');
+  getBooks(email, renderBooks);
+}
 
 function postChangeBook(id, book){
   let xhr = new XMLHttpRequest();
   let url = 'http://localhost:8080/api/v1/books/change?id=' + id;
-  xhr.open("POST", url, true);
+  xhr.open("PUT", url, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
@@ -397,7 +412,7 @@ function domListener() {
 function renderBooks(array){
   array = JSON.parse(array);
   array.forEach(t => {
-    renderBook(t);
+      renderBook(t);
   });
 }
 

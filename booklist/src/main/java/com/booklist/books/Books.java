@@ -30,6 +30,7 @@ public class Books {
     @Enumerated(EnumType.STRING)
     private BookStatus status;
     private String title;
+    private Boolean deleted = false;
 
     @ManyToOne
     @JoinColumn(
@@ -59,6 +60,7 @@ public class Books {
         json = json + "\"pages\":"+ '"' + this.pages+ "\",";
         json = json + "\"quote\":"+ '"' + this.quote+ "\",";
         json = json + "\"status\":"+ '"' + this.status+ "\",";
+        json = json + "\"deleted\":"+ '"' + this.deleted+ "\",";
         json = json + "\"title\":"+ '"' + this.title+ '"';
         json+="}";
         return json;
@@ -91,4 +93,6 @@ public class Books {
     public String getTitle() {
         return title;
     }
+
+    public Boolean isDeleted() {return deleted;}
 }
