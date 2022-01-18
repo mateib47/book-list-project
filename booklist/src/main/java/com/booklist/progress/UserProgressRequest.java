@@ -14,8 +14,8 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 public class UserProgressRequest {
-    private int nrPages;
+    private int totalPages;
     private Date date;
-    private List<Integer> bookList;
+    private List<ProgressBook> bookList;
     private String email;
 }

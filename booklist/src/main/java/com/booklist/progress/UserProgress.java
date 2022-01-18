@@ -22,10 +22,11 @@ public class UserProgress {
             strategy = GenerationType.SEQUENCE,
             generator = "progress_sequence")
     private Long id;
-    private int nrPages;
+    private int totalPages;
+
     private Date date;
     @ElementCollection
-    private List<Integer> bookList;
+    private List<ProgressBook> bookList;
     @ManyToOne
     @JoinColumn(
             nullable = false,
@@ -33,19 +34,19 @@ public class UserProgress {
     )
     private AppUser appUser;
 
-    public UserProgress(int nrPages, Date date, List<Integer> bookList, AppUser appUser) {
-        this.nrPages = nrPages;
+    public UserProgress(int totalPages, Date date, List<ProgressBook> bookList, AppUser appUser) {
+        this.totalPages = totalPages;
         this.date = date;
         this.bookList = bookList;
         this.appUser = appUser;
     }
 
     public int getNrPages() {
-        return nrPages;
+        return totalPages;
     }
 
     public void setNrPages(int nrPages) {
-        this.nrPages = nrPages;
+        this.totalPages = nrPages;
     }
 
     public Date getDate() {
@@ -56,11 +57,11 @@ public class UserProgress {
         this.date = date;
     }
 
-    public List<Integer> getBookList() {
+    public List<ProgressBook> getBookList() {
         return bookList;
     }
 
-    public void setBookList(List<Integer> bookList) {
+    public void setBookList(List<ProgressBook> bookList) {
         this.bookList = bookList;
     }
 

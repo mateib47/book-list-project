@@ -1,7 +1,6 @@
 package com.booklist.progress;
 
 import com.booklist.appuser.AppUser;
-import com.booklist.books.Books;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
