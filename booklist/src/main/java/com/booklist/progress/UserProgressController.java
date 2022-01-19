@@ -17,8 +17,8 @@ public class UserProgressController {
     }
 
     @GetMapping(path = "get")
-    public List<UserProgress[]> getProgress(@RequestParam("email") String email) {
-        List<UserProgress[]> userProgressAll = userProgressService.getUserProgress(email);
+    public List<UserProgress> getProgress(@RequestParam("email") String email) {
+        List<UserProgress> userProgressAll = userProgressService.getUserProgress(email);
         return userProgressAll;
     }
 }

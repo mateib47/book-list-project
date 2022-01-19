@@ -1,6 +1,6 @@
 let months = ['January','February','March','April',
   'May','June','July','August','September','October',
-  'November','Deceber'];
+  'November','December'];
 let currentDate = initCurrentDate();
 let progressList = [];
 
@@ -21,9 +21,8 @@ function setProgressList(list){
 
 function dateEquals(a, b)
  {
-     if (a.day==b.day && a.month==b.month && a.year==b.year)
-      return true;
-      return false;
+     return a.day == b.day && a.month == b.month && a.year == b.year;
+
   }
 
 function getColor(pages){
@@ -49,7 +48,7 @@ function renderCalendar() {
     node.setAttribute('id', 'calendar-item');
     let pages = 0;
     let id = 0;
-    if(progressList.find(obj => {pages = obj.nrPages;id = obj.id; return dateEquals(obj.date,nodeDate)})){
+    if(progressList.find(obj => {pages = obj.totalPages;id = obj.id; return dateEquals(obj.date,nodeDate)})){
       node.setAttribute('class','box');
       node.style.backgroundColor = getColor(pages);
       node.setAttribute('data-key', id);
@@ -93,32 +92,32 @@ function removeProgress(key) {
   setProgressList(progressList.filter(x => x.id !== Number(key)));
 }
 
-function addProgress(nrPages,book,date){// FIXME: highly complicated function; make it more readable
+function addProgress(totalPages,bookId,date){// FIXME: highly complicated function; make it more readable
 //if the progress is added for a book whose status is future, it should be changed to present
-  let pages = Number(nrPages);
-  addPages(book,pages);
-  let booksRecord = [{book,pages:nrPages}];
+  let pages = Number(totalPages);
+  addPages(bookId,pages);
+  let booksRecord = [{bookId,pages:totalPages}];
   getProgressList().forEach(obj =>
     {
       if(dateEquals(obj.date,date)){
-        pages += Number(obj.nrPages);
-        if(obj.books.every(x => {if(x.book == book) {
-          x.pages = Number(x.pages)+Number(nrPages);
+        pages += Number(obj.totalPages);
+        if(obj.bookList.every(x => {if(x.bookId == bookId) {
+          x.pages = Number(x.pages)+Number(totalPages);
           return false;
         }
         return true;})){
-          booksRecord.push(...obj.books);
+          booksRecord.push(...obj.bookList);
           removeProgress(obj.id);
         }else{
-          booksRecord = [...obj.books];
+          booksRecord = [...obj.bookList];
           removeProgress(obj.id);
         }
       }
     });
   const progress = {
     id : Date.now(),
-    nrPages:pages,
-    books:booksRecord,
+    totalPages:pages,
+    bookList:booksRecord,
     date
   }
   progressList.push(progress);
@@ -132,10 +131,10 @@ progressForm.addEventListener('submit',event => {
   const inputPages = document.querySelector('#nr-pages-input');
   const inputDate = document.querySelector('#date-input');
   const inputBook = document.querySelector('#select-book');
-  const book = inputBook.value;
+  const bookId = inputBook.value;
   const pages = inputPages.value.trim();
   if(pages !== '' && inputDate !== ''){
-    addProgress(pages,book,toDateObj(inputDate));
+    addProgress(pages,bookId,toDateObj(inputDate));
     inputPages.value = '';
     inputDate.value = '';
     inputBook.value = '';
@@ -162,7 +161,7 @@ function populateSelect(){
   for (let book of bookList){
     if (book.status == 'PRESENT' || book.status == 'FUTURE'){
       let opt = document.createElement('option');
-      opt.value = book.title;
+      opt.value = book.id;
       opt.innerHTML = book.title;
       select.appendChild(opt);
     }
@@ -175,14 +174,15 @@ calendar.addEventListener('click', event => {
     const id = event.target.dataset.key
     if(id){
       const item = progressList.find(obj => obj.id == id);
-      const bookMap = item.books.map(x => x.book);
+      const bookList = getBookList();
+      const bookMap = item.bookList.map(x => bookList.find(book => book.id === x.bookId).id);
       document.querySelector('#progress-item-details').innerHTML = `
       <div class="date-divider">
         <p class="item-date">${item.date.day}-${item.date.month+1}-${item.date.year}</p>
         <div class="divider"></div>
       </div>
       <div class="details-text">
-        <p>Pages read this day: ${item.nrPages}</p>
+        <p>Pages read this day: ${item.totalPages}</p>
         <p>From: ${bookMap.join(", ")}</p>
       </div>
       <div class="divider"></div>
@@ -218,7 +218,7 @@ function apiGetProgress(email){
 
 function apiPostProgress(progress){
   let xhr = new XMLHttpRequest();
-  let url = 'http://localhost:8080/api/v1/progress/add;
+  let url = 'http://localhost:8080/api/v1/progress/add';
   xhr.open("POST", url, false);
   let progressJson = JSON.stringify(progress);
   xhr.send(progressJson);

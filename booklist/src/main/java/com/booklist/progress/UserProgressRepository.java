@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface UserProgressRepository extends JpaRepository<UserProgress, Long> {
     Optional<UserProgress> findById(Long id);
-    List<UserProgress[]> getAllByAppUser(AppUser appUser);
+    List<UserProgress> getAllByAppUserId(Long appUserId);
 }

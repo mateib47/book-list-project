@@ -27,18 +27,13 @@ public class UserProgress {
     private Date date;
     @ElementCollection
     private List<ProgressBook> bookList;
-    @ManyToOne
-    @JoinColumn(
-            nullable = false,
-            name = "app_user_id"
-    )
-    private AppUser appUser;
+    private Long appUserId;
 
-    public UserProgress(int totalPages, Date date, List<ProgressBook> bookList, AppUser appUser) {
+    public UserProgress(int totalPages, Date date, List<ProgressBook> bookList, Long appUserId) {
         this.totalPages = totalPages;
         this.date = date;
         this.bookList = bookList;
-        this.appUser = appUser;
+        this.appUserId = appUserId;
     }
 
     public int getNrPages() {
@@ -65,11 +60,11 @@ public class UserProgress {
         this.bookList = bookList;
     }
 
-    public AppUser getAppUser() {
-        return appUser;
+    public Long getAppUser() {
+        return appUserId;
     }
 
-    public void setAppUser(AppUser appUser) {
-        this.appUser = appUser;
+    public void setAppUser(Long appUserId) {
+        this.appUserId = appUserId;
     }
 }

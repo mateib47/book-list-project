@@ -18,11 +18,11 @@ public class UserProgressService {
         UserProgress userProgress = new UserProgress(request.getTotalPages(),
                 request.getDate(),
                 request.getBookList(),
-                appUserRepository.findByEmail(request.getEmail()).get());
+                appUserRepository.findByEmail(request.getEmail()).get().getId());
         userProgressRepository.save(userProgress);
         return "success";
     }
-    public List<UserProgress[]> getUserProgress(String email){
-        return userProgressRepository.getAllByAppUser(appUserRepository.findByEmail(email).get());
+    public List<UserProgress> getUserProgress(String email){
+        return userProgressRepository.getAllByAppUserId(appUserRepository.findByEmail(email).get().getId());
     }
 }

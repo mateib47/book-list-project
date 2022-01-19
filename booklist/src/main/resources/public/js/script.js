@@ -2,7 +2,10 @@ let bookList = [];
 let user;
 let modals = document.getElementsByClassName("modal");
 const refEmail = localStorage.getItem('emailRef');
-const email = JSON.parse(refEmail).email;
+let email;
+if(refEmail){
+   email = JSON.parse(refEmail).email;
+}
 
 function getBookList(){
   return bookList;
@@ -129,8 +132,8 @@ function calculatePercent(bookmark, pages){
   }
 }
 
-function addPages(title,pages){
-  const book = getBookList().find(x => x.title == title);
+function addPages(bookId,pages){
+  const book = getBookList().find(x => x.id == bookId);
   book.bookmark += pages;
   renderBook(book);
 }
@@ -155,7 +158,6 @@ function changeBook(key){
     }
   }
   if(refEmail){
-    console.log('okkkk')
     document.getElementById('change-flag').value = 'true';
     document.getElementById('id').value = key;
   }else{
