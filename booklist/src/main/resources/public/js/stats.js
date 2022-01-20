@@ -105,8 +105,15 @@ function getTotalBooks(){
 }
 
 function updateStats(){
-  let progressList = getProgressList();
-  let booksList = getBookList();
+  let progressList;
+  let booksList;
+  if(refEmail){
+    progressList = apiGetProgress(email);
+    booksList = apiGetBooks(email);
+  }else {
+    progressList = getProgressList();
+    booksList = getBookList();
+  }
   let totalPages = 0;
   let totalBooks = 0;
   let genres =[];

@@ -120,7 +120,7 @@ function renderBook(book) {
   }else{
     list.append(node);
   }
-  //updateStats();
+  updateStats();
 }
 
 function calculatePercent(bookmark, pages){
@@ -203,7 +203,7 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId, id, change
     }else{
       postBook(book);
     }
-    getBooks(emailObj.email, renderBooks);
+    apiGetBooks(emailObj.email, renderBooks);
   }else{
     book.id = Date.now();
     if (bookChoice){
@@ -324,16 +324,22 @@ function getFirstName(email, callback){
   xhr.open("GET", url, true);
   xhr.send('');
 }
-function getBooks(email, callback){
+function apiGetBooks(email, callback){
   let xhr = new XMLHttpRequest();
   let url = 'http://localhost:8080/api/v1/books/get?email=' + email;
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      callback(xhr.responseText);
-    }
-  };
-  xhr.open("GET", url, true);
-  xhr.send('');
+  if (callback){
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        callback(xhr.responseText);
+      }
+    };
+    xhr.open("GET", url, true);
+    xhr.send('');
+  }else{
+    xhr.open("GET", url, false);
+    xhr.send('');
+    return xhr.responseText;
+  }
 }
 function getBook(id){
   let xhr = new XMLHttpRequest();
@@ -356,7 +362,7 @@ function postBook(book){
   xhr.setRequestHeader('Content-Type', 'application/json');
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
-  getBooks(book.email, renderBooks);
+  apiGetBooks(book.email, renderBooks);
 }
 function putDeleteBook(id){
   let xhr = new XMLHttpRequest();
@@ -364,7 +370,7 @@ function putDeleteBook(id){
   xhr.open("PUT", url, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send('');
-  getBooks(email, renderBooks);
+  apiGetBooks(email, renderBooks);
 }
 
 function postChangeBook(id, book){
@@ -374,7 +380,7 @@ function postChangeBook(id, book){
   xhr.setRequestHeader('Content-Type', 'application/json');
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
-  getBooks(book.email, renderBooks);
+  apiGetBooks(book.email, renderBooks);
 }
 
 function setName(name){
@@ -393,7 +399,7 @@ function domListener() {
   if(refEmail) {
     const emailObj = JSON.parse(refEmail);
     getFirstName(emailObj.email, setName);
-    getBooks(emailObj.email, renderBooks);
+    apiGetBooks(emailObj.email, renderBooks);
   }else{
     if (refUser) {
       user = JSON.parse(refUser);
