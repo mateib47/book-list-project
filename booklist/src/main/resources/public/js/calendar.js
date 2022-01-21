@@ -213,10 +213,10 @@ function apiGetProgress(email){
   let url = 'http://localhost:8080/api/v1/progress/get?email=' + email;
   xhr.open("GET", url, false);
   xhr.send('');
-  let response = xhr.responseText;
+  let response = JSON.parse(xhr.responseText);
   for(let e of response){
     let date = e.date.substring(0,10).split('-');
-    e.date = {year:date[0], month:date[1], day:date[2]}
+    e.date = {year:date[0], month:Number(date[1])-1, day:date[2]}
   }
   return response;
 }

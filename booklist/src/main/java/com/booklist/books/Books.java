@@ -13,6 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class Books {
+    //todo add my rating
     private String apiId;
     private String author;
     private int bookmark;

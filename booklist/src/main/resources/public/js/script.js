@@ -338,7 +338,7 @@ function apiGetBooks(email, callback){
   }else{
     xhr.open("GET", url, false);
     xhr.send('');
-    return xhr.responseText;
+    return JSON.parse(xhr.responseText);
   }
 }
 function getBook(id){

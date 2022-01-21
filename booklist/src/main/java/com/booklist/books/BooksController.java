@@ -22,9 +22,12 @@ public class BooksController {
         List<Books[]> books = booksService.getBooks(email);
         String Json = "[";
         for(int i=0;i<books.size();i++){
-            Json = Json + books.get(i)[0].getBook();
-            if(i != books.size() - 1){
-                Json+= ",";
+            Books book = books.get(i)[0];
+            if(!book.getDeleted()){
+                Json = Json + book.getBook();
+                if(i != books.size() - 1){
+                    Json+= ",";
+                }
             }
         }
         Json += "]";

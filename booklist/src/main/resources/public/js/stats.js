@@ -109,6 +109,7 @@ function updateStats(){
   let booksList;
   if(refEmail){
     progressList = apiGetProgress(email);
+    console.log(progressList);
     booksList = apiGetBooks(email);
   }else {
     progressList = getProgressList();
@@ -137,7 +138,7 @@ function updateStats(){
     updateArray(x.genre, genres);
     updateArray(x.author, authors);
   }
-  topBooks = bookList.sort((a,b) => b.rating - a.rating).slice(0,booksList.length > 5 ? 5 : booksList.length);
+  topBooks = booksList.sort((a,b) => b.rating - a.rating).slice(0,booksList.length > 5 ? 5 : booksList.length);
   averagePages = totalPages / days;
   topAuthors = authors.sort((a,b) => b.count-a.count);
   progressMonth = monthsProgress;
@@ -179,4 +180,4 @@ function renderStats(){
   displayProgressGraph();
 }
 
-//window.onload = updateStats();
+window.onload = updateStats();
