@@ -8,7 +8,11 @@ if(refEmail){
 }
 
 function getBookList(){
-  return bookList;
+  if(refEmail){
+    return apiGetBooks(email);
+  }else{
+    return bookList;
+  }
 }
 
 function showModal(modal) {
@@ -147,8 +151,8 @@ function changeBook(key){
   }
   hideModal(document.getElementById("details-"+key));
   showModal(document.getElementById("add-book"));
-  for(prop in book){
-    if(prop == 'rating' && book[prop] !== undefined){
+  for(let prop in book){
+    if(prop == 'rating' && book[prop] !== undefined && book[prop] !== 0){
       document.querySelector('#star'+book[prop]).checked = true;
 
     } else if (prop == 'apiBookObj' && book[prop] !== undefined) {

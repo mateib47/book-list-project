@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class Books {
-    //todo add my rating
+    private int rating;
     private String apiId;
     private String author;
     private int bookmark;
@@ -40,7 +40,8 @@ public class Books {
     )
     private AppUser appUser;
 
-    public Books(String apiId, String author, int bookmark, String genre, int pages, String quote, BookStatus status, String title, AppUser appUser) {
+    public Books(int rating, String apiId, String author, int bookmark, String genre, int pages, String quote, BookStatus status, String title, AppUser appUser) {
+        this.rating = rating;
         this.apiId = apiId;
         this.author = author;
         this.bookmark = bookmark;
@@ -54,6 +55,7 @@ public class Books {
     public String getBook(){
         String json = "{";
         json = json + "\"apiId\":" + '"' + this.apiId+ "\",";
+        json = json + "\"rating\":" + '"' + this.rating+ "\",";
         json = json + "\"id\":" + '"' + this.id+ "\",";
         json = json + "\"author\":"+ '"' + this.author+ "\",";
         json = json + "\"bookmark\":"+ '"' + this.bookmark+ "\",";
@@ -94,6 +96,11 @@ public class Books {
     public String getTitle() {
         return title;
     }
+
+    public int getRating() {
+        return rating;
+    }
+
 
     public Boolean isDeleted() {return deleted;}
 }

@@ -13,6 +13,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @ToString
 public class BooksRequest {
+    private int rating;
     private String apiId;
     private String author;
     private int bookmark;

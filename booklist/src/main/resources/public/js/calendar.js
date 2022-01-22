@@ -38,7 +38,12 @@ function getColor(pages){
 function renderCalendar() {
   const list = document.querySelector('#days-list');
   const currentDate = getCurrentDate();
-  const progressList = getProgressList();
+  let progressList;
+  if(refEmail){
+    progressList = apiGetProgress(email);
+  }else{
+    progressList = getProgressList();
+  }
   let monthCurrent = document.querySelector('#month-name');
   monthCurrent.innerHTML=`${months[currentDate.month]+" "+currentDate.year}`;
   list.innerHTML = "";
@@ -120,8 +125,13 @@ function addProgress(totalPages,bookId,date){// FIXME: highly complicated functi
     bookList:booksRecord,
     date
   }
-  progressList.push(progress);
-  localStorage.setItem('progressRef', JSON.stringify(progressList));
+  if(refEmail){
+    apiPostProgress(progress);
+  }else{
+    progressList.push(progress);
+    localStorage.setItem('progressRef', JSON.stringify(progressList));
+  }
+  console.log(progress);
   renderCalendar();
 }
 

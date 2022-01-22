@@ -13,7 +13,8 @@ public class BooksService {
     private AppUserRepository appUserRepository;
 
     public String addBook(BooksRequest booksRequest) {
-        Books book = new Books(booksRequest.getApiId(),
+        Books book = new Books(booksRequest.getRating(),
+                booksRequest.getApiId(),
                 booksRequest.getAuthor(),
                 booksRequest.getBookmark(),
                 booksRequest.getGenre(),
@@ -30,7 +31,8 @@ public class BooksService {
     }
 
     public String changeBook(BooksRequest booksRequest, Long id) {
-        booksRepository.changeBook(id, booksRequest.getAuthor(),
+        booksRepository.changeBook(id, booksRequest.getRating(),
+                booksRequest.getAuthor(),
                 booksRequest.getBookmark(),
                 booksRequest.getGenre(),
                 booksRequest.getPages(),
