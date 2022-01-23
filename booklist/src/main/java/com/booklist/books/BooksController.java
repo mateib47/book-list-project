@@ -25,11 +25,10 @@ public class BooksController {
             Books book = books.get(i)[0];
             if(!book.getDeleted()){
                 Json = Json + book.getBook();
-                if(i != books.size() - 1){
-                    Json+= ",";
-                }
+                Json+= ",";
             }
         }
+        Json = Json.substring(0, Json.length() - 1);
         Json += "]";
         return Json;
     }

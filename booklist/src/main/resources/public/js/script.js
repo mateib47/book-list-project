@@ -34,7 +34,7 @@ window.onclick = function(event){
 function renderBook(book) {
   const refEmail = localStorage.getItem('emailRef');
   if(refEmail) {
-    book.apiBookObj = JSON.parse(getApiBook(book.apiId)).items[0];
+    book.apiBookObj = JSON.parse(getApiBookById(book.apiId)).items[0];
   }else{
     localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
   }
@@ -351,13 +351,6 @@ function getBook(id){
   xhr.open("GET", url, false);
   xhr.send('');
   return JSON.parse(xhr.responseText);
-}
-function getApiBook(id){
-  let xhr = new XMLHttpRequest();
-  let url = 'https://www.googleapis.com/books/v1/volumes?q=' + id;
-  xhr.open("GET", url, false);
-  xhr.send('');
-  return xhr.responseText;
 }
 
 function postBook(book){

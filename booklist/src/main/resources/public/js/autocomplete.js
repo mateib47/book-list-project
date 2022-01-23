@@ -1,64 +1,42 @@
 let request = "https://www.googleapis.com/books/v1/volumes?q=";
 let callback = "&callback=handleResponse&langRestrict=en";
-let suggestions = [];
 let bookChoice;
 
-function addWordToRequest(){
-  for(let i=0; i < arguments.length; i++){
-    request += arguments[i];
-    if(i != 0 && i != arguments.length-1){
-      request += '+';
-    }
-  }
-}
-
-function resetRequest(){
-  request = "https://www.googleapis.com/books/v1/volumes?q=";
-  suggestions = [];
-}
-
-function sendRequest(){
-  let script = document.createElement("script");
-  script.src = request+callback;
-  document.body.appendChild(script);
-}
-
-function handleResponse(response){
-  for (let i = 0; i < response.items.length; i++) {
-    suggestions.push(response.items[i]);
-  }
-}
-
-async function autocomplete(inp) {
+function autocomplete(inp) {
   inp.addEventListener("input", function(e) {
-    clearPrevious();
+    let a = document.createElement("div");
+    a.setAttribute("id", this.id + "-autocomplete-list");
+    a.setAttribute("class", "autocomplete-items");
+    document.querySelector('#autocomplete-div').appendChild(a);
     let val = this.value;
     if (!val){return false;}
-    resetRequest();
-    addWordToRequest(val.split(' ').join('+'));
-    sendRequest();
-    let arr = suggestions.map(e => e.volumeInfo.title);
-    setTimeout(function(){
-      let a = document.createElement("div");
-      a.setAttribute("id", this.id + "-autocomplete-list");
-      a.setAttribute("class", "autocomplete-items");
-      document.querySelector('#autocomplete-div').appendChild(a);
-      for (let i = 0; i < 5 && suggestions[i]; i++) {
+    let words = val.split(' ').join('+');
+    words += '&langRestrict=en';
+    fetch('https://www.googleapis.com/books/v1/volumes?q=' + words).then(
+        function (response) {
+          return response.json();
+        }).then(function (data) {
+      data = data["items"];
+      for (let i = 0; i < 5 && data[i]; i++) {
         let b = document.createElement("div");
-        b.innerHTML = "<p>" + suggestions[i].volumeInfo.title + " by "+suggestions[i].volumeInfo.authors[0] + "</p>";
+        b.innerHTML = "<p>" + data[i].volumeInfo.title + " by "+data[i].volumeInfo.authors[0] + "</p>";
         b.innerHTML += "<input type='hidden' value='" +i + "'>";
         b.addEventListener('click', function(e) {
           let index = this.getElementsByTagName("input")[0].value;
-          fillForm(index);
+          fillForm(index, data);
           clearPrevious();
         });
         a.appendChild(b);
       }
-    }, 500);
+      return true;
+    }).catch(function (err) {
+      console.warn('Something went wrong.', err);
+      return false;
+    });
   });
 }
 
-function fillForm(i) {
+function fillForm(i, suggestions) {
   document.getElementById('title-input').value = suggestions[i].volumeInfo.title;
   document.getElementById('author-input').value = suggestions[i].volumeInfo.authors[0];
   document.getElementById('genre-input').value = suggestions[i].volumeInfo.categories[0];
@@ -69,6 +47,20 @@ function fillForm(i) {
 
 function clearPrevious() {
   document.querySelector('#autocomplete-div').innerHTML = '';
+}
+function getApiBookById(id){
+  let xhr = new XMLHttpRequest();
+  let url = 'https://www.googleapis.com/books/v1/volumes?q=' + id;
+  xhr.open("GET", url, false);
+  xhr.send('');
+  return xhr.responseText;
+}
+function getApiBook(array){
+  let xhr = new XMLHttpRequest();
+  let url = 'https://www.googleapis.com/books/v1/volumes?q=' + array + '&langRestrict=en';
+  xhr.open("GET", url, false);
+  xhr.send('');
+  return JSON.parse(xhr.responseText).items;
 }
 
 autocomplete(document.querySelector('#title-input'));

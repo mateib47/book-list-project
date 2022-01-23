@@ -109,7 +109,6 @@ function updateStats(){
   let booksList;
   if(refEmail){
     progressList = apiGetProgress(email);
-    console.log(progressList);
     booksList = apiGetBooks(email);
   }else {
     progressList = getProgressList();
@@ -160,7 +159,6 @@ function updateArray(name, array) {
 }
 
 function renderStats(){
-  //console.log(document.getElementById('fav-author'));
   document.getElementById('total-pages').innerHTML
     = `Total pages read: ${getTotalPages()}`;
   document.getElementById('total-books').innerHTML
