@@ -48,19 +48,5 @@ function fillForm(i, suggestions) {
 function clearPrevious() {
   document.querySelector('#autocomplete-div').innerHTML = '';
 }
-function getApiBookById(id){
-  let xhr = new XMLHttpRequest();
-  let url = 'https://www.googleapis.com/books/v1/volumes?q=' + id;
-  xhr.open("GET", url, false);
-  xhr.send('');
-  return xhr.responseText;
-}
-function getApiBook(array){
-  let xhr = new XMLHttpRequest();
-  let url = 'https://www.googleapis.com/books/v1/volumes?q=' + array + '&langRestrict=en';
-  xhr.open("GET", url, false);
-  xhr.send('');
-  return JSON.parse(xhr.responseText).items;
-}
 
 autocomplete(document.querySelector('#title-input'));

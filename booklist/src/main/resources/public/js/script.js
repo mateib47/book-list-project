@@ -32,9 +32,9 @@ window.onclick = function(event){
 }
 
 function renderBook(book) {
+  console.log("rendering")
   const refEmail = localStorage.getItem('emailRef');
   if(refEmail) {
-    book.apiBookObj = JSON.parse(getApiBookById(book.apiId)).items[0];
   }else{
     localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
   }
@@ -207,7 +207,7 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId, id, change
     }else{
       postBook(book);
     }
-    apiGetBooks(emailObj.email, renderBooks);
+    fetchBooks();
   }else{
     book.id = Date.now();
     if (bookChoice){
@@ -331,19 +331,9 @@ function getFirstName(email, callback){
 function apiGetBooks(email, callback){
   let xhr = new XMLHttpRequest();
   let url = 'http://localhost:8080/api/v1/books/get?email=' + email;
-  if (callback){
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        callback(xhr.responseText);
-      }
-    };
-    xhr.open("GET", url, true);
-    xhr.send('');
-  }else{
     xhr.open("GET", url, false);
     xhr.send('');
     return JSON.parse(xhr.responseText);
-  }
 }
 function getBook(id){
   let xhr = new XMLHttpRequest();
@@ -359,7 +349,7 @@ function postBook(book){
   xhr.setRequestHeader('Content-Type', 'application/json');
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
-  apiGetBooks(book.email, renderBooks);
+  fetchBooks();
 }
 function putDeleteBook(id){
   let xhr = new XMLHttpRequest();
@@ -367,7 +357,7 @@ function putDeleteBook(id){
   xhr.open("PUT", url, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send('');
-  apiGetBooks(email, renderBooks);
+  fetchBooks();
 }
 
 function postChangeBook(id, book){
@@ -377,7 +367,7 @@ function postChangeBook(id, book){
   xhr.setRequestHeader('Content-Type', 'application/json');
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
-  apiGetBooks(book.email, renderBooks);
+  fetchBooks();
 }
 
 function setName(name){
@@ -396,7 +386,7 @@ function domListener() {
   if(refEmail) {
     const emailObj = JSON.parse(refEmail);
     getFirstName(emailObj.email, setName);
-    apiGetBooks(emailObj.email, renderBooks);
+    fetchBooks();
   }else{
     if (refUser) {
       user = JSON.parse(refUser);
@@ -415,10 +405,36 @@ function domListener() {
   }
 }
 function renderBooks(array){
-  array = JSON.parse(array);
   array.forEach(t => {
+    fetch('https://www.googleapis.com/books/v1/volumes?q=' + t.apiId).then(
+        function (response) {
+          return response.json();
+        }).then(function (data) {
+      console.log(data)
+      t.apiBookObj = data["items"][0];
       renderBook(t);
+      return true;
+    }).catch(function (err) {
+      console.warn('Something went wrong.', err);
+      return false;
+    });
   });
 }
 
+function fetchBooks(){
+  console.log("start")
+  fetch('/api/v1/books/get?email=' + email).then(
+      function (response) {
+        return response.json();
+      }).then(function (data) {
+    console.log("data")
+
+    console.log(data)
+    renderBooks(data);
+    return true;
+  }).catch(function (err) {
+    console.warn('Something went wrong.', err);
+    return false;
+  });
+}
 document.addEventListener('DOMContentLoaded', domListener);
