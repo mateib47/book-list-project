@@ -204,10 +204,10 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId, id, change
     if(changeFlag === 'true'){
       document.getElementById('change-flag').value = 'false';
       postChangeBook(id, book);
+      document.querySelector(`[data-key='${id}']`).remove();
     }else{
       postBook(book);
     }
-    fetchBooks();
   }else{
     book.id = Date.now();
     if (bookChoice){
@@ -215,8 +215,8 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId, id, change
       bookChoice = null;
     }
     bookList.push(book);
-    renderBook(book);
   }
+  renderBook(book);
 }
 
 function addName(text){
@@ -230,7 +230,7 @@ function addName(text){
 }
 
 //adjust
-function changeStatus(key, status){
+function changeStatus(key){
   const refEmail = localStorage.getItem('emailRef');
   if (refEmail){
     let book = getBook(key);
@@ -238,6 +238,7 @@ function changeStatus(key, status){
     book.status = status;
     book.email = JSON.parse(refEmail).email;
     postChangeBook(key, book);
+    document.querySelector(`[data-key='${book.id}']`).className = `book-item ${status}`;
   }else{
     const index = bookList.findIndex(book => book.id === Number(key));
     if(arguments.length == 1){
@@ -357,7 +358,7 @@ function putDeleteBook(id){
   xhr.open("PUT", url, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send('');
-  fetchBooks();
+  document.querySelector(`[data-key='${id}']`).remove();
 }
 
 function postChangeBook(id, book){
@@ -367,7 +368,6 @@ function postChangeBook(id, book){
   xhr.setRequestHeader('Content-Type', 'application/json');
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
-  fetchBooks();
 }
 
 function setName(name){
