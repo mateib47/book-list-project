@@ -131,7 +131,6 @@ function addProgress(totalPages,bookId,date){// FIXME: highly complicated functi
     progressList.push(progress);
     localStorage.setItem('progressRef', JSON.stringify(progressList));
   }
-  console.log(progress);
   renderCalendar();
 }
 
@@ -220,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function apiGetProgress(email){
   let xhr = new XMLHttpRequest();
-  let url = 'http://localhost:8080/api/v1/progress/get?email=' + email;
+  let url = '/api/v1/progress/get?email=' + email;
   xhr.open("GET", url, false);
   xhr.send('');
   let response = JSON.parse(xhr.responseText);
@@ -233,7 +232,7 @@ function apiGetProgress(email){
 
 function apiPostProgress(progress){
   let xhr = new XMLHttpRequest();
-  let url = 'http://localhost:8080/api/v1/progress/add';
+  let url = '/api/v1/progress/add';
   xhr.open("POST", url, false);
   let progressJson = JSON.stringify(progress);
   xhr.send(progressJson);

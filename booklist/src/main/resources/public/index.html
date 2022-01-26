@@ -43,7 +43,7 @@
       <div class="modal-content">
         <span class="close" onclick="hideModal(document.getElementById('add-book'));bookForm.reset();">&times;</span>
         <form class="js-form" id="book-form" autocomplete="off">
-          <button onclick="bookForm.reset();" class="delete-button" style="margin-bottom: 15px">Clear Form</button>
+          <button onclick="bookForm.reset();clearPrevious();" class="delete-button" style="margin-bottom: 15px">Clear Form</button>
           <label for="title-input" id="title-input-label" class="">Enter the title of a book </label>
 
               <input id="title-input" class="input" type="text" placeholder="E.g. The Great Gatsby" required>

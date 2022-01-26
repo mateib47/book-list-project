@@ -4,12 +4,15 @@ let bookChoice;
 
 function autocomplete(inp) {
   inp.addEventListener("input", function(e) {
+    if (inp.value.trim() === ''){
+      clearPrevious();
+      return;
+    }
     let a = document.createElement("div");
     a.setAttribute("id", this.id + "-autocomplete-list");
     a.setAttribute("class", "autocomplete-items");
     document.querySelector('#autocomplete-div').appendChild(a);
     let val = this.value;
-    if (!val){return false;}
     let words = val.split(' ').join('+');
     words += '&langRestrict=en';
     fetch('https://www.googleapis.com/books/v1/volumes?q=' + words).then(

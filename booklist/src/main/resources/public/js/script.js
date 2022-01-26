@@ -33,7 +33,6 @@ window.onclick = function(event){
 
 function renderBook(book) {
   console.log("rendering")
-  const refEmail = localStorage.getItem('emailRef');
   if(refEmail) {
   }else{
     localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
@@ -204,7 +203,6 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId, id, change
     if(changeFlag === 'true'){
       document.getElementById('change-flag').value = 'false';
       postChangeBook(id, book);
-      document.querySelector(`[data-key='${id}']`).remove();
     }else{
       postBook(book);
     }
@@ -215,8 +213,8 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId, id, change
       bookChoice = null;
     }
     bookList.push(book);
+    renderBook(book);
   }
-  renderBook(book);
 }
 
 function addName(text){
@@ -231,6 +229,7 @@ function addName(text){
 
 //adjust
 function changeStatus(key){
+  console.log(key);
   const refEmail = localStorage.getItem('emailRef');
   if (refEmail){
     let book = getBook(key);
@@ -290,6 +289,7 @@ bookForm.addEventListener('submit',event => {
     addBook(bookName,authorName,genre,rating,status,pages,quote,apiId, id, changeFlag);
     bookForm.reset();
     bookInput.focus();
+    clearPrevious();
   }
 });
 
@@ -320,7 +320,7 @@ list.addEventListener('click', event => {
 
 function getFirstName(email, callback){
   let xhr = new XMLHttpRequest();
-  let url = 'http://localhost:8080/api/v1/appUser/firstName?email=' + email;
+  let url = '/api/v1/appUser/firstName?email=' + email;
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status === 200) {
       callback(xhr.responseText);
@@ -331,14 +331,14 @@ function getFirstName(email, callback){
 }
 function apiGetBooks(email, callback){
   let xhr = new XMLHttpRequest();
-  let url = 'http://localhost:8080/api/v1/books/get?email=' + email;
+  let url = '/api/v1/books/get?email=' + email;
     xhr.open("GET", url, false);
     xhr.send('');
     return JSON.parse(xhr.responseText);
 }
 function getBook(id){
   let xhr = new XMLHttpRequest();
-  let url = 'http://localhost:8080/api/v1/books/get-book?id=' + id;
+  let url = '/api/v1/books/get-book?id=' + id;
   xhr.open("GET", url, false);
   xhr.send('');
   return JSON.parse(xhr.responseText);
@@ -346,15 +346,17 @@ function getBook(id){
 
 function postBook(book){
   let xhr = new XMLHttpRequest();
-  xhr.open("POST", 'http://localhost:8080/api/v1/books/add', true);
+  xhr.open("POST", '/api/v1/books/add', false);
   xhr.setRequestHeader('Content-Type', 'application/json');
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
-  fetchBooks();
+  book.id = xhr.responseText;
+  book.apiBookObj = getApiBook(book.apiId);
+  renderBook(book);
 }
 function putDeleteBook(id){
   let xhr = new XMLHttpRequest();
-  let url = 'http://localhost:8080/api/v1/books/delete-book?id=' + id;
+  let url = '/api/v1/books/delete-book?id=' + id;
   xhr.open("PUT", url, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send('');
@@ -363,11 +365,21 @@ function putDeleteBook(id){
 
 function postChangeBook(id, book){
   let xhr = new XMLHttpRequest();
-  let url = 'http://localhost:8080/api/v1/books/change?id=' + id;
+  let url = '/api/v1/books/change?id=' + id;
   xhr.open("PUT", url, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
+  document.querySelector(`[data-key='${id}']`).remove();
+  book.apiBookObj = getApiBook(book.apiId);
+  renderBook(book);
+}
+function getApiBook(id){
+  let xhr = new XMLHttpRequest();
+  let url = 'https://www.googleapis.com/books/v1/volumes?q=' + id;
+  xhr.open("GET", url, false);
+  xhr.send('');
+  return JSON.parse(xhr.responseText)["items"][0];
 }
 
 function setName(name){
@@ -405,12 +417,17 @@ function domListener() {
   }
 }
 function renderBooks(array){
-  array.forEach(t => {
+  let sortedArray = array.sort(function(a, b){
+    if(a.title < b.title) { return -1; }
+    if(a.title > b.title) { return 1; }
+    return 0;
+  });
+  console.log(sortedArray);
+  sortedArray.forEach(t => {
     fetch('https://www.googleapis.com/books/v1/volumes?q=' + t.apiId).then(
         function (response) {
           return response.json();
         }).then(function (data) {
-      console.log(data)
       t.apiBookObj = data["items"][0];
       renderBook(t);
       return true;
@@ -422,14 +439,11 @@ function renderBooks(array){
 }
 
 function fetchBooks(){
-  console.log("start")
   fetch('/api/v1/books/get?email=' + email).then(
       function (response) {
         return response.json();
       }).then(function (data) {
-    console.log("data")
-
-    console.log(data)
+        //todo have option to sort books in a certain order; add the time the book was added so you can sort by newest first
     renderBooks(data);
     return true;
   }).catch(function (err) {

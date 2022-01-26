@@ -12,7 +12,7 @@ public class BooksService {
     private BooksRepository booksRepository;
     private AppUserRepository appUserRepository;
 
-    public String addBook(BooksRequest booksRequest) {
+    public Long addBook(BooksRequest booksRequest) {
         Books book = new Books(booksRequest.getRating(),
                 booksRequest.getApiId(),
                 booksRequest.getAuthor(),
@@ -24,7 +24,7 @@ public class BooksService {
                 booksRequest.getTitle(),
                 appUserRepository.findByEmail(booksRequest.getEmail()).get());
         booksRepository.save(book);
-        return "added book";
+        return book.getId();
     }
     public List<Books[]> getBooks(String email){
         return booksRepository.getAllByAppUser(appUserRepository.findByEmail(email).get());

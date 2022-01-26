@@ -13,7 +13,7 @@ public class BooksController {
     private final BooksService booksService;
 
     @PostMapping(path = "add")
-    public String addBook(@RequestBody BooksRequest booksRequest){
+    public Long addBook(@RequestBody BooksRequest booksRequest){
         return booksService.addBook(booksRequest);
     }
 
