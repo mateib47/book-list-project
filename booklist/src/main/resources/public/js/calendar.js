@@ -120,14 +120,18 @@ function addProgress(totalPages,bookId,date){// FIXME: highly complicated functi
       }
     });
   const progress = {
-    id : Date.now(),
     totalPages:pages,
     bookList:booksRecord,
     date
   }
   if(refEmail){
+    progress.email = email;
+    let month = progress.date.month + 1;
+    progress.date = progress.date.year + "-" + ('0' + month).slice(-2)
+        + "-" +progress.date.day;
     apiPostProgress(progress);
   }else{
+    progress.id = Date.now();
     progressList.push(progress);
     localStorage.setItem('progressRef', JSON.stringify(progressList));
   }
@@ -223,10 +227,14 @@ function apiGetProgress(email){
   xhr.open("GET", url, false);
   xhr.send('');
   let response = JSON.parse(xhr.responseText);
+  console.log(response);
   for(let e of response){
     let date = e.date.substring(0,10).split('-');
     e.date = {year:date[0], month:Number(date[1])-1, day:date[2]}
   }
+  console.log("response");
+  console.log(response);
+
   return response;
 }
 
@@ -234,6 +242,8 @@ function apiPostProgress(progress){
   let xhr = new XMLHttpRequest();
   let url = '/api/v1/progress/add';
   xhr.open("POST", url, false);
+  xhr.setRequestHeader('Content-Type', 'application/json');
   let progressJson = JSON.stringify(progress);
+  console.log(progressJson);
   xhr.send(progressJson);
 }

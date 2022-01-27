@@ -1,12 +1,11 @@
 package com.booklist.progress;
 
-import com.booklist.books.Books;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -15,7 +14,7 @@ import java.util.List;
 @ToString
 public class UserProgressRequest {
     private int totalPages;
-    private Date date;
+    private LocalDate date;
     private List<ProgressBook> bookList;
     private String email;
 }

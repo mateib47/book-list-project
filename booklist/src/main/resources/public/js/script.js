@@ -32,7 +32,6 @@ window.onclick = function(event){
 }
 
 function renderBook(book) {
-  console.log("rendering")
   if(refEmail) {
   }else{
     localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
@@ -229,7 +228,6 @@ function addName(text){
 
 //adjust
 function changeStatus(key){
-  console.log(key);
   const refEmail = localStorage.getItem('emailRef');
   if (refEmail){
     let book = getBook(key);
@@ -422,7 +420,6 @@ function renderBooks(array){
     if(a.title > b.title) { return 1; }
     return 0;
   });
-  console.log(sortedArray);
   sortedArray.forEach(t => {
     fetch('https://www.googleapis.com/books/v1/volumes?q=' + t.apiId).then(
         function (response) {

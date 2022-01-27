@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -24,12 +25,12 @@ public class UserProgress {
     private Long id;
     private int totalPages;
 
-    private Date date;
+    private LocalDate date;
     @ElementCollection
     private List<ProgressBook> bookList;
     private Long appUserId;
 
-    public UserProgress(int totalPages, Date date, List<ProgressBook> bookList, Long appUserId) {
+    public UserProgress(int totalPages, LocalDate date, List<ProgressBook> bookList, Long appUserId) {
         this.totalPages = totalPages;
         this.date = date;
         this.bookList = bookList;
@@ -44,11 +45,11 @@ public class UserProgress {
         this.totalPages = nrPages;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
