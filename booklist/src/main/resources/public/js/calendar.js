@@ -13,7 +13,12 @@ function getCurrentDate(){
   return currentDate;
 }
 function getProgressList(){
-  return [...progressList];
+  if(refEmail){
+    return apiGetProgress(email);
+  }else{
+    return [...progressList];
+  }
+
 }
 function setProgressList(list){
   progressList = list;
@@ -38,12 +43,7 @@ function getColor(pages){
 function renderCalendar() {
   const list = document.querySelector('#days-list');
   const currentDate = getCurrentDate();
-  let progressList;
-  if(refEmail){
-    progressList = apiGetProgress(email);
-  }else{
-    progressList = getProgressList();
-  }
+  let progressList = getProgressList();
   let monthCurrent = document.querySelector('#month-name');
   monthCurrent.innerHTML=`${months[currentDate.month]+" "+currentDate.year}`;
   list.innerHTML = "";
@@ -100,9 +100,23 @@ function removeProgress(key) {
 function addProgress(totalPages,bookId,date){// FIXME: highly complicated function; make it more readable
 //if the progress is added for a book whose status is future, it should be changed to present
   let pages = Number(totalPages);
-  addPages(bookId,pages);
-  let booksRecord = [{bookId,pages:totalPages}];
-  getProgressList().forEach(obj =>
+  addPages(bookId,pages); //todo implement this in backend
+  if(refEmail){
+    let month = date.month + 1;
+    let dateFormatted = date.year + "-" + ('0' + month).slice(-2)
+        + "-" +date.day;
+    const progress = {
+      email,
+      date:dateFormatted,
+      progressBook: {
+        bookId,
+        pages
+      }
+    }
+    apiPostProgress(progress);
+  }else{
+    let booksRecord = [{bookId,pages:totalPages}];
+    getProgressList().forEach(obj =>
     {
       if(dateEquals(obj.date,date)){
         pages += Number(obj.totalPages);
@@ -110,7 +124,7 @@ function addProgress(totalPages,bookId,date){// FIXME: highly complicated functi
           x.pages = Number(x.pages)+Number(totalPages);
           return false;
         }
-        return true;})){
+          return true;})){
           booksRecord.push(...obj.bookList);
           removeProgress(obj.id);
         }else{
@@ -119,18 +133,11 @@ function addProgress(totalPages,bookId,date){// FIXME: highly complicated functi
         }
       }
     });
-  const progress = {
-    totalPages:pages,
-    bookList:booksRecord,
-    date
-  }
-  if(refEmail){
-    progress.email = email;
-    let month = progress.date.month + 1;
-    progress.date = progress.date.year + "-" + ('0' + month).slice(-2)
-        + "-" +progress.date.day;
-    apiPostProgress(progress);
-  }else{
+    const progress = {
+      totalPages:pages,
+      bookList:booksRecord,
+      date
+    }
     progress.id = Date.now();
     progressList.push(progress);
     localStorage.setItem('progressRef', JSON.stringify(progressList));
@@ -184,11 +191,16 @@ function populateSelect(){
 const calendar = document.querySelector('#days-list');
 calendar.addEventListener('click', event => {
   if(event.target.id == 'calendar-item'){
-    const id = event.target.dataset.key
+    const id = event.target.dataset.key;
+    const bookList = getBookList();
     if(id){
-      const item = progressList.find(obj => obj.id == id);
-      const bookList = getBookList();
-      const bookMap = item.bookList.map(x => bookList.find(book => book.id === x.bookId).id);
+      let item;
+      if(refEmail){
+        item = apiGetProgressById(id);
+      }else{
+        item = progressList.find(obj => obj.id == id);
+      }
+      const bookMap = item.bookList.map(x => bookList.find(b => b.id == x.bookId).title);
       document.querySelector('#progress-item-details').innerHTML = `
       <div class="date-divider">
         <p class="item-date">${item.date.day}-${item.date.month+1}-${item.date.year}</p>
@@ -227,14 +239,10 @@ function apiGetProgress(email){
   xhr.open("GET", url, false);
   xhr.send('');
   let response = JSON.parse(xhr.responseText);
-  console.log(response);
   for(let e of response){
     let date = e.date.substring(0,10).split('-');
     e.date = {year:date[0], month:Number(date[1])-1, day:date[2]}
   }
-  console.log("response");
-  console.log(response);
-
   return response;
 }
 
@@ -244,6 +252,16 @@ function apiPostProgress(progress){
   xhr.open("POST", url, false);
   xhr.setRequestHeader('Content-Type', 'application/json');
   let progressJson = JSON.stringify(progress);
-  console.log(progressJson);
   xhr.send(progressJson);
+}
+
+function apiGetProgressById(id){
+  let xhr = new XMLHttpRequest();
+  let url = '/api/v1/progress/get-day?id=' + id;
+  xhr.open("GET", url, false);
+  xhr.send('');
+  let response = JSON.parse(xhr.responseText);
+  let date = response.date.substring(0,10).split('-');
+    response.date = {year:date[0], month:Number(date[1])-1, day:date[2]}
+  return response;
 }

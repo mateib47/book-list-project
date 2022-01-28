@@ -3,6 +3,7 @@ package com.booklist.progress;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -20,5 +21,9 @@ public class UserProgressController {
     public List<UserProgress> getProgress(@RequestParam("email") String email) {
         List<UserProgress> userProgressAll = userProgressService.getUserProgress(email);
         return userProgressAll;
+    }
+    @GetMapping(path = "get-day")
+    public UserProgress getProgressDay(@RequestParam("id") Long id) {
+        return userProgressService.getUserProgressById(id);
     }
 }

@@ -13,8 +13,7 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 public class UserProgressRequest {
-    private int totalPages;
     private LocalDate date;
-    private List<ProgressBook> bookList;
+    private ProgressBook progressBook;
     private String email;
 }

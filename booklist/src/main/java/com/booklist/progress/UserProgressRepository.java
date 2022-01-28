@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface UserProgressRepository extends JpaRepository<UserProgress, Long> {
     Optional<UserProgress> findById(Long id);
-    Optional<UserProgress> findByDate(LocalDate date);
+    Optional<UserProgress> findByDateAndAppUserId(LocalDate date, Long appUserId);
     List<UserProgress> getAllByAppUserId(Long appUserId);
     void deleteById(Long id);
 //    @Transactional
