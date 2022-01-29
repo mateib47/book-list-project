@@ -26,6 +26,11 @@ public interface BooksRepository extends JpaRepository<Books, Long> {
 
     @Transactional
     @Modifying
+    @Query("update Books b set b.bookmark = b.bookmark + :pages where b.id = :id")
+    void addBookmark(int pages, Long id);
+
+    @Transactional
+    @Modifying
     @Query("update Books b set b.rating= :rating, b.author = :author, b.bookmark= :bookmark, b.genre= :genre," +
             "b.pages= :pages, b.quote= :quote, b.status= :status, b.title= :title where b.id = :id")
     int changeBook(@Param("id") Long id, @Param("rating") int rating, @Param("author") String author,

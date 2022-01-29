@@ -136,7 +136,12 @@ function calculatePercent(bookmark, pages){
 
 function addPages(bookId,pages){
   const book = getBookList().find(x => x.id == bookId);
-  book.bookmark += pages;
+  if(refEmail){
+    apiAddBookmark(pages, bookId);
+    book.apiBookObj = getApiBook(book.apiId);
+  }else{
+    book.bookmark += pages;
+  }
   renderBook(book);
 }
 
@@ -359,6 +364,14 @@ function putDeleteBook(id){
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send('');
   document.querySelector(`[data-key='${id}']`).remove();
+}
+
+function apiAddBookmark(pages, id){
+  let xhr = new XMLHttpRequest();
+  let url = '/api/v1/books/add-bookmark?id=' + id + '?pages=' + pages;
+  xhr.open("PUT", url, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send('');
 }
 
 function postChangeBook(id, book){

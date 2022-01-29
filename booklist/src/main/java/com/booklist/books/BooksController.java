@@ -41,8 +41,14 @@ public class BooksController {
     public String deleteBook(@RequestParam("id") Long id){
         return booksService.deleteBook(id);
     }
+
     @PutMapping(path = "change")
     public String changeBook(@RequestBody BooksRequest booksRequest, @RequestParam("id") Long id){
         return booksService.changeBook(booksRequest, id);
+    }
+
+    @PutMapping(path = "add-bookmark")
+    public String addBookmark(@RequestBody int pages, @RequestParam("id") Long id){
+        return booksService.addBookmark(pages, id);
     }
 }

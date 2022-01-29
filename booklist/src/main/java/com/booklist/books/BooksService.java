@@ -50,4 +50,9 @@ public class BooksService {
         booksRepository.deleteById(id);
         return "deleted book";
     }
+
+    public String addBookmark(int pages, Long id) {
+        booksRepository.addBookmark(pages, id);
+        return "added bookmark";
+    }
 }
