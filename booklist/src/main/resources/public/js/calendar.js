@@ -100,7 +100,7 @@ function removeProgress(key) {
 function addProgress(totalPages,bookId,date){// FIXME: highly complicated function; make it more readable
 //if the progress is added for a book whose status is future, it should be changed to present
   let pages = Number(totalPages);
-  addPages(bookId,pages); //todo implement this in backend
+  addPages(bookId,pages);
   if(refEmail){
     let month = date.month + 1;
     let dateFormatted = date.year + "-" + ('0' + month).slice(-2)

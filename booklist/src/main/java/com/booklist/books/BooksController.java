@@ -48,7 +48,7 @@ public class BooksController {
     }
 
     @PutMapping(path = "add-bookmark")
-    public String addBookmark(@RequestBody int pages, @RequestParam("id") Long id){
+    public String addBookmark(@RequestParam int pages, @RequestParam("id") Long id){
         return booksService.addBookmark(pages, id);
     }
 }

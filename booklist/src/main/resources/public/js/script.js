@@ -20,7 +20,9 @@ function showModal(modal) {
 }
 
 function hideModal(modal) {
+  console.log(modal);
   modal.style.display = 'none';
+  console.log(modal);
 }
 
 window.onclick = function(event){
@@ -32,12 +34,15 @@ window.onclick = function(event){
 }
 
 function renderBook(book) {
+  console.log("id "+book.id);
   if(refEmail) {
   }else{
     localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
   }
   const list = document.querySelector('.book-list-js');
   const item = document.querySelector(`[data-key='${book.id}']`);
+  console.log(item);
+  console.log(book.id);
   const node = document.createElement('li');
   const buyLink = 'https://www.amazon.com/s?k=' + book.title.split(" ").join('+');
   if(book.deleted && !refEmail) {
@@ -118,7 +123,7 @@ function renderBook(book) {
     `;
     node.innerHTML += modal;
   if(item){
-    list.replaceChild(node,item);
+    item.replaceWith(node);
   }else{
     list.append(node);
   }
@@ -136,11 +141,11 @@ function calculatePercent(bookmark, pages){
 
 function addPages(bookId,pages){
   const book = getBookList().find(x => x.id == bookId);
+  book.bookmark += pages;
   if(refEmail){
     apiAddBookmark(pages, bookId);
     book.apiBookObj = getApiBook(book.apiId);
-  }else{
-    book.bookmark += pages;
+   // document.querySelector(`[data-key='${book.id}']`).remove();
   }
   renderBook(book);
 }
@@ -206,6 +211,7 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId, id, change
     book.email = emailObj.email;
     if(changeFlag === 'true'){
       document.getElementById('change-flag').value = 'false';
+      document.getElementById('id').value = null;
       postChangeBook(id, book);
     }else{
       postBook(book);
@@ -368,7 +374,7 @@ function putDeleteBook(id){
 
 function apiAddBookmark(pages, id){
   let xhr = new XMLHttpRequest();
-  let url = '/api/v1/books/add-bookmark?id=' + id + '?pages=' + pages;
+  let url = '/api/v1/books/add-bookmark?id=' + id + '&pages=' + pages;
   xhr.open("PUT", url, true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send('');
@@ -381,8 +387,9 @@ function postChangeBook(id, book){
   xhr.setRequestHeader('Content-Type', 'application/json');
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
-  document.querySelector(`[data-key='${id}']`).remove();
+//  document.querySelector(`[data-key='${id}']`).remove();
   book.apiBookObj = getApiBook(book.apiId);
+  book.id = id;
   renderBook(book);
 }
 function getApiBook(id){
