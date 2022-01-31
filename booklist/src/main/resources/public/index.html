@@ -29,7 +29,7 @@
     </main>
     <div id="add-name" class ="modal">
       <div class="modal-content">
-        <span class="close" onclick="hideModal(document.getElementById('add-name'))">&times;</span>
+        <span class="close" onclick="hideModal('add-name')">&times;</span>
         <h1>Welcome to My Book List!</h1>
         <p>Here you can store all the books you've read, and the ones you are reading and planning to read</p>
         <form class="js-form name-form" id="add-name-form">
@@ -41,7 +41,7 @@
     </div>
     <div class="modal" id="add-book">
       <div class="modal-content">
-        <span class="close" onclick="hideModal(document.getElementById('add-book'));bookForm.reset();">&times;</span>
+        <span class="close" onclick="hideModal('add-book');bookForm.reset();">&times;</span>
         <form class="js-form" id="book-form" autocomplete="off">
           <button onclick="bookForm.reset();clearPrevious();" class="delete-button" style="margin-bottom: 15px">Clear Form</button>
           <label for="title-input" id="title-input-label" class="">Enter the title of a book </label>
@@ -99,7 +99,7 @@
     </div>
     <div class="modal" id="progress">
       <div class="modal-content">
-        <span class="close" onclick="hideModal(document.getElementById('progress'))">&times;</span>
+        <span class="close" onclick="hideModal('progress')">&times;</span>
         <div id="calendar">
           <div class="month">
             <ul>
@@ -136,7 +136,7 @@
     </div>
     <div class="modal" id="stats">
       <div class="modal-content">
-        <span class="close" onclick="hideModal(document.getElementById('stats'))">&times;</span>
+        <span class="close" onclick="hideModal('stats')">&times;</span>
         <p id="total-pages" class="text"></p>
         <p id="total-books" class="text"></p>
         <div id="top-books" class="text"></div>
@@ -155,7 +155,7 @@
     </div>
     <div class="modal" id="legend">
       <div class="modal-content">
-        <span class="close" onclick="hideModal(document.getElementById('legend'))">&times;</span>
+        <span class="close" onclick="hideModal('legend')">&times;</span>
         <div class="legend-line">
           <div class="box future"></div>
           <p>The books you are planning to read</p>
@@ -172,7 +172,7 @@
     </div>
     <div id="settings" class ="modal">
       <div class="modal-content">
-        <span class="close" onclick="hideModal(document.getElementById('settings'))">&times;</span>
+        <span class="close" onclick="hideModal('settings')">&times;</span>
         <form class="js-form name-form" id = "settings-form">
           <label for="settings-name-input" id="name-input-label" class="">Change your name</label>
           <input id="settings-name-input" class="input" type="text" placeholder="E.g. John">
@@ -183,7 +183,7 @@
     <button type="button" id="open-navbar" class="navbar-button" onclick="showModal(document.getElementById('navbar'))">&#10095;</button>
     <nav id="navbar">
       <h1>MyBookList</h1>
-      <button type="button" id="close-navbar" class="navbar-button" onclick="hideModal(document.getElementById('navbar'))">&#10096;</button>
+      <button type="button" id="close-navbar" class="navbar-button" onclick="hideModal('navbar')">&#10096;</button>
       <div class="buttons">
         <button class="menu-buttons" onclick="showModal(document.getElementById('add-book'))">Add Books</button>
         <button class="menu-buttons" onclick="showModal(document.getElementById('progress'));populateSelect()">Progress</button>

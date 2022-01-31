@@ -105,21 +105,22 @@ function getTotalBooks(){
 }
 
 function updateStats(){
-  let progressList;
-  let booksList;
-  if(refEmail){
-    progressList = apiGetProgress(email);
-    booksList = apiGetBooks(email);
-  }else {
-    progressList = getProgressList();
-    booksList = getBookList();
-  }
+  let progressList = getProgressList();
+  let booksList = getBookList();
   let totalPages = 0;
   let totalBooks = 0;
   let genres =[];
   let monthsProgress = [];
   let authors =[];
   let days =0;
+  if(!refEmail){
+    for(let x of progressList){
+      x.nrPages = 0;
+      for(let b of x.bookList){
+        x.nrPages += b.pages;
+      }
+    }
+  }
   for(let x of progressList){
     let index = monthsProgress.map(e => e.month).indexOf(x.date['month']);
     if (index >= 0) {

@@ -19,30 +19,26 @@ function showModal(modal) {
   modal.style.display = 'block';
 }
 
-function hideModal(modal) {
-  console.log(modal);
+function hideModal(id) {
+  let modal = document.getElementById(id);
   modal.style.display = 'none';
-  console.log(modal);
 }
 
 window.onclick = function(event){
   for(let i=0;i<modals.length;i++){
     if(event.target == modals[i]){
-      hideModal(modals[i]);
+      hideModal(modals[i].id);
     }
   }
 }
 
 function renderBook(book) {
-  console.log("id "+book.id);
   if(refEmail) {
   }else{
     localStorage.setItem('bookItemsRef', JSON.stringify(bookList));
   }
   const list = document.querySelector('.book-list-js');
   const item = document.querySelector(`[data-key='${book.id}']`);
-  console.log(item);
-  console.log(book.id);
   const node = document.createElement('li');
   const buyLink = 'https://www.amazon.com/s?k=' + book.title.split(" ").join('+');
   if(book.deleted && !refEmail) {
@@ -73,7 +69,7 @@ function renderBook(book) {
   let modal=`
     <div class="modal" id="details-${book.id}" class="details">
       <div class="modal-content">
-      <span class="close" onclick="hideModal(document.getElementById('details-${book.id}'))">&times;</span>
+      <span class="close" onclick="hideModal('details-${book.id}')">&times;</span>
       <div class='side-by-side' style="margin-bottom: 40px;">
         <div class="text">
           <h2 class="book-title">${book.title}</h2>`;
@@ -157,7 +153,7 @@ function changeBook(key){
   }else{
     book = getBookList().find(x => x.id == key);
   }
-  hideModal(document.getElementById("details-"+key));
+  hideModal("details-"+key);
   showModal(document.getElementById("add-book"));
   for(let prop in book){
     if(prop == 'rating' && book[prop] !== undefined && book[prop] !== 0){
