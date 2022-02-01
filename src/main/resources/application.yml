@@ -1,18 +1,14 @@
-#spring.security.oauth2.client.registration.google.client-id=150100738868-aor930qv6isql8ggrhlmuoaiqkb7shrk.apps.googleusercontent.com
-#spring.security.oauth2.client.registration.google.client-secret=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
-
-
 server:
   error:
     include-message: always
     include-binding-errors: always
 
 spring:
-  datasource:
-    driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://bronto.ewi.utwente.nl/
-    username: dab_di20212b_85
-    password: 2plKsgaKZYuRy6EY
+  spring:
+    datasource:
+      url: ${JDBC_DATABASE_URL}
+      username: ${JDBC_DATABASE_USERNAME}
+      password: ${JDBC_DATABASE_PASSWORD}
   jpa:
     database: POSTGRESQL
     hibernate:
@@ -26,8 +22,8 @@ spring:
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
-    username: fat.rhino.studio@gmail.com
-    password: rhinoisthebest2019
+    username: ${VALIDATION_EMAIL}
+    password: ${VALIDATION_EMAIL_PASSWD}
     port: 587
     properties:
       mail:
