@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+  <head>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/rating.css">
+    <link rel="stylesheet" type="text/css" href="css/calendar.css">
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="icon" href="images/tab-icon.png">
+    <title>My Book List</title>
+  </head>
+  <body>
+    <main>
+      <div id="main-page">
+        <h1 id="title" class="">My Book List</h1>
+        <ul class="book-list-js book-list"></ul>
+        <div class="empty-state">
+          <h1>Add some books!</h1>
+          <p>Think about some that you read or you are planning to read</p>
+          <img src="images/add-book.png" alt="image of a bookcase" class="empty-state-img" onclick="showModal(document.getElementById('add-book'))">
+        </div>
+      </div>
+    </main>
+    <div id="add-name" class ="modal">
+      <div class="modal-content">
+        <span class="close" onclick="hideModal('add-name')">&times;</span>
+        <h1>Welcome to My Book List!</h1>
+        <p>Here you can store all the books you've read, and the ones you are reading and planning to read</p>
+        <form class="js-form name-form" id="add-name-form">
+          <label for="add-name-input" id="name-input-label" class="">What is your name?</label>
+          <input id="add-name-input" class="input" type="text" placeholder="E.g. John">
+          <button type="submit" id="add-name-submit" class="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="add-book">
+      <div class="modal-content">
+        <span class="close" onclick="hideModal('add-book');bookForm.reset();">&times;</span>
+        <form class="js-form" id="book-form" autocomplete="off">
+          <button onclick="bookForm.reset();clearPrevious();" class="delete-button" style="margin-bottom: 15px">Clear Form</button>
+          <label for="title-input" id="title-input-label" class="">Enter the title of a book </label>
+
+              <input id="title-input" class="input" type="text" placeholder="E.g. The Great Gatsby" required>
+              <div class="autocomplete" id="autocomplete-div"></div>
+
+
+
+          
+          <label for="author-input" id="author-input-label" class="">Enter the name of the book's author</label>
+          <input id="author-input" class="input" type="text" placeholder="E.g. F. Scott Fitzgerald">
+          <label for="genre-input">Add the genre of the book</label>
+          <input id="genre-input" type="text" name="" value="" class="input" placeholder="e.g. Fiction" list="genres-list">
+          <datalist id="genres-list">
+            <option value="Scientific">Scientific</option>
+            <option value="Self-help">Self-help</option>
+            <option value="Biography">Biography</option>
+            <option value="Historical">Historical</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Sci-fi">Sci-fi</option>
+            <option value="Romance">Romance</option>
+          </datalist>
+          <label id="rating-input-label" class="">Rate the book</label>
+          <fieldset class="rate" id="star">
+            <input class="star" type="radio" id="star5" name="star" value="5" />
+            <label for="star5" title="text">5 stars</label>
+            <input class="star" type="radio" id="star4" name="star" value="4" />
+            <label for="star4" title="text">4 stars</label>
+            <input class="star" type="radio" id="star3" name="star" value="3" />
+            <label for="star3" title="text">3 stars</label>
+            <input class="star" type="radio" id="star2" name="star" value="2" />
+            <label for="star2" title="text">2 stars</label>
+            <input class="star" type="radio" id="star1" name="star" value="1" />
+            <label for="star1" title="text">1 star</label>
+          </fieldset>
+          <label for="status-input">Add the status of the book</label>
+          <select class="status input" name="status" id="status-input">
+            <option value="PRESENT">In Progress</option>
+            <option value="PAST">Finished</option>
+            <option value="FUTURE">Not started</option>
+          </select>
+          <label for="pages-input">Add the number of pages of the book</label>
+          <input type="number" class="input" placeholder="E.g. 324" min="1" id="pages-input">
+          <label for="quote-input">Add your favourite quote</label>
+          <textarea id="quote-input" name="quote" rows="5" cols="35" class="input"></textarea>
+          <input id="bookmark-input" type='hidden' value=''>
+          <input id="apiId-input" type='hidden' value=''>
+          <input id="id" type='hidden' value=''>
+          <input id="change-flag" type='hidden' value=''>
+          <button type="submit" id="book-form-submit" class="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="progress">
+      <div class="modal-content">
+        <span class="close" onclick="hideModal('progress')">&times;</span>
+        <div id="calendar">
+          <div class="month">
+            <ul>
+              <li class="prev" id="calendar-prev" onclick="calendarPrev()">&#10094;</li>
+              <li class="next" id="calendar-next" onclick="calendarNext()">&#10095;</li>
+              <li id="month-name">January<br><span style="font-size:18px">2021</span></li>
+            </ul>
+            <ul class="weekdays">
+              <li>Mo</li>
+              <li>Tu</li>
+              <li>We</li>
+              <li>Th</li>
+              <li>Fr</li>
+              <li>Sa</li>
+              <li>Su</li>
+            </ul>
+            <div class="center">
+              <ul id="days-list" class="days">
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div id="progress-item-details"></div>
+        <form class="js-form" id="progress-form">
+          <label for="nr-pages-input" id="nr-pages-input-label" class="">Enter the number of pages you read</label>
+          <input id="nr-pages-input" class="input" type="number" min="1" placeholder="E.g. 15">
+          <label for="select-book">Select the book</label>
+          <select id="select-book" class="input" name=""></select>
+          <label for="date-input" id="date-input-label" class="">Enter the date</label>
+          <input id="date-input" class="input" type="date">
+          <button type="submit" id="pages-submit" class="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="modal" id="stats">
+      <div class="modal-content">
+        <span class="close" onclick="hideModal('stats')">&times;</span>
+        <p id="total-pages" class="text"></p>
+        <p id="total-books" class="text"></p>
+        <div id="top-books" class="text"></div>
+        <p id="fav-author" class="text"></p>
+        <p id="average-pages" class="text"></p>
+        <div class="empty-state">
+          <p>Add some books in order to see some statistics!</p>
+        </div>
+        <div class="chart">
+          <canvas id="genrePieChart" style="width:100%;max-width:500px"></canvas>
+        </div>
+        <div class="chart">
+          <canvas id="progressGraph" style="width:100%;max-width:600px"></canvas>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="legend">
+      <div class="modal-content">
+        <span class="close" onclick="hideModal('legend')">&times;</span>
+        <div class="legend-line">
+          <div class="box future"></div>
+          <p>The books you are planning to read</p>
+        </div>
+        <div class="legend-line">
+          <div class="box present"></div>
+          <p>The books in progress</p>
+        </div>
+        <div class="legend-line">
+          <div class="box past"></div>
+          <p>The books you finished reading</p>
+        </div>
+      </div>
+    </div>
+    <div id="settings" class ="modal">
+      <div class="modal-content">
+        <span class="close" onclick="hideModal('settings')">&times;</span>
+        <form class="js-form name-form" id = "settings-form">
+          <label for="settings-name-input" id="name-input-label" class="">Change your name</label>
+          <input id="settings-name-input" class="input" type="text" placeholder="E.g. John">
+          <button type="submit" id="change-name-submit" class="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <button type="button" id="open-navbar" class="navbar-button" onclick="showModal(document.getElementById('navbar'))">&#10095;</button>
+    <nav id="navbar">
+      <h1>MyBookList</h1>
+      <button type="button" id="close-navbar" class="navbar-button" onclick="hideModal('navbar')">&#10096;</button>
+      <div class="buttons">
+        <button class="menu-buttons" onclick="showModal(document.getElementById('add-book'))">Add Books</button>
+        <button class="menu-buttons" onclick="showModal(document.getElementById('progress'));populateSelect()">Progress</button>
+        <button class="menu-buttons" onclick="showModal(document.getElementById('stats'))">Statistics</button>
+        <button class="menu-buttons" onclick="showModal(document.getElementById('settings'))">Settings</button>
+        <button class="menu-buttons" onclick="showModal(document.getElementById('legend'))">Help</button>
+        <button class="menu-buttons" onclick="window.location.href='/logout'">Logout</button>
+      </div>
+      <p>© Created by Matei Bucur - You can see my book list <a href="author-booklist.html" target="_blank">here</a></p>
+    </nav>
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="js/calendar.js"></script>
+    <script type="text/javascript" src="js/stats.js"></script>
+    <script type="text/javascript" src="js/autocomplete.js"></script>
+  </body>
+</html>

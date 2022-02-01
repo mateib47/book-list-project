@@ -1,0 +1,47 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <link rel="stylesheet" title="mystyle" type="text/css" href="/css/master.css">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Please log in</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    </head>
+    <body>
+    <div class="row justify-content-center">
+        <div class="col col-md-6 text-center">
+            <form id="login-form" method="post" th:action="@{/login}" onsubmit="saveEmail()">
+                <h1 class="display-4 py-4">Welcome to My Book List</h1>
+                <h2>Sign in</h2>
+                <div class="input-group" style="margin-bottom: 25px">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-user text-info"></i>
+                        </span>
+                    </div>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="username" style="padding: 0;">
+                </div>
+                <div class="input-group" style="margin-bottom: 25px">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-lock text-info"></i>
+                        </span>
+                    </div>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="password" style="padding: 0;">
+                </div>
+                <p>Don't have an account? <a style="color: var(--lightgreen);" href="/register">Sign Up</a></p>
+                <a style="color: var(--lightgreen);" onclick="noLogin()">Continue without an account</a>
+                <button class="btn btn-lg btn-primary submit" type="submit">Sign in</button>
+            </form>
+
+
+        </div>
+    </div>
+
+    <div th:if="${param.error}" class="alert alert-danger">
+        Invalid username and password.
+    </div>
+    <script type="text/javascript" src="js/login.js"></script>
+    </body>
+</html>
