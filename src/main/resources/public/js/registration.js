@@ -8,7 +8,7 @@ form.addEventListener('submit', (event) => {
     let xhr = new XMLHttpRequest();
     let jsonInputString = {firstName, lastName, email, password};
     let method = 'POST';
-    let endpoint = "http://localhost:8080/api/v1/registration";
+    let endpoint = "/api/v1/registration";
     xhr.open(method, endpoint, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -16,7 +16,7 @@ form.addEventListener('submit', (event) => {
         }
     };
     xhr.send(JSON.stringify(jsonInputString));
-    window.location.href="http://localhost:8080/login";
+    window.location.href="/login";
     //snackbarVerifyEmail();
 });
 

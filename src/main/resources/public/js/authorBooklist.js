@@ -1,6 +1,6 @@
 function getBooks(callback){
     let xhr = new XMLHttpRequest();
-    let url = 'http://localhost:8080/api/v1/books/get?email=mateibucur47@gmail.com';
+    let url = '/api/v1/books/get?email=mateibucur47@gmail.com';
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             callback(xhr.responseText);
