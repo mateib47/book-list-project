@@ -51,7 +51,12 @@ public class RegistrationService {
         appUserService.enableAppUser(
                 confirmationToken.getAppUser().getEmail()
         );
-        return "confirmation";
+        return "<html>\n" +
+                "  <body style=\"background-color:#d8c7c1\">\n" +
+                "    <h1 style=\"color:#204040\">You successfully confirmed your email!</h1>\n" +
+                "    <a href=\"https://mybooklist-webapp.herokuapp.com/login\">Go to login page</a>\n" +
+                "  </body>\n" +
+                "  </html>";
     }
 
 

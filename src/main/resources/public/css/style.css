@@ -337,23 +337,22 @@ a{
 
 }
 .snackbar {
-  visibility: hidden;
+  display: none;
   min-width: 50%;
   margin-left: -25%;
-  background-color: var(--black);
-  color: var(--white);
+  background-color: var(--green);
+  color: var(--black);
   text-align: center;
   border-radius: 2px;
   padding: 20px;
   position: fixed;
   z-index: 1;
-  display: flex;
   justify-content: center;
   align-self: flex-start;
 }
 
 .snackbar.show {
-  visibility: visible;
+  display: flex;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
