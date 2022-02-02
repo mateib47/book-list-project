@@ -21,12 +21,13 @@ public class EmailService implements EmailSender{
     @Async
     public void send(String to, String email) {
         try {
+            String emailFrom = System.getenv("VALIDATION_EMAIL");
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
             helper.setText(email, true);
             helper.setTo(to);
             helper.setSubject("Confirm your email");
-            helper.setFrom("fat.rhino.studios@gmail.com");
+            helper.setFrom(emailFrom);
             mailSender.send(mimeMessage);
         } catch(MessagingException e){
             LOGGER.error("Fail to send email", e);

@@ -31,7 +31,7 @@ public class RegistrationService {
                         request.getPassword(),
                         AppUserRole.USER)
         );
-        String link = "/api/v1/registration/confirm?token="+token;
+        String link = "https://mybooklist-webapp.herokuapp.com/api/v1/registration/confirm?token="+token;
         emailSender.send(request.getEmail(), buildEmail(request.getFirstName(), link));
         return token;
     }
