@@ -12,8 +12,14 @@ form.addEventListener('submit', (event) => {
     xhr.open(method, endpoint, false);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(jsonInputString));
-    window.location.href="/login";
-    window.alert("Registration email sent. Open this email to finish signup. Please check in spam also.")
+    console.log(xhr.responseText);
+    if(xhr.responseText === "EMAIL_TAKEN"){
+        window.alert("There already exist an user with this email")
+    }else{
+        window.location.href="/login";
+        window.alert("Registration email sent. Open this email to finish signup. Please check in spam also.")
+    }
+
 });
 
 function snackbarVerifyEmail(email){

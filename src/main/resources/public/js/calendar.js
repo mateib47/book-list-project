@@ -56,7 +56,7 @@ function renderCalendar() {
     if(progressList.find(obj => {pages = obj.totalPages;id = obj.id; return dateEquals(obj.date,nodeDate)})){
       node.setAttribute('class','box');
       node.style.backgroundColor = getColor(pages);
-      node.setAttribute('data-key', id);
+      node.setAttribute('data-day', id);
     }else{
       node.setAttribute('class','box grey');
     }
