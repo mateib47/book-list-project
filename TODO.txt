@@ -5,6 +5,8 @@ General TODO:
 - add shields to the readme page
 - add installation to readme
 - make a config file
+- make titles for modals
+- add restore deleted books, permanently delete
 
 
 

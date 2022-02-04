@@ -174,10 +174,13 @@
       <div class="modal-content">
         <span class="close" onclick="hideModal('settings')">&times;</span>
         <form class="js-form name-form" id = "settings-form">
-          <label for="settings-name-input" id="name-input-label" class="">Change your name</label>
-          <input id="settings-name-input" class="input" type="text" placeholder="E.g. John">
-          <button type="submit" id="change-name-submit" class="submit">Submit</button>
+          <label for="settings-name-input" id="settings-name-input-label" class="">Change your name</label>
+          <div class="side-by-side">
+            <button type="submit" id="change-name-submit" class="submit" style="margin:20px">Submit</button>
+            <input id="settings-name-input" class="input" type="text" placeholder="E.g. John">
+          </div>
         </form>
+
       </div>
     </div>
     <button type="button" id="open-navbar" class="navbar-button" onclick="showModal(document.getElementById('navbar'))">&#10095;</button>

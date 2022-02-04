@@ -1,5 +1,6 @@
 package com.booklist.appuser;
 
+import com.booklist.exceptions.EmailNotFoundException;
 import com.booklist.registration.token.ConfirmationToken;
 import com.booklist.registration.token.ConfirmationTokenRepository;
 import com.booklist.registration.token.ConfirmationTokenService;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -58,5 +60,21 @@ public class AppUserService implements UserDetailsService {
     }
     public int enableAppUser(String email) {
         return appUserRepository.enableAppUser(email);
+    }
+
+    public String getName(String email){
+        return findAppUser(email).getName();
+    }
+    public AppUser findAppUser(String email){
+        Optional<AppUser> appUser = appUserRepository.findByEmail(email);
+        if (appUser.isPresent()){
+            return appUser.get();
+        }else{
+            throw new EmailNotFoundException("Email "+ email +" not found");
+        }
+    }
+    public String changeName(AppUserRequest appUserRequest){
+        appUserRepository.changeName(appUserRequest.getName(), appUserRequest.getEmail());
+        return "success";
     }
 }

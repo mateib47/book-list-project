@@ -1,5 +1,4 @@
 let bookList = [];
-let user;
 let modals = document.getElementsByClassName("modal");
 const refEmail = localStorage.getItem('emailRef');
 let email;
@@ -173,14 +172,14 @@ function changeBook(key){
   }
 }
 
-function renderName(user){
-  const div = document.querySelector('.main-page');
+function renderName(name){
+ // const div = document.querySelector('.main-page');
   const title = document.querySelector('#title');
-  const item = document.querySelector(`[data-key='${user.id}']`);
-  title.innerHTML = `${user.name}'s Book List`;
-  if(item){
-    div.replaceChild(title,item);
-  }
+ // const item = document.querySelector(`[data-key='${user.id}']`);
+  title.innerHTML = `${name}'s Book List`;
+ // if(item){
+ //   div.replaceChild(title,item);
+ // }
   displayBookForm();
 }
 
@@ -224,13 +223,18 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId, id, change
 }
 
 function addName(text){
-  const user = {
-    id : Date.now(),
-    name:text
+  if (refEmail){
+    putChangeName(text);
+    renderName(text);
+  }else{
+    let user = {
+      id : Date.now(),
+      name:text
+    }
+    localStorage.setItem('userRef', JSON.stringify(user));
+    renderName(user.name);
   }
-  this.user = user;
-  localStorage.setItem('userRef', JSON.stringify(user));
-  renderName(user);
+  hideModal("settings");
 }
 
 //adjust
@@ -312,7 +316,9 @@ const changeNameForm = document.querySelector("#settings-form");
 changeNameForm.addEventListener('submit',event => nameForm('#settings-name-input'));
 
 const addNameForm = document.querySelector("#add-name-form");
-addNameForm.addEventListener('submit',event => nameForm('#add-name-input'));
+if(!refEmail){
+  addNameForm.addEventListener('submit',event => nameForm('#add-name-input'));
+}
 
 const list = document.querySelector('.book-list-js');
 list.addEventListener('click', event => {
@@ -323,16 +329,12 @@ list.addEventListener('click', event => {
 });
 
 
-function getFirstName(email, callback){
+function getFirstName(email){
   let xhr = new XMLHttpRequest();
   let url = '/api/v1/appUser/firstName?email=' + email;
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-      callback(xhr.responseText);
-    }
-  };
-  xhr.open("GET", url, true);
+  xhr.open("GET", url, false);
   xhr.send('');
+  return xhr.responseText;
 }
 function apiGetBooks(email, callback){
   let xhr = new XMLHttpRequest();
@@ -396,9 +398,15 @@ function getApiBook(id){
   return JSON.parse(xhr.responseText)["items"][0];
 }
 
-function setName(name){
-  renderName({name})
+function putChangeName(name){
+  let xhr = new XMLHttpRequest();
+  let url = 'api/v1/appUser/change-name';
+  xhr.open("PUT", url, true);
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  let userJSON = JSON.stringify({name, email});
+  xhr.send(userJSON);
 }
+
 /*
   if user not logged in, is asked for name
   and it s stored in localstorage, otherwise
@@ -411,12 +419,11 @@ function domListener() {
   const refEmail = localStorage.getItem('emailRef');
   if(refEmail) {
     const emailObj = JSON.parse(refEmail);
-    getFirstName(emailObj.email, setName);
+    renderName(getFirstName(emailObj.email));
     fetchBooks();
   }else{
     if (refUser) {
-      user = JSON.parse(refUser);
-      renderName(user);
+      renderName(JSON.parse(refUser).name);
     }else{
       showModal(document.getElementById('add-name'));
     }
