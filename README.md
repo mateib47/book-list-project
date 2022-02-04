@@ -3,9 +3,9 @@
 MyBookList is and online reading diary web application. </br>
 The live page can be found at: https://mybooklist-webapp.herokuapp.com/
 
-##Description
+## Description
 
-###Features
+### Features
 
 - register, email token confirmation and login
 - add books and their information manually or choose one of the suggestions
@@ -25,20 +25,20 @@ The live page can be found at: https://mybooklist-webapp.herokuapp.com/
     - average pages read per day
     - total books and pages read
 
-###Motivation
+### Motivation
 I first started this project because I was tired of storing all the books 
 I wanted to read in a notepad on my phone. Of course, 
 there are already existing applications like Goodreads, but I felt like it's 
 confusing, at times to the point of being almost unusable.
 
-###Evolution
+### Evolution
 
 At first, this was at first a simple web page that let you save your favourite
 book titles. At the time I started this project I had almost no experience
 doing web development. Over the course of several months, the project evolved
 and with it my knowledge in web development.
 
-###Libraries
+### Libraries
 
 I chose to use **no frontend libraries** for the development of this project. 
 Although, this is great from a time saving aspect, I felt like it would have starved
@@ -47,12 +47,12 @@ However, on the backend side I used Java and Springboot. I decided to
 use Springboot because I already implemented a vanilla Java web server 
 during one of my university courses. 
 
-##Roadmap
+## Roadmap
 
 For now, I am doing user testing, and I am looking into ways to make the project better.
 The overall  design is very simple, and I am planning to change it to be more appealing and friendly. I am constantly fixing bugs and adding new features.
 
-##Project Status
+## Project Status
 
 This repo is under active development.
 ## Contributing
@@ -60,7 +60,7 @@ This repo is under active development.
 Contributions, issues and feature requests are welcome. </br>
 Feel free to check [issues page](https://github.com/mateib47/mateib47/book-list-project/issues) if you want to contribute.
 
-##Author
+## Author
 🧑 **Matei Bucur**
 - Github: [@mateib47](https://github.com/mateib47)
 - Linkedin: [Matei Bucur](https://www.linkedin.com/in/matei-bucur-57a591207/)
