@@ -407,6 +407,27 @@ function putChangeName(name){
   xhr.send(userJSON);
 }
 
+function apiRestoreDeleted(){
+  if(refEmail){
+    let xhr = new XMLHttpRequest();
+    let url = '/api/v1/books/restore?email='+email;
+    xhr.open("PUT", url, false);
+    xhr.send('');
+    document.getElementById('booklist-main').innerHTML = '';
+    fetchBooks();
+  }else{
+    //todo
+  }
+
+}
+function apiDeleteAccount(){
+  let xhr = new XMLHttpRequest();
+  let url = '/api/v1/appUser/delete?email'; // todo implement in backend, make it more secure(anyone could delete your account)
+  xhr.open("PUT", url, true);
+  xhr.send('');
+  window.location.href='/logout';
+}
+
 /*
   if user not logged in, is asked for name
   and it s stored in localstorage, otherwise

@@ -15,6 +15,10 @@
   --orange: #d37556;
 }
 
+.bold{
+  font-weight: bold;
+}
+
 html{
   scroll-behavior: smooth;
 }

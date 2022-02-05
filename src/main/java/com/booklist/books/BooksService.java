@@ -55,4 +55,9 @@ public class BooksService {
         booksRepository.addBookmark(pages, id);
         return "added bookmark";
     }
+
+    public String restoreDeleted(String email) {
+        booksRepository.restoreDeleted(appUserRepository.findByEmail(email).get());
+        return "restored deleted books";
+    }
 }

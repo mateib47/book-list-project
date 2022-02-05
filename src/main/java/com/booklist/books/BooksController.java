@@ -51,4 +51,8 @@ public class BooksController {
     public String addBookmark(@RequestParam int pages, @RequestParam("id") Long id){
         return booksService.addBookmark(pages, id);
     }
+    @PutMapping(path = "restore")
+    public String restoreDeleted(@RequestParam("email") String email){
+        return booksService.restoreDeleted(email);
+    }
 }

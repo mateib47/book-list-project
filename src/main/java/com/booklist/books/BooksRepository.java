@@ -37,4 +37,9 @@ public interface BooksRepository extends JpaRepository<Books, Long> {
                      @Param("bookmark") int bookmark, @Param("genre") String genre,
                      @Param("pages") int pages, @Param("quote") String quote,
                      @Param("status") BookStatus status, @Param("title") String title);
+
+    @Transactional
+    @Modifying
+    @Query("update Books b set b.deleted = false where b.appUser = :appUser")
+    void restoreDeleted(AppUser appUser);
 }

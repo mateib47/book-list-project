@@ -19,7 +19,7 @@
     <main>
       <div id="main-page">
         <h1 id="title" class="">My Book List</h1>
-        <ul class="book-list-js book-list"></ul>
+        <ul class="book-list-js book-list" id="booklist-main"></ul>
         <div class="empty-state">
           <h1>Add some books!</h1>
           <p>Think about some that you read or you are planning to read</p>
@@ -173,14 +173,20 @@
     <div id="settings" class ="modal">
       <div class="modal-content">
         <span class="close" onclick="hideModal('settings')">&times;</span>
-        <form class="js-form name-form" id = "settings-form">
-          <label for="settings-name-input" id="settings-name-input-label" class="">Change your name</label>
+        <form class="js-form name-form" id ="settings-form">
+          <label for="settings-name-input" id="settings-name-input-label" class="bold">Change your name</label>
           <div class="side-by-side">
             <button type="submit" id="change-name-submit" class="submit" style="margin:20px">Submit</button>
             <input id="settings-name-input" class="input" type="text" placeholder="E.g. John">
           </div>
         </form>
-
+        <div class="center">
+          <label for="btn-restore-books" class="bold">Deleted books</label>
+          <p style="text-align: center">Deleted books can be recovered if they were deleted no more than 30 days ago</p>
+          <button id="btn-restore-books" class="submit" onclick="apiRestoreDeleted(email); hideModal('settings')">Restore</button>
+          <label for="btn-delete-account" class="bold">Delete your account and user data forever</label>
+          <button id="btn-delete-account" class="delete-button" style="margin-top: 20px;" onclick="apiDeleteAccount(); hideModal('settings')">Delete</button>
+        </div>
       </div>
     </div>
     <button type="button" id="open-navbar" class="navbar-button" onclick="showModal(document.getElementById('navbar'))">&#10095;</button>
