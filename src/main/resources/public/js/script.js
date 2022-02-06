@@ -51,19 +51,22 @@ function renderBook(book) {
   node.setAttribute('data-key', book.id);
   node.setAttribute('onclick', `showModal(document.getElementById('details-${book.id}'))`);
   node.innerHTML = `
-  <form class="change-status-js">
-    <label for="${book.id}" class=""></label>
-    <select onclick="event.stopPropagation();" class="status-book-item dropdown-js" name="status" id="${book.id}" onchange='changeStatus("${book.id}")'>
-      <option value="">Change Status</option>
-      <option value="PRESENT">In Progress</option>
-      <option value="PAST">Finished</option>
-      <option value="FUTURE">Not started</option>
-    </select>
-  </form>
   <div class="title-author" onclick="showModal(document.getElementById('details-${book.id}'))">
     <p class="book-title">${book.title}</p>
+    <p class="book-subtitle" style="font-style: italic">by ${book.author}</p>
   </div>
-  <button class="delete-button delete-js">Delete</button>
+    <div style="display: inline">
+        <button class="delete-button delete-js" style="margin-bottom: 50px">&#10005;</button>
+        <form class="change-status-js">
+          <label for="${book.id}" class=""></label>
+          <select onclick="event.stopPropagation();" class="status-book-item dropdown-js" name="status" id="${book.id}" onchange='changeStatus("${book.id}")'>
+            <option value="">Change Status</option>
+            <option value="PRESENT">In Progress</option>
+            <option value="PAST">Finished</option>
+            <option value="FUTURE">Not started</option>
+          </select>
+        </form>
+    </div>
 `;
   let modal=`
     <div class="modal" id="details-${book.id}" class="details">
