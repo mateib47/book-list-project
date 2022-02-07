@@ -326,7 +326,7 @@ if(!refEmail){
 const list = document.querySelector('.book-list-js');
 list.addEventListener('click', event => {
   if (event.target.classList.contains('delete-js')){
-    const itemKey = event.target.parentElement.dataset.key;
+    const itemKey = event.target.parentElement.parentElement.dataset.key;
     deleteBook(itemKey);
   }
 });
