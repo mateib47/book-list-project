@@ -425,9 +425,11 @@ function apiRestoreDeleted(){
 }
 function apiDeleteAccount(){
   let xhr = new XMLHttpRequest();
-  let url = '/api/v1/appUser/delete?email'; // todo implement in backend, make it more secure(anyone could delete your account)
+  let url = '/api/v1/appUser/delete'; // make it more secure(anyone could delete your account)
   xhr.open("PUT", url, true);
-  xhr.send('');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  let userJSON = JSON.stringify({name:"user", email});
+  xhr.send(userJSON);
   window.location.href='/logout';
 }
 

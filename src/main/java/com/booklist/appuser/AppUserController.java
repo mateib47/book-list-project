@@ -22,4 +22,8 @@ public class AppUserController {
     public String changeName(@RequestBody AppUserRequest appUserRequest){
         return appUserService.changeName(appUserRequest);
     }
+    @PutMapping(path = "delete")
+    public String deleteAccount(@RequestBody AppUserRequest appUserRequest){
+        return appUserService.deleteAccount(appUserRequest.getEmail());
+    }
 }

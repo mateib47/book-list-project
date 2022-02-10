@@ -77,4 +77,9 @@ public class AppUserService implements UserDetailsService {
         appUserRepository.changeName(appUserRequest.getName(), appUserRequest.getEmail());
         return "success";
     }
+
+    public String deleteAccount(String email) {
+        appUserRepository.deleteByEmail(email);
+        return "account deleted";
+    }
 }
