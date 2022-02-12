@@ -497,4 +497,12 @@ function fetchBooks(){
     return false;
   });
 }
+
+function copyToClipboard() {
+  let copyText = 'https://mybooklist-webapp.herokuapp.com/api/v1/view?email=' + email; //todo implement in backend
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(copyText.value);
+}
+
 document.addEventListener('DOMContentLoaded', domListener);
