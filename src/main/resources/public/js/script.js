@@ -499,10 +499,8 @@ function fetchBooks(){
 }
 
 function copyToClipboard() {
-  let copyText = 'https://mybooklist-webapp.herokuapp.com/api/v1/view?email=' + email; //todo implement in backend
-  copyText.select();
-  copyText.setSelectionRange(0, 99999);
-  navigator.clipboard.writeText(copyText.value);
+  let copyText = 'https://mybooklist-webapp.herokuapp.com/api/v1/view?email=' + email;
+  navigator.clipboard.writeText(copyText);
 }
 
 document.addEventListener('DOMContentLoaded', domListener);
