@@ -1,6 +1,6 @@
-function getBooks(callback){
+function getBooks(email, callback){
     let xhr = new XMLHttpRequest();
-    let url = '/api/v1/books/get?email=mateibucur47@gmail.com';
+    let url = '/api/v1/books/get?email='+email;
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             callback(xhr.responseText);
@@ -9,6 +9,14 @@ function getBooks(callback){
     xhr.open("GET", url, true);
     xhr.send('');
 }
+function getFirstName(email){
+    let xhr = new XMLHttpRequest();
+    let url = '/api/v1/appUser/firstName?email=' + email;
+    xhr.open("GET", url, false);
+    xhr.send('');
+    return xhr.responseText;
+}
+
 function renderBooks(array){
     array = JSON.parse(array);
     array.forEach(t => {
@@ -27,5 +35,9 @@ function renderBook(book) {
 }
 
 window.onload = function(event){
-    getBooks(renderBooks);
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const email = urlParams.get('user');
+    document.getElementById('title').innerHTML = getFirstName(email) + "'s Book List";
+    getBooks(email, renderBooks);
 }

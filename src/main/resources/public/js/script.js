@@ -499,7 +499,7 @@ function fetchBooks(){
 }
 
 function copyToClipboard() {
-  let copyText = 'https://mybooklist-webapp.herokuapp.com/api/v1/view?email=' + email;
+  let copyText = 'https://mybooklist-webapp.herokuapp.com/api/v1/view?user=' + email;
   navigator.clipboard.writeText(copyText);
 }
 

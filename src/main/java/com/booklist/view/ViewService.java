@@ -25,7 +25,19 @@ public class ViewService {
                     + "data-key='"+ book.getId() +"'" + ">" + book.getTitle() + "</li>";
         }
         list += "</ul>";
-        String html = "<!DOCTYPE html><html lang=\\\"en\\\">  <head>   <link rel=\\\"stylesheet\\\" type=\\\"text/css\\\" href=\\\"css/style.css\\\">    <meta content=\\\"width=device-width, initial-scale=1\\\" name=\\\"viewport\\\" />   <link rel=\\\"icon\\\" href=\\\"images/tab-icon.png\\\">   <title>Matei\\'s Book List</title>  </head>  <body>   <main>     <h1 id=\\\"title\\\" class=\\\"\\\">"+appUser.getName()+"\\'s Book List</h1>      <p>This is a list with the books that I read and that I am planning to read</p>   "+ list +"    </main>    <script type=\\\"text/javascript\\\" src=\\\"js/authorBooklist.js\\\"></script>  </body></html>";
+        String html = "<!DOCTYPE html>" +
+                "<html lang=\"en\"><head>   " +
+                "<link rel=\"stylesheet\" type=\"text/css\" href=\"css/style.css\">  " +
+                "<meta content=\"width=device-width, initial-scale=1\" name=\"viewport\" /> " +
+                "  <link rel=\"icon\" href=\"images/tab-icon.png\">" +
+                "<title>My Book List</title>" +
+                "  </head><body><main>" +
+                "<h1 id=\"title\" class=\"\">"+appUser.getName()+"\\'s" +
+                " Book List</h1>" +
+                "<p>This is a list with the books that I read and that I am planning to read</p>" +
+                "   "+ list +"    </main>" +
+                "<script type=\"text/javascript\" src=\"js/authorBooklist.js\"></script>" +
+                "  </body></html>";
         return html;
     }
 }
