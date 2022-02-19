@@ -137,6 +137,13 @@
     <div class="modal" id="stats">
       <div class="modal-content">
         <span class="close" onclick="hideModal('stats')">&times;</span>
+        <h1>See stats:</h1>
+        <select class="input" name="timeframe" id="stats-timeframe" onchange="updateStats()">
+          <option value="week">Week</option>
+          <option value="month">Month</option>
+          <option value="year">Year</option>
+          <option value="all" selected>All time</option>
+        </select>
         <p id="total-pages" class="text"></p>
         <p id="total-books" class="text"></p>
         <div id="top-books" class="text"></div>
