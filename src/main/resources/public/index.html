@@ -137,18 +137,39 @@
     <div class="modal" id="stats">
       <div class="modal-content">
         <span class="close" onclick="hideModal('stats')">&times;</span>
-        <h1>See stats:</h1>
-        <select class="input" name="timeframe" id="stats-timeframe" onchange="updateStats()">
-          <option value="week">Week</option>
-          <option value="month">Month</option>
-          <option value="year">Year</option>
-          <option value="all" selected>All time</option>
-        </select>
-        <p id="total-pages" class="text"></p>
-        <p id="total-books" class="text"></p>
-        <div id="top-books" class="text"></div>
-        <p id="fav-author" class="text"></p>
-        <p id="average-pages" class="text"></p>
+        <div class="side-by-side stat-row" style="justify-content: flex-end"><br>
+          <select class="input" name="timeframe" id="stats-timeframe" onchange="updateStats()">
+            <option value="week">Week</option>
+            <option value="month">Month</option>
+            <option value="year">Year</option>
+            <option value="all" selected>All time</option>
+          </select>
+          <h3 style="font-weight: normal; align-self: center">See stats:</h3>
+        </div>
+        <div class="side-by-side stat-row">
+          <div>
+            <h1 id="total-pages"></h1>
+            <label for="total-pages" style="font-weight: normal">Pages read</label>
+          </div>
+          <div>
+            <h1 id="total-books"></h1>
+            <label for="total-books" style="font-weight: normal">Books finished</label>
+          </div>
+        </div>
+        <div class=" side-by-side stat-row">
+          <div>
+            <h1 id="average-pages"></h1>
+            <label for="average-pages" style="font-weight: normal">Pages per day</label>
+          </div>
+        </div>
+        <div class="stat-row">
+          <label for="top-books" class="text">My Favourite Books</label>
+          <div id="top-books" class="text"></div>
+        </div>
+        <div class="stat-row side-by-side" style="justify-content: flex-end">
+          <p id="fav-author" class="text" style="margin: 0"></p>
+          <label for="fav-author" class="text">Most read author:    </label>
+        </div>
         <div class="empty-state">
           <p>Add some books in order to see some statistics!</p>
         </div>

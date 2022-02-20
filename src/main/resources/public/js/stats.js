@@ -104,9 +104,36 @@ function getTotalBooks(){
   return totalBooks;
 }
 
+function filterDate(list){
+  let option = document.getElementById("stats-timeframe").value;
+  console.log(option);
+  let end = new Date();
+  let start = new Date();
+  switch (option){
+    case "year":
+      end = new Date(new Date().getFullYear(), 0, 1);
+      break;
+    case "month":
+      end.setDate(1);
+      break;
+    case "week":
+      end.setDate(end.getDate() - 7);
+      break;
+    default:
+      return list;
+  }
+  console.log(start+ " "+ end)
+  console.log(list.filter(d => {let time = new Date(d.date.year,d.date.month,d.date.day); console.log("time "+time);
+    return (end.getTime() < time.getTime() && time.getTime() < start.getTime());
+  }));
+  return list.filter(d => {let time = new Date(d.date.year,d.date.month,d.date.day).getTime();
+    return (end.getTime() < time && time < start.getTime());
+  });
+}
+
 function updateStats(){
-  let progressList = getProgressList();
-  let booksList = getBookList();
+  let progressList = filterDate(getProgressList());
+  let booksList = getBookList(); //todo store when a book is finished
   let totalPages = 0;
   let totalBooks = 0;
   let genres =[];
@@ -161,15 +188,15 @@ function updateArray(name, array) {
 
 function renderStats(){
   document.getElementById('total-pages').innerHTML
-    = `Total pages read: ${getTotalPages()}`;
+    = `${getTotalPages()}`;
   document.getElementById('total-books').innerHTML
-      = `Total books read: ${getTotalBooks()}`;
+      = `${getTotalBooks()}`;
   document.getElementById('fav-author').innerHTML
-      = `The most read author: ${topAuthors[0].name}`;
+      = `${topAuthors[0].name}`;
   document.getElementById('average-pages').innerHTML
-      = `Average pages read per day: ${Math.round(averagePages)}`;
+      = `${Math.round(averagePages)}`;
    let topBooksHTML = '';
-  topBooksHTML+= `<p>Your favourite books: </p><ol>`;
+  topBooksHTML+= `<ol>`;
  for(let i=0;i<topBooks.length;i++){
    topBooksHTML += `<li>${topBooks[i].title}</li>`;
  }

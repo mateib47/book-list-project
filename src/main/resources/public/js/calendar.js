@@ -91,6 +91,9 @@ function calendarPrev(){
 function getDaysInMonth(month,year){
   return new Date(year,month + 1,0).getDate();
 }
+function getDaysInYear(year) {
+  return ((year % 4 === 0 && year % 100 > 0) || year %400 == 0) ? 366 : 365;
+}
 
 function removeProgress(key) {
   const index = getProgressList().findIndex(x => x.id === Number(key));

@@ -15,6 +15,10 @@
   --orange: #d37556;
 }
 
+h1,h2,p,a,label,option,h3 {
+  font-family: "Helvetica Neue",Arial,sans-serif !important;
+}
+
 .bold{
   font-weight: bold;
 }
@@ -26,6 +30,16 @@ body{
   background-color:var(--background);
   color:var(--black);
   margin:0;
+}
+.stat-row{
+  margin-bottom: 25px;
+}
+.stat-row label{
+  font-weight: 600;
+  color: var(--main)
+}
+.stat-row h1{
+  color: var(--main)
 }
 .book-img{
   width: 180px;
@@ -227,7 +241,7 @@ nav button{
   color: var(--white);
 }
 nav h1{
-  font-family: 'Yanone Kaffeesatz';
+  font-family: 'Yanone Kaffeesatz' !important;
   text-align:center;
 }
 nav button:hover{
