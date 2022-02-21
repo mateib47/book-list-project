@@ -41,10 +41,10 @@
     </div>
     <div class="modal" id="add-book">
       <div class="modal-content">
-        <span class="close" onclick="hideModal('add-book');bookForm.reset();">&times;</span>
+        <span class="close" onclick="hideModal('add-book');bookForm.reset();clearPrevious();">&times;</span>
         <form class="js-form" id="book-form" autocomplete="off">
           <button onclick="bookForm.reset();clearPrevious();" class="delete-button" style="margin-bottom: 15px">Clear Form</button>
-          <label for="title-input" id="title-input-label" class="">Enter the title of a book </label>
+          <label for="title-input" id="title-input-label" class="">Title of a book<sup>*</sup></label>
 
               <input id="title-input" class="input" type="text" placeholder="E.g. The Great Gatsby" required>
               <div class="autocomplete" id="autocomplete-div"></div>
@@ -52,9 +52,9 @@
 
 
           
-          <label for="author-input" id="author-input-label" class="">Enter the name of the book's author</label>
+          <label for="author-input" id="author-input-label" class="">Author<sup>*</sup></label>
           <input id="author-input" class="input" type="text" placeholder="E.g. F. Scott Fitzgerald">
-          <label for="genre-input">Add the genre of the book</label>
+          <label for="genre-input">Genre<sup>*</sup></label>
           <input id="genre-input" type="text" name="" value="" class="input" placeholder="e.g. Fiction" list="genres-list">
           <datalist id="genres-list">
             <option value="Scientific">Scientific</option>
@@ -66,7 +66,7 @@
             <option value="Sci-fi">Sci-fi</option>
             <option value="Romance">Romance</option>
           </datalist>
-          <label id="rating-input-label" class="">Rate the book</label>
+          <label id="rating-input-label" class="">Rating</label>
           <fieldset class="rate" id="star">
             <input class="star" type="radio" id="star5" name="star" value="5" />
             <label for="star5" title="text">5 stars</label>
@@ -79,14 +79,16 @@
             <input class="star" type="radio" id="star1" name="star" value="1" />
             <label for="star1" title="text">1 star</label>
           </fieldset>
-          <label for="status-input">Add the status of the book</label>
+          <label for="status-input">Status</label>
           <select class="status input" name="status" id="status-input">
             <option value="PRESENT">In Progress</option>
             <option value="PAST">Finished</option>
             <option value="FUTURE">Not started</option>
           </select>
-          <label for="pages-input">Add the number of pages of the book</label>
+          <label for="pages-input">Number of pages</label>
           <input type="number" class="input" placeholder="E.g. 324" min="1" id="pages-input">
+          <label for="referral-input">Recommended by</label>
+          <input type="text" class="input" name="" id="referral-input">
           <label for="quote-input">Add your favourite quote</label>
           <textarea id="quote-input" name="quote" rows="5" cols="35" class="input"></textarea>
           <input id="bookmark-input" type='hidden' value=''>

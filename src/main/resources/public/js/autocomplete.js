@@ -1,17 +1,24 @@
 let request = "https://www.googleapis.com/books/v1/volumes?q=";
 let callback = "&callback=handleResponse&langRestrict=en";
 let bookChoice;
-
+//todo add books that are not options of autocomplete
 function autocomplete(inp) {
   inp.addEventListener("input", function(e) {
     if (inp.value.trim() === ''){
       clearPrevious();
       return;
     }
+    let id = Date.now();
     let a = document.createElement("div");
-    a.setAttribute("id", this.id + "-autocomplete-list");
+    a.setAttribute("id", id + "-autocomplete-list");
     a.setAttribute("class", "autocomplete-items");
     document.querySelector('#autocomplete-div').appendChild(a);
+    let c = document.createElement("span");
+    c.innerHTML = "&times;";
+    c.setAttribute("class", "close");
+    c.setAttribute("class", "smaller");
+    c.setAttribute("onclick", "clearPrevious()");
+    a.appendChild(c);
     let val = this.value;
     let words = val.split(' ').join('+');
     words += '&langRestrict=en';

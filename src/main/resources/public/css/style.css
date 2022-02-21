@@ -31,6 +31,9 @@ body{
   color:var(--black);
   margin:0;
 }
+sup{
+  color: var(--red);
+}
 .stat-row{
   margin-bottom: 25px;
 }
@@ -285,6 +288,9 @@ a{
   float: right;
   font-size: 28px;
   font-weight: bold;
+}
+.smaller{
+    transform: scale(0.7);
 }
 .close:hover{
   color: var(--black);
