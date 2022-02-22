@@ -39,8 +39,9 @@ public class Books {
             name = "app_user_id"
     )
     private AppUser appUser;
+    private String referral;
 
-    public Books(int rating, String apiId, String author, int bookmark, String genre, int pages, String quote, BookStatus status, String title, AppUser appUser) {
+    public Books(int rating, String apiId, String author, int bookmark, String genre, int pages, String quote, BookStatus status, String title, AppUser appUser, String referral) {
         this.rating = rating;
         this.apiId = apiId;
         this.author = author;
@@ -51,7 +52,8 @@ public class Books {
         this.status = status;
         this.title = title;
         this.appUser = appUser;
-    }
+        this.referral = referral;
+    }//todo add deleted at date and added at date
     public String getBook(){
         String json = "{";
         json = json + "\"apiId\":" + '"' + this.apiId+ "\",";
@@ -64,6 +66,7 @@ public class Books {
         json = json + "\"quote\":"+ '"' + this.quote+ "\",";
         json = json + "\"status\":"+ '"' + this.status+ "\",";
         json = json + "\"deleted\":"+ '"' + this.deleted+ "\",";
+        json = json + "\"referral\":"+ '"' + this.referral+ "\",";
         json = json + "\"title\":"+ '"' + this.title+ '"';
         json+="}";
         return json;
@@ -101,6 +104,9 @@ public class Books {
         return rating;
     }
 
+    public String getReferral() {
+        return referral;
+    }
 
     public Boolean isDeleted() {return deleted;}
 }

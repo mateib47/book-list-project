@@ -24,4 +24,5 @@ public class BooksRequest {
     private BookStatus status;
     private String title;
     private String email;
+    private String referral;
 }

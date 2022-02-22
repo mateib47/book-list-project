@@ -22,7 +22,8 @@ public class BooksService {
                 booksRequest.getQuote(),
                 booksRequest.getStatus(),
                 booksRequest.getTitle(),
-                appUserRepository.findByEmail(booksRequest.getEmail()).get());
+                appUserRepository.findByEmail(booksRequest.getEmail()).get(),
+                booksRequest.getReferral());
         booksRepository.save(book);
         return book.getId();
     }
@@ -38,7 +39,8 @@ public class BooksService {
                 booksRequest.getPages(),
                 booksRequest.getQuote(),
                 booksRequest.getStatus(),
-                booksRequest.getTitle());
+                booksRequest.getTitle(),
+                booksRequest.getReferral());
         return "changed book";
     }
 

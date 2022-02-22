@@ -81,6 +81,9 @@ function renderBook(book) {
           if(book.author){
             modal += `<p class="book-author">by ${book.author}</p>`;
           }
+          if(book.referral){
+            modal += `<p class="">Book recommended by ${book.referral}</p>`;
+          }
           if(book.genre){
             modal += `<p class="book-genre">Genre: ${book.genre}</p>`;
           }
@@ -191,7 +194,7 @@ function displayBookForm(){
   document.getElementById('add-name').style.display = 'none';
 }
 
-function addBook(title,author,genre,rating,status,pages,quote, apiId, id, changeFlag){
+function addBook(title,author,genre,rating,status,pages,quote, apiId, id, changeFlag, referral){
   const refEmail = localStorage.getItem('emailRef');
   const book = {
     title,
@@ -202,7 +205,8 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId, id, change
     pages,
     quote,
     apiId,
-    bookmark:0
+    bookmark:0,
+    referral
   }
   if(refEmail){
     let emailObj = JSON.parse(refEmail);
@@ -291,6 +295,7 @@ bookForm.addEventListener('submit',event => {
   const apiId = document.querySelector('#apiId-input').value;
   const id = document.querySelector('#id').value;
   const changeFlag = document.querySelector('#change-flag').value;
+  const referral = document.querySelector("#referral-input").value;
   let rating;
   radioButtons.forEach(x => {
     if(x.checked) {
@@ -298,7 +303,7 @@ bookForm.addEventListener('submit',event => {
     }
   });
   if(bookName !== '' && status !== ''){
-    addBook(bookName,authorName,genre,rating,status,pages,quote,apiId, id, changeFlag);
+    addBook(bookName,authorName,genre,rating,status,pages,quote,apiId, id, changeFlag, referral);
     bookForm.reset();
     bookInput.focus();
     clearPrevious();
