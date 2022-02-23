@@ -1,7 +1,6 @@
 let request = "https://www.googleapis.com/books/v1/volumes?q=";
 let callback = "&callback=handleResponse&langRestrict=en";
 let bookChoice;
-//todo add books that are not options of autocomplete
 function autocomplete(inp) {
   inp.addEventListener("input", function(e) {
     if (inp.value.trim() === ''){

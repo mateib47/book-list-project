@@ -145,7 +145,9 @@ function addPages(bookId,pages){
   book.bookmark += pages;
   if(refEmail){
     apiAddBookmark(pages, bookId);
-    book.apiBookObj = getApiBook(book.apiId);
+    if(book.apiId){
+      book.apiBookObj = getApiBook(book.apiId);
+    }
    // document.querySelector(`[data-key='${book.id}']`).remove();
   }
   renderBook(book);
@@ -366,7 +368,9 @@ function postBook(book){
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
   book.id = xhr.responseText;
-  book.apiBookObj = getApiBook(book.apiId);
+  if(book.apiId) {
+    book.apiBookObj = getApiBook(book.apiId);
+  }
   renderBook(book);
 }
 function putDeleteBook(id){
@@ -394,7 +398,9 @@ function postChangeBook(id, book){
   let bookJson = JSON.stringify(book);
   xhr.send(bookJson);
 //  document.querySelector(`[data-key='${id}']`).remove();
-  book.apiBookObj = getApiBook(book.apiId);
+  if(book.apiId) {
+    book.apiBookObj = getApiBook(book.apiId);
+  }
   book.id = id;
   renderBook(book);
 }
@@ -469,23 +475,28 @@ function domListener() {
   }
 }
 function renderBooks(array){
+  console.log(array);
   let sortedArray = array.sort(function(a, b){
     if(a.title < b.title) { return -1; }
     if(a.title > b.title) { return 1; }
     return 0;
   });
   sortedArray.forEach(t => {
-    fetch('https://www.googleapis.com/books/v1/volumes?q=' + t.apiId).then(
-        function (response) {
-          return response.json();
-        }).then(function (data) {
-      t.apiBookObj = data["items"][0];
+    if (t.apiId){
+      fetch('https://www.googleapis.com/books/v1/volumes?q=' + t.apiId).then(
+          function (response) {
+            return response.json();
+          }).then(function (data) {
+        t.apiBookObj = data["items"][0];
+        renderBook(t);
+        return true;
+      }).catch(function (err) {
+        console.warn('Something went wrong.', err);
+        return false;
+      });
+    }else{
       renderBook(t);
-      return true;
-    }).catch(function (err) {
-      console.warn('Something went wrong.', err);
-      return false;
-    });
+    }
   });
 }
 
