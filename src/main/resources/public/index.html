@@ -215,7 +215,7 @@
         <div class="center">
           <label for="btn-restore-books" class="bold">Deleted books</label>
           <p style="text-align: center">Deleted books can be recovered if they were deleted no more than 30 days ago</p>
-          <button id="btn-restore-books" class="submit" onclick="apiRestoreDeleted(email); hideModal('settings')">Restore</button>
+          <button id="btn-restore-books" class="submit" onclick="restoreDeleted(email); hideModal('settings')">Restore</button>
           <label for="btn-delete-account" class="bold">Delete your account and user data forever</label>
           <button id="btn-delete-account" class="delete-button" style="margin-top: 20px;" onclick="apiDeleteAccount(); hideModal('settings')">Delete</button>
         </div>

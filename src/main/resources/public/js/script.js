@@ -176,7 +176,7 @@ function changeBook(key){
     document.getElementById('change-flag').value = 'true';
     document.getElementById('id').value = key;
   }else{
-    deleteBook(key);
+    removeBook(key);
   }
 }
 
@@ -221,6 +221,7 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId, id, change
       postBook(book);
     }
   }else{
+    book.deleted = false;
     book.id = Date.now();
     if (bookChoice){
       book.apiBookObj = bookChoice;
@@ -278,9 +279,14 @@ function deleteBook(key){
       deleted: true,
       ...bookList[index]
     };
-    bookList = bookList.filter(book => book.id !== Number(key));
+    removeBook(key);
+    bookList.push(book);
     renderBook(book);
   }
+}
+
+function removeBook(key){
+  bookList = bookList.filter(book => book.id !== Number(key));
 }
 
 const bookForm = document.querySelector('#book-form');
@@ -421,7 +427,7 @@ function putChangeName(name){
   xhr.send(userJSON);
 }
 
-function apiRestoreDeleted(){
+function restoreDeleted(){
   if(refEmail){
     let xhr = new XMLHttpRequest();
     let url = '/api/v1/books/restore?email='+email;
@@ -430,7 +436,10 @@ function apiRestoreDeleted(){
     document.getElementById('booklist-main').innerHTML = '';
     fetchBooks();
   }else{
-    //todo
+    bookList.filter(b => b.deleted = false);
+    bookList.forEach(t => {
+      renderBook(t);
+    });
   }
 
 }
@@ -515,7 +524,7 @@ function fetchBooks(){
 }
 
 function copyToClipboard() {
-  let copyText = 'https://mybooklist-webapp.herokuapp.com/api/v1/view?user=' + email;
+  let copyText = 'https://mybooklist-webapp.herokuapp.com/api/v1/view?user=' + email; //fixme remove this button when user does not have an account
   navigator.clipboard.writeText(copyText);
 }
 
