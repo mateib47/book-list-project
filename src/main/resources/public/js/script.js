@@ -2,8 +2,22 @@ let bookList = [];
 let modals = document.getElementsByClassName("modal");
 const refEmail = localStorage.getItem('emailRef');
 let email;
+const settingsForm = document.getElementById('settings-form');
 if(refEmail){
    email = JSON.parse(refEmail).email;
+   let node = document.createElement('div');
+   node.classList.add('center');
+   node.innerHTML = '<label for="share-profile" id="share-profile-label" class="bold">Share your book list</label>\n' +
+       '            <button type="submit" id="share-profile" class="submit" style="margin:20px" onclick="copyToClipboard()">Copy share link</button>'
+   settingsForm.appendChild(node);
+}else{
+  let node = document.createElement('div');
+  node.classList.add('center');
+
+  node.innerHTML = '<label for="share-profile" id="share-profile-label" class="bold">Share your book list</label>\n' +
+      '<p>You have to create an account in order to share your booklist</p>' +
+      `            <button type="submit" id="share-profile" class="submit" style="margin:20px" onclick="window.location.href='/logout'">Sign up</button>`;
+  settingsForm.appendChild(node);
 }
 
 function getBookList(){
@@ -524,7 +538,7 @@ function fetchBooks(){
 }
 
 function copyToClipboard() {
-  let copyText = 'https://mybooklist-webapp.herokuapp.com/api/v1/view?user=' + email; //fixme remove this button when user does not have an account
+  let copyText = 'https://mybooklist-webapp.herokuapp.com/api/v1/view?user=' + email;
   navigator.clipboard.writeText(copyText);
 }
 
