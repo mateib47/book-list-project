@@ -3,22 +3,34 @@ let modals = document.getElementsByClassName("modal");
 const refEmail = localStorage.getItem('emailRef');
 let email;
 const settingsForm = document.getElementById('settings-form');
-if(refEmail){
-   email = JSON.parse(refEmail).email;
-   let node = document.createElement('div');
-   node.classList.add('center');
-   node.innerHTML = '<label for="share-profile" id="share-profile-label" class="bold">Share your book list</label>\n' +
-       '            <button type="submit" id="share-profile" class="submit" style="margin:20px" onclick="copyToClipboard()">Copy share link</button>'
-   settingsForm.appendChild(node);
-}else{
-  let node = document.createElement('div');
-  node.classList.add('center');
 
-  node.innerHTML = '<label for="share-profile" id="share-profile-label" class="bold">Share your book list</label>\n' +
-      '<p>You have to create an account in order to share your booklist</p>' +
-      `            <button type="submit" id="share-profile" class="submit" style="margin:20px" onclick="window.location.href='/logout'">Sign up</button>`;
-  settingsForm.appendChild(node);
+onStart();
+
+function onStart(){
+    if(refEmail) {
+        email = JSON.parse(refEmail).email;
+    }
+    profilePageInit();
 }
+
+function profilePageInit(){
+    if(refEmail){
+        let node = document.createElement('div');
+        node.classList.add('center');
+        node.innerHTML = '<label for="share-profile" id="share-profile-label" class="bold">Share your book list</label>\n' +
+            '            <button type="submit" id="share-profile" class="submit" style="margin:20px" onclick="copyToClipboard()">Copy share link</button>'
+        settingsForm.appendChild(node);
+    }else{
+        let node = document.createElement('div');
+        node.classList.add('center');
+
+        node.innerHTML = '<label for="share-profile" id="share-profile-label" class="bold">Share your book list</label>\n' +
+            '<p>You have to create an account in order to share your booklist</p>' +
+            `            <button type="submit" id="share-profile" class="submit" style="margin:20px" onclick="window.location.href='/logout'">Sign up</button>`;
+        settingsForm.appendChild(node);
+    }
+}
+
 
 function getBookList(){
   if(refEmail){
