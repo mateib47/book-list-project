@@ -446,6 +446,9 @@ li .book-item{
   main{
     max-width: 95%;
   }
+.autocomplete-items {
+  width: 50%;
+}
 }
 
 @media screen and (max-width: 245px) {
