@@ -346,7 +346,7 @@ a{
 }
 .autocomplete-items {
   position: absolute;
-  width: 10%;
+  width: 30%;
   z-index: 3;
 }
 

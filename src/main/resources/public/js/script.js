@@ -256,6 +256,7 @@ function addBook(title,author,genre,rating,status,pages,quote, apiId, id, change
     bookList.push(book);
     renderBook(book);
   }
+  hideModal('add-book');
 }
 
 function addName(text){
