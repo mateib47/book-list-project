@@ -33,15 +33,14 @@ confusing, at times to the point of being almost unusable.
 
 ### Evolution
 
-At first, this was at first a simple web page that let you save your favourite
+In the beginning, this was a simple web page that let you save your favourite
 book titles. At the time I started this project I had almost no experience
-doing web development. Over the course of several months, the project evolved
-and with it my knowledge in web development.
+in web development. Over the course of several months, both the project and my knowledge evolved considerably.
 
 ### Libraries
 
 I chose to use **no frontend libraries** for the development of this project. 
-Although, this is great from a time saving aspect, I felt like it would have starved
+Although using them is great from a time saving perspective, I felt like it would have starved
 me from getting into the basics of this field. I only used Charts.js, Font Awesome and Google Books API. Also, I used Bootstrap and Thymeleaf for the login page.<br>
 However, on the backend side I used Java and Springboot. I decided to 
 use Springboot because I already implemented a vanilla Java web server 
